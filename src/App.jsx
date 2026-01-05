@@ -5,7 +5,7 @@ import './styles/FilmGrain.css'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/personal-website-v2">
       <main style={{ height: '100vh', width: '100vw', overflowY: 'auto' }}>
         <div className="film-grain" />
         <AnimatedRoutes />
