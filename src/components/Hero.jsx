@@ -77,7 +77,7 @@ const Hero = () => {
                     }}
                 >
                     <video
-                        src="/assets/hero-reel.mp4?v=forced_refresh_1"
+                        src={`${import.meta.env.BASE_URL}assets/hero-reel.mp4?v=forced_refresh_1`}
                         autoPlay
                         loop
                         muted
@@ -104,7 +104,7 @@ const Hero = () => {
                     }}
                 >
                     <video
-                        src="/assets/hero-reel.mp4?v=forced_refresh_1"
+                        src={`${import.meta.env.BASE_URL}assets/hero-reel.mp4?v=forced_refresh_1`}
                         autoPlay
                         loop
                         muted
