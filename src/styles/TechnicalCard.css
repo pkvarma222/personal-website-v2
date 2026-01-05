@@ -1,0 +1,62 @@
+.tech-card {
+    background: var(--color-bg);
+    /* Opaque background */
+    border: 1px solid var(--color-border);
+    position: relative;
+    /* No border-radius or very small for tech feel */
+    border-radius: 2px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.tech-card-header {
+    background: #333;
+    /* Dark header bar */
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--color-border);
+}
+
+[data-theme='light'] .tech-card-header {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.tech-title {
+    font-weight: 700;
+}
+
+.tech-meta {
+    opacity: 0.7;
+}
+
+.tech-media {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+}
+
+.tech-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.tech-card:hover .tech-media img {
+    transform: scale(1.03);
+}

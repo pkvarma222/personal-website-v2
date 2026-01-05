@@ -1,0 +1,127 @@
+.floating-nav {
+    position: fixed;
+    top: 80vh;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    /* Liquid Glass Style */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 0.75rem 0.75rem;
+    border-radius: 2rem;
+    /* Apple dock style */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    pointer-events: none;
+    /* Disable clicks when hidden */
+}
+
+/* Light Mode Overrides for Floating Nav */
+[data-theme='light'] .floating-nav {
+    background: rgba(240, 239, 233, 0.85);
+    /* Matches new Bone white #F0EFE9 */
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+[data-theme='light'] .floating-nav-link {
+    color: var(--color-text-secondary);
+}
+
+[data-theme='light'] .floating-nav-link:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--color-text-primary);
+}
+
+[data-theme='light'] .floating-nav-link.active {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--color-accent);
+    /* Use the new Rust accent */
+    box-shadow: none;
+}
+
+[data-theme='light'] .floating-divider {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.floating-nav.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.floating-nav-link {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    position: relative;
+    border-radius: 1.5rem;
+    padding: 0.75rem 1.25rem;
+}
+
+.floating-nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.floating-nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.floating-nav-link svg {
+    transition: transform 0.3s ease;
+}
+
+.floating-nav-link:hover svg {
+    transform: scale(1.1);
+}
+
+.floating-divider {
+    width: 1px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0.15);
+    margin: 0 0.25rem;
+}
+
+/* High Contrast Mode for Light Pages (e.g. Film Detail) - Liquid Glass Light */
+.floating-nav.dark-contrast {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.floating-nav.dark-contrast .floating-nav-link {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.floating-nav.dark-contrast .floating-nav-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000;
+}
+
+.floating-nav.dark-contrast .floating-nav-link.active {
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
+.floating-nav.dark-contrast .floating-divider {
+    background-color: rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,52 @@
+:root {
+  /*
+   * Cinematic 35mm Color Palette (Refined)
+   */
+
+  /* Shared Defaults */
+  --header-height: 80px;
+  --max-width: 1200px;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Panchang', sans-serif;
+  /* Replaced Playfair with Panchang globally */
+  --font-wide: 'Panchang', sans-serif;
+  /* Wide sans for headers */
+
+  /* Default to Dark Mode (Lifted Noir) */
+  --color-bg: #0b0b0b;
+  /* Deep black to match Filmmaker page */
+  --color-surface: #252525;
+  /* Slightly lighter than bg */
+  --color-text-primary: #D1D1D1;
+  --color-text-secondary: #858585;
+  /* D1D1D1 dimmed */
+  --color-accent: #555555;
+  --color-border: #333333;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+}
+
+[data-theme='light'] {
+  /* Paper/Bone Look */
+  --color-bg: #F2F0E9;
+  --color-surface: #E8E6DF;
+  /* Slightly darker/different shade */
+  --color-text-primary: #242424;
+  --color-text-secondary: #5C5C5C;
+  --color-accent: #A89F91;
+  --color-border: #D8D6D0;
+  --color-grid: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: light) {
+  /* Managed by data-theme */
+}

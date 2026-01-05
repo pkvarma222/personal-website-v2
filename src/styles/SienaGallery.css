@@ -1,0 +1,423 @@
+/* Siena Style Gallery Styles - Vertical Stub Edition */
+
+/* Siena Style Gallery Styles - Vertical Stub Edition */
+
+.siena-theme {
+    background-color: #0b0b0b;
+    /* Deep black/charcoal */
+    color: #f0f0f0;
+    min-height: 100vh;
+}
+
+/* Full Screen App Layout (For Gallery Stack) */
+.siena-fixed-layout {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: 50;
+    /* Full Screen App Mode - Covers Footer */
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevent body scroll */
+}
+
+/* Header */
+.siena-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 5vw;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+}
+
+/* Header Link (Arrow Border Hack) */
+.siena-header-link {
+    display: flex;
+    background: #000;
+    /* Outer Border Color */
+    padding: 2px 2px 2px 4px;
+    /* Thicker left padding compensates for arrow angle */
+
+    clip-path: polygon(30px 0%, 100% 0%, 100% 100%, 30px 100%, 0% 50%);
+    filter: drop-shadow(4px 4px 0px #000);
+
+    transition: all 0.2s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.siena-header-link-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #fdfbf5;
+    /* Cream BG */
+    color: #000;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    font-family: var(--font-sans);
+
+    padding: 0.8rem 1.5rem 0.8rem 2.6rem;
+    /* Slightly reduced to account for box shift */
+    clip-path: polygon(26px 0%, 100% 0%, 100% 100%, 26px 100%, 0% 50%);
+    width: 100%;
+}
+
+.siena-header-link:hover {
+    transform: translate(-1px, -1px);
+    filter: drop-shadow(6px 6px 0px #000);
+}
+
+.siena-header-link:active {
+    transform: translate(2px, 2px);
+    filter: drop-shadow(1px 1px 0px #000);
+}
+
+/* Intro Text (Fixed Header Area) */
+.siena-intro {
+    flex: 0 0 15vh;
+    /* Fixed Height Area */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    position: relative;
+    z-index: 20;
+    /* Sits above scrolling cards */
+    background: #0b0b0b;
+}
+
+.siena-intro h1 {
+    font-size: 5vw;
+    font-family: var(--font-wide);
+    /* Panchang */
+    font-weight: 800;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 1;
+    /* Reference is stark white */
+    letter-spacing: 0.05em;
+    /* Increased spacing */
+}
+
+.siena-intro p {
+    display: none;
+}
+
+/* Vertical Stack Container (Scrollable Area) */
+.siena-vertical-stack {
+    flex: 1;
+    /* Fills remaining height */
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    /* Scroll Properties */
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0 0 5rem 0;
+    /* Space at bottom */
+
+    position: relative;
+    z-index: 10;
+
+    /* Hide Scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.siena-vertical-stack::-webkit-scrollbar {
+    display: none;
+}
+
+/* STUB CARD COMPONENT STYLES */
+.siena-stub-card {
+    position: sticky;
+    top: 0;
+    /* top handled inline */
+    width: 85%;
+
+    height: 110vh;
+    /* Increased by 10% (100 -> 110) */
+    min-height: 700px;
+
+    background-color: #1a1a1a;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    /* Spacing between cards in flow */
+}
+
+.stub-image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.stub-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+    transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.siena-stub-card:hover .stub-bg-image {
+    transform: scale(1.05);
+    /* Subtle zoom */
+}
+
+/* Ticket Stub Badge (Top Right) REFINED */
+/* Ticket Stub Badge (Top Right) REFINED - Ticket Shape Restored */
+.ticket-badge {
+    position: fixed;
+    top: 23vh;
+    right: 7.5vw;
+    width: 320px;
+
+    transform-origin: top right;
+
+    background: #fdfbf5;
+    color: #000;
+    z-index: 1000;
+    font-family: var(--font-sans);
+
+    /* Ticket Cutout Shape */
+    --r: 25px;
+    /* Radius of holes (Adjusted to 25px) */
+    mask:
+        radial-gradient(circle at top left, transparent var(--r), #000 0) top left,
+        radial-gradient(circle at top right, transparent var(--r), #000 0) top right,
+        radial-gradient(circle at bottom left, transparent var(--r), #000 0) bottom left,
+        radial-gradient(circle at bottom right, transparent var(--r), #000 0) bottom right;
+    mask-size: 51% 51%;
+    mask-repeat: no-repeat;
+
+    -webkit-mask:
+        radial-gradient(circle at 0 0, transparent var(--r), #000 0) top left,
+        radial-gradient(circle at 100% 0, transparent var(--r), #000 0) top right,
+        radial-gradient(circle at 0 100%, transparent var(--r), #000 0) bottom left,
+        radial-gradient(circle at 100% 100%, transparent var(--r), #000 0) bottom right;
+    -webkit-mask-size: 51% 51%;
+    -webkit-mask-repeat: no-repeat;
+
+    /* Hard Shadow */
+    filter: drop-shadow(4px 4px 0px #000);
+}
+
+.ticket-top-row {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid #000;
+}
+
+.ticket-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.ticket-title-text {
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.ticket-bottom-row {
+    display: flex;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ticket-col {
+    flex: 1;
+    text-align: center;
+    padding: 0.8rem 0;
+}
+
+.ticket-col.border-lr {
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+}
+
+/* Content Overlay */
+.stub-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 3rem 3rem 12vh 3rem;
+    /* Details pushed way down (12vh padding vs 110vh card) */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    /* Title area | Reviews/Action area */
+    gap: 2rem;
+    align-items: end;
+}
+
+/* Typography Main */
+.stub-main-info {
+    font-family: var(--font-sans);
+}
+
+.stub-category {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stub-title {
+    font-family: var(--font-serif);
+    /* Or a glitch font if available */
+    font-size: 6rem;
+    line-height: 0.85;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    /* Glitch text effect could go here */
+}
+
+.stub-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 3rem;
+    width: fit-content;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 1.5rem;
+}
+
+.meta-item label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.2rem;
+}
+
+.meta-item span {
+    display: block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Right Side: Acclaim & Action */
+.stub-acclaim-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 2rem;
+}
+
+.acclaim-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.stars {
+    color: #f4f1ea;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+}
+
+.quote {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.2;
+    max-width: 250px;
+}
+
+.explore-btn {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    /* Ticket cut shape if possible */
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.explore-btn:hover {
+    background: #fff;
+    color: #000;
+}
+
+@media (max-width: 1024px) {
+    .stub-content {
+        grid-template-columns: 1fr;
+        /* Stack vertically on mobile */
+        padding: 2rem;
+    }
+
+    .stub-acclaim-column {
+        align-items: flex-start;
+        text-align: left;
+        margin-top: 2rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .acclaim-item {
+        align-items: flex-start;
+    }
+
+    .stub-title {
+        font-size: 4rem;
+    }
+
+    .ticket-badge {
+        display: none;
+        /* Hide floating ticket on mobile to save space */
+    }
+}

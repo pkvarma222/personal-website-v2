@@ -1,0 +1,64 @@
+/* Technical Grid Background */
+.technical-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(var(--color-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+/* Crosshair decorations */
+.crosshair {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.crosshair::before,
+.crosshair::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-text-secondary);
+}
+
+.crosshair::before {
+    top: 9px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.crosshair::after {
+    left: 9px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+}
+
+.ch-tl {
+    top: 40px;
+    left: 40px;
+}
+
+.ch-tr {
+    top: 40px;
+    right: 40px;
+}
+
+.ch-bl {
+    bottom: 40px;
+    left: 40px;
+}
+
+.ch-br {
+    bottom: 40px;
+    right: 40px;
+}
