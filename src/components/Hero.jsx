@@ -103,14 +103,15 @@ const Hero = () => {
                         fontFamily: 'var(--font-wide)',
                         fontWeight: 900,
                         color: 'transparent',
-                        WebkitTextStroke: '2px var(--color-text-primary)',
-                        filter: 'drop-shadow(0 0 15px rgba(239, 234, 215, 0.3))',
+                        WebkitTextStroke: '2px var(--color-accent)',
+                        filter: 'drop-shadow(0 0 15px var(--color-accent-soft))',
                         lineHeight: 0.8,
                         margin: 0,
                         letterSpacing: '0.05em'
                     }}>
                         HELLO
                     </h1>
+
                 </motion.div>
 
                 {/* Glow Layer (Ambilight) */}

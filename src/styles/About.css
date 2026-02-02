@@ -25,8 +25,8 @@
 .archival-frame {
     position: relative;
     padding: 2.5rem;
-    background: #fdfcf0;
-    /* Cream paper look */
+    background: var(--color-surface);
+    /* Now using Cream Paper from variables */
     border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     transform: rotate(-1.5deg);
@@ -40,7 +40,8 @@
     position: absolute;
     width: 80px;
     height: 35px;
-    background: rgba(239, 234, 215, 0.4);
+    background: rgba(226, 74, 49, 0.2);
+    /* Tinted tape */
     backdrop-filter: blur(2px);
     border: 1px solid rgba(0, 0, 0, 0.05);
     z-index: 2;
@@ -132,6 +133,7 @@
     font-family: var(--font-wide);
     line-height: 1;
 }
+
 
 .stat .label {
     font-size: 0.7rem;

@@ -16,18 +16,20 @@
   --font-wide: 'Panchang', sans-serif;
   /* Wide sans for headers */
 
-  /* Default to Dark Mode (Director's Cut - Burnt Tobacco) */
-  --color-bg: #0f0d0a;
-  /* Deep Burnt Umber */
-  --color-surface: #1a1712;
-  /* Weathered Tobacco */
-  --color-text-primary: #efead7;
-  /* Bleached Ivory */
+  /* Default to Dark Mode (Tactile Noir) */
+  --color-bg: #1e1e1e;
+  /* Deep Charcoal */
+  --color-surface: #fdfcf0;
+  /* Cream Paper */
+  --color-text-primary: #fdfcf0;
+  /* Cream for primary text on dark bg */
   --color-text-secondary: #9e9683;
   /* Aged Parchment */
-  --color-accent: #8b2e1b;
-  /* Oxblood Flare */
-  --color-border: #2d261e;
+  --color-accent: #e24a31;
+  /* Vibrant Coral Orange */
+  --color-accent-soft: rgba(226, 74, 49, 0.2);
+  --color-border: rgba(253, 252, 240, 0.1);
+  /* Light cream border */
 
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -42,16 +44,15 @@
 }
 
 [data-theme='light'] {
-  /* Paper/Bone Look */
-  --color-bg: #F2F0E9;
-  --color-surface: #E8E6DF;
-  /* Slightly darker/different shade */
-  --color-text-primary: #242424;
+  /* Inverse for Light Mode */
+  --color-bg: #fdfcf0;
+  --color-surface: #1e1e1e;
+  --color-text-primary: #1e1e1e;
   --color-text-secondary: #5C5C5C;
-  --color-accent: #A89F91;
-  --color-border: #D8D6D0;
-  --color-grid: rgba(0, 0, 0, 0.05);
+  --color-accent: #e24a31;
+  --color-border: rgba(30, 30, 30, 0.1);
 }
+
 
 @media (prefers-color-scheme: light) {
   /* Managed by data-theme */
