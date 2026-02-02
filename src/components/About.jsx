@@ -12,11 +12,11 @@ const About = () => {
                     <div className="archival-frame">
                         <ParallaxImage src={PROFILE_IMG} alt="Portrait" className="w-full h-full" />
                     </div>
-                    <div className="about-metadata">
+                    {/* <div className="about-metadata">
                         <span className="meta-tag">REF: PKV-2026</span>
                         <span className="meta-tag">STOCK: 35MM NOIR</span>
                         <span className="meta-tag">STATUS: ARCHIVAL</span>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="about-content">
                     <div className="handwritten-label" style={{

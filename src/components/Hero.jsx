@@ -111,16 +111,6 @@ const Hero = () => {
                     }}>
                         HELLO
                     </h1>
-                    <div style={{
-                        fontFamily: 'var(--font-handwriting)',
-                        fontSize: '2rem',
-                        color: 'var(--color-accent)',
-                        marginTop: '1rem',
-                        opacity: 0.8,
-                        transform: 'rotate(-2deg)'
-                    }}>
-                        director's cut
-                    </div>
                 </motion.div>
 
                 {/* Glow Layer (Ambilight) */}
