@@ -64,7 +64,15 @@ const FilmGallery = () => {
             <div className="ticket-badge fixed-badge">
                 <div className="ticket-top-row">
                     <img src={activeFilm.image} alt="" className="ticket-thumb" />
-                    <span className="ticket-title-text">{activeFilm.title}</span>
+                    {activeFilm.titleImage ? (
+                        <img
+                            src={activeFilm.titleImage.startsWith('http') ? activeFilm.titleImage : `${import.meta.env.BASE_URL}${activeFilm.titleImage.startsWith('/') ? activeFilm.titleImage.slice(1) : activeFilm.titleImage}`}
+                            alt={activeFilm.title}
+                            className="ticket-title-image"
+                        />
+                    ) : (
+                        <span className="ticket-title-text">{activeFilm.title}</span>
+                    )}
                     <div style={{ flex: 1 }}></div>
                     <ArrowRight size={16} style={{ transform: 'rotate(90deg)' }} /> {/* Chevron Down-ish */}
                 </div>

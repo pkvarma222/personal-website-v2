@@ -255,6 +255,12 @@
     max-width: 180px;
 }
 
+.ticket-title-image {
+    max-height: 25px;
+    width: auto;
+    object-fit: contain;
+}
+
 .ticket-bottom-row {
     display: flex;
     font-size: 0.75rem;
@@ -313,6 +319,16 @@
     text-transform: uppercase;
     margin-bottom: 2rem;
     color: var(--color-text-primary);
+}
+
+.stub-title-image {
+    max-height: 12rem;
+    /* Larger than text for impact */
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
 .stub-meta-grid {

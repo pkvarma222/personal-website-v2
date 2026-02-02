@@ -3,6 +3,7 @@ export const FILMS = [
     {
         id: 1,
         title: "Voicemail",
+        titleImage: "/assets/titles/voicemail-title.png",
         category: "Short Film",
         year: "2022",
         image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2000&auto=format&fit=crop",
@@ -24,6 +25,48 @@ export const FILMS = [
             "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?q=80&w=1200",
             "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?q=80&w=1200"
         ]
+    },
+    {
+        id: "finds-you",
+        title: "Finds You",
+        titleImage: "/assets/titles/finds-you.png",
+        category: "Short Film",
+        year: "2024",
+        image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop",
+        director: "Mani PKV",
+        role: "Director / Editor",
+        duration: "05:30",
+        acclaim: [],
+        description: "A visually stunning exploration of finding oneself in the most unexpected places.",
+        stills: []
+    },
+    {
+        id: "shine-on-us",
+        title: "Shine on Us",
+        titleImage: "/assets/titles/shine-on-us.png",
+        category: "Music Video",
+        year: "2024",
+        image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2000&auto=format&fit=crop",
+        director: "Mani PKV",
+        role: "Director / DP",
+        duration: "04:15",
+        acclaim: [],
+        description: "An ethereal music video capturing the warmth and light of human connection.",
+        stills: []
+    },
+    {
+        id: "knock-knock-bang",
+        title: "Knock Knock Bang",
+        titleImage: "/assets/titles/knock-knock-bang.png",
+        category: "Action / Comedy",
+        year: "2023",
+        image: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?q=80&w=2000&auto=format&fit=crop",
+        director: "Mani PKV",
+        role: "Writer / Director",
+        duration: "12:00",
+        acclaim: [],
+        description: "A fast-paced genre mashup that keeps you on your toes.",
+        stills: []
     },
     {
         id: 2,

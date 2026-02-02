@@ -29,7 +29,15 @@ const SienaStubCard = ({ film, index }) => {
                 {/* Left Side: Main Info */}
                 <div className="stub-main-info">
                     <span className="stub-category">{film.category}</span>
-                    <h2 className="stub-title">{film.title}</h2>
+                    {film.titleImage ? (
+                        <img
+                            src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
+                            alt={film.title}
+                            className="stub-title-image"
+                        />
+                    ) : (
+                        <h2 className="stub-title">{film.title}</h2>
+                    )}
 
                     <div className="stub-meta-grid">
                         <div className="meta-item">
