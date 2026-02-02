@@ -33,6 +33,28 @@ const Hero = () => {
                 justifyContent: 'center'
             }}>
 
+                {/* Light Leak Overlay */}
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        width: '40vw',
+                        height: '100vh',
+                        background: 'radial-gradient(circle at 100% 0%, rgba(179, 92, 68, 0.15) 0%, transparent 70%)',
+                        zIndex: 11,
+                        pointerEvents: 'none'
+                    }}
+                    animate={{
+                        opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+
                 {/* Text Layer (Hollow, Above) */}
                 <motion.div
                     style={{
@@ -49,12 +71,14 @@ const Hero = () => {
                     <h1 style={{
                         fontSize: '18vw',
                         fontFamily: 'var(--font-wide)',
-                        fontWeight: 800,
+                        fontWeight: 900,
                         color: 'transparent',
                         WebkitTextStroke: '1px var(--color-text-primary)',
-                        filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.6)) drop-shadow(0 10px 20px rgba(0,0,0,1))',
+                        filter: 'drop-shadow(0 0 15px rgba(253, 252, 240, 0.3))',
                         lineHeight: 0.8,
-                        margin: 0
+                        margin: 0,
+                        letterSpacing: '0.05em',
+                        textTransform: 'uppercase'
                     }}>
                         HELLO
                     </h1>

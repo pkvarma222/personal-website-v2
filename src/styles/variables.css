@@ -12,16 +12,18 @@
   --font-wide: 'Panchang', sans-serif;
   /* Wide sans for headers */
 
-  /* Default to Dark Mode (Lifted Noir) */
-  --color-bg: #0b0b0b;
-  /* Deep black to match Filmmaker page */
-  --color-surface: #252525;
-  /* Slightly lighter than bg */
-  --color-text-primary: #D1D1D1;
-  --color-text-secondary: #858585;
-  /* D1D1D1 dimmed */
-  --color-accent: #555555;
-  --color-border: #333333;
+  /* Default to Dark Mode (Vintage Noir) */
+  --color-bg: #121210;
+  /* Deep warm charcoal-black */
+  --color-surface: #1a1a18;
+  /* Slightly lighter warm tone */
+  --color-text-primary: #fdfcf0;
+  /* Cream/Ivory */
+  --color-text-secondary: #c5c3b0;
+  /* Dimmed cream */
+  --color-accent: #b35c44;
+  /* Muted Terracotta */
+  --color-border: #2a2a26;
 
   /* Spacing */
   --spacing-xs: 0.5rem;

@@ -8,8 +8,15 @@ const About = () => {
     return (
         <section className="about-section container">
             <div className="about-grid">
-                <div className="about-image">
-                    <ParallaxImage src={PROFILE_IMG} alt="Portrait" className="w-full h-full" />
+                <div className="about-image-wrapper">
+                    <div className="archival-frame">
+                        <ParallaxImage src={PROFILE_IMG} alt="Portrait" className="w-full h-full" />
+                    </div>
+                    <div className="about-metadata">
+                        <span className="meta-tag">REF: PKV-2026</span>
+                        <span className="meta-tag">STOCK: 35MM NOIR</span>
+                        <span className="meta-tag">STATUS: ARCHIVAL</span>
+                    </div>
                 </div>
                 <div className="about-content">
                     <h2><SplitText>About Me</SplitText></h2>

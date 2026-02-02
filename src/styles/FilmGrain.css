@@ -7,8 +7,20 @@
     pointer-events: none;
     z-index: 9999;
     overflow: hidden;
-    /* Add Vignette */
-    background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.25) 100%);
+    /* Strengthen Vignette */
+    background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+    /* Film Jitter Animation */
+    animation: filmMove 0.15s infinite;
+}
+
+@keyframes filmMove {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(0.5px);
+    }
 }
 
 .film-grain::after {
@@ -20,9 +32,9 @@
     height: 300%;
     /* SVG Noise Pattern - Coarser grain (0.65) */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-    background-size: 150px;
+    background-size: 180px;
     /* Adjust scale of grain */
-    opacity: 0.12;
+    opacity: 0.18;
     /* Increased visibility for 'old film' feel */
     mix-blend-mode: overlay;
     animation: grain 8s steps(10) infinite;
