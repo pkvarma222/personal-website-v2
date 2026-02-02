@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "sync-assets": "rm -rf public/assets/filmmaker && mkdir -p public/assets/filmmaker && cp -r \"/Users/mpkv/Documents/website work /filmmaker/\"* public/assets/filmmaker/"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
