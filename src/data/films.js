@@ -2,7 +2,7 @@
  * HOW TO ADD DETAILS FOR NEW FILMS:
  * 1. Add a new object to the FILMS array.
  * 2. title: The text title (used in the ticket badge and accessibility).
- * 3. titleImage: Path to the custom PNG title relative to /public (e.g., "/assets/filmmaker/Finds You/title.png").
+ * 3. titleImage: Path to the custom PNG title relative to /public (e.g., "/assets/film-assets/Finds You/title.png").
  * 4. category: Genre or type (Short Film, Music Video, etc.).
  * 5. year: Release year.
  * 6. image: Background thumbnail URL.
@@ -14,10 +14,10 @@ export const FILMS = [
     {
         id: 1,
         title: "Voicemail",
-        titleImage: "/assets/filmmaker/Voicemail/title.png",
+        titleImage: "/assets/film-assets/Voicemail/title.png",
         category: "Short",
         year: "2022",
-        image: "/assets/filmmaker/Voicemail/backgroundImage.png",
+        image: "/assets/film-assets/Voicemail/backgroundImage.png",
         director: "Manthena Pramod Kumar Varma",
         role: "Writer, Director, Editor, Sound Designer, Cinematographer",
         duration: "4:22",
@@ -39,10 +39,10 @@ export const FILMS = [
     {
         id: "shine-on-us",
         title: "Shine on Us",
-        titleImage: "/assets/filmmaker/Shine on Us/title.png",
+        titleImage: "/assets/film-assets/Shine on Us/title.png",
         category: "Short",
         year: "2021",
-        image: "/assets/filmmaker/Shine on Us/backgroundImage.jpg",
+        image: "/assets/film-assets/Shine on Us/backgroundImage.jpg",
         director: "Manthena Pramod Kumar Varma",
         role: "Writer, Director, Editor, Sound Designer",
         duration: "04:15",
@@ -59,10 +59,10 @@ export const FILMS = [
     {
         id: "finds-you",
         title: "Finds You",
-        titleImage: "/assets/filmmaker/Finds You/title.png",
+        titleImage: "/assets/film-assets/Finds You/title.png",
         category: "Short",
         year: "2020",
-        image: "/assets/filmmaker/Finds You/backgroundImage.png",
+        image: "/assets/film-assets/Finds You/backgroundImage.png",
         director: "Manthena Pramod Kumar Varma",
         role: "Writer, Director, Editor",
         duration: "05:30",
@@ -76,10 +76,10 @@ export const FILMS = [
     {
         id: "knock-knock-bang",
         title: "Knock Knock Bang",
-        titleImage: "/assets/filmmaker/Knock Knock Bang/title.png",
+        titleImage: "/assets/film-assets/Knock Knock Bang/title.png",
         category: "Short",
         year: "2020",
-        image: "/assets/filmmaker/Knock Knock Bang/backgroundImage.png",
+        image: "/assets/film-assets/Knock Knock Bang/backgroundImage.png",
         director: "Manthena Pramod Kumar Varma",
         role: "Writer, Director, Editor, Sound Designer",
         duration: "12:00",
