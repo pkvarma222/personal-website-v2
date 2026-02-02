@@ -1,4 +1,42 @@
-/* Hero.css - Minimal styles for Hero component */
+/* Hero.css - "Director's Cut" Styles */
+
+.projector-gate {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 100vh;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.8) 30%, transparent 35%);
+    background-size: 100% 40px;
+    opacity: 0.15;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.gate-left {
+    left: 0;
+}
+
+.gate-right {
+    right: 0;
+}
+
+.title-flicker {
+    animation: titleFlicker 0.2s infinite alternate;
+}
+
+@keyframes titleFlicker {
+    0% {
+        filter: drop-shadow(0 0 10px rgba(239, 234, 215, 0.2));
+        opacity: 0.96;
+    }
+
+    100% {
+        filter: drop-shadow(0 0 20px rgba(239, 234, 215, 0.4));
+        opacity: 1;
+    }
+}
+
 
 .scroll-indicator {
     position: absolute;

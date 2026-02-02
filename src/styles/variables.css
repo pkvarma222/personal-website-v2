@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
+
 :root {
   /*
    * Cinematic 35mm Color Palette (Refined)
    */
+
+  --font-handwriting: 'La Belle Aurore', cursive;
 
   /* Shared Defaults */
   --header-height: 80px;
@@ -12,18 +16,18 @@
   --font-wide: 'Panchang', sans-serif;
   /* Wide sans for headers */
 
-  /* Default to Dark Mode (Vintage Noir) */
-  --color-bg: #121210;
-  /* Deep warm charcoal-black */
-  --color-surface: #1a1a18;
-  /* Slightly lighter warm tone */
-  --color-text-primary: #fdfcf0;
-  /* Cream/Ivory */
-  --color-text-secondary: #c5c3b0;
-  /* Dimmed cream */
-  --color-accent: #b35c44;
-  /* Muted Terracotta */
-  --color-border: #2a2a26;
+  /* Default to Dark Mode (Director's Cut - Burnt Tobacco) */
+  --color-bg: #0f0d0a;
+  /* Deep Burnt Umber */
+  --color-surface: #1a1712;
+  /* Weathered Tobacco */
+  --color-text-primary: #efead7;
+  /* Bleached Ivory */
+  --color-text-secondary: #9e9683;
+  /* Aged Parchment */
+  --color-accent: #8b2e1b;
+  /* Oxblood Flare */
+  --color-border: #2d261e;
 
   /* Spacing */
   --spacing-xs: 0.5rem;

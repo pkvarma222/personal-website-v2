@@ -24,13 +24,38 @@
 
 .archival-frame {
     position: relative;
-    padding: 2rem;
+    padding: 2.5rem;
     background: #fdfcf0;
     /* Cream paper look */
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 0 100px rgba(0, 0, 0, 0.05);
-    transform: rotate(-1deg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transform: rotate(-1.5deg);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tape Effects */
+.archival-frame::before,
+.archival-frame::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 35px;
+    background: rgba(239, 234, 215, 0.4);
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 2;
+}
+
+.archival-frame::before {
+    top: -15px;
+    left: 20px;
+    transform: rotate(-5deg);
+}
+
+.archival-frame::after {
+    bottom: -15px;
+    right: 20px;
+    transform: rotate(-3deg);
 }
 
 .archival-frame:hover {
@@ -48,27 +73,28 @@
 
 .about-metadata {
     display: flex;
-    gap: 2rem;
-    padding: 0 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
 }
 
 .meta-tag {
-    font-family: 'Inter', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
+    font-family: var(--font-handwriting);
+    font-size: 1.2rem;
+    color: var(--color-accent);
+    opacity: 0.8;
 }
 
 .about-content h2 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.5rem, 5vw, 5rem);
     margin-bottom: 2.5rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     font-family: var(--font-wide);
-    font-weight: 800;
-    line-height: 1.1;
+    font-weight: 900;
+    line-height: 1;
     color: var(--color-text-primary);
+    position: relative;
 }
 
 .about-content p {

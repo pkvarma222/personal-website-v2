@@ -19,6 +19,15 @@ const About = () => {
                     </div>
                 </div>
                 <div className="about-content">
+                    <div className="handwritten-label" style={{
+                        fontFamily: 'var(--font-handwriting)',
+                        fontSize: '1.5rem',
+                        color: 'var(--color-accent)',
+                        marginBottom: '0.5rem',
+                        transform: 'rotate(-2deg)'
+                    }}>
+                        Director's Note:
+                    </div>
                     <h2><SplitText>About Me</SplitText></h2>
                     <Reveal delay={0.1}>
                         <p className="lead">
@@ -32,6 +41,16 @@ const About = () => {
                             my work is driven by a passion for aesthetics and meaningful communication.
                         </p>
                     </Reveal>
+                    <div style={{
+                        fontFamily: 'var(--font-handwriting)',
+                        fontSize: '1.2rem',
+                        color: 'var(--color-text-secondary)',
+                        marginTop: '2rem',
+                        maxWidth: '400px',
+                        lineHeight: '1.4'
+                    }}>
+                        "Every frame should feel like a memory caught in time."
+                    </div>
                     <div className="about-stats">
                         <div className="stat">
                             <span className="number"><SplitText delay={0.3}>10+</SplitText></span>

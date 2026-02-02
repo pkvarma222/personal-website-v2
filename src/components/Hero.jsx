@@ -33,23 +33,52 @@ const Hero = () => {
                 justifyContent: 'center'
             }}>
 
-                {/* Light Leak Overlay */}
+                {/* Projector Gates */}
+                <div className="projector-gate gate-left" />
+                <div className="projector-gate gate-right" />
+
+                {/* Director's Cut Flare */}
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        width: '60vw',
+                        height: '60vw',
+                        background: 'radial-gradient(circle, rgba(139, 46, 27, 0.1) 0%, transparent 60%)',
+                        filter: 'blur(100px)',
+                        zIndex: 1,
+                        pointerEvents: 'none',
+                        top: '10%',
+                        left: '-10%'
+                    }}
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, 50, 0],
+                        scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                />
+
+                {/* Main Lens Flare */}
                 <motion.div
                     style={{
                         position: 'absolute',
                         top: 0,
                         right: 0,
-                        width: '40vw',
-                        height: '100vh',
-                        background: 'radial-gradient(circle at 100% 0%, rgba(179, 92, 68, 0.15) 0%, transparent 70%)',
+                        width: '100%',
+                        height: '100%',
+                        background: 'radial-gradient(circle at 80% 20%, rgba(239, 234, 215, 0.1) 0%, transparent 40%)',
                         zIndex: 11,
                         pointerEvents: 'none'
                     }}
                     animate={{
-                        opacity: [0.3, 0.5, 0.3],
+                        opacity: [0.2, 0.4, 0.2],
                     }}
                     transition={{
-                        duration: 5,
+                        duration: 4,
                         repeat: Infinity,
                         ease: "easeInOut"
                     }}
@@ -57,6 +86,7 @@ const Hero = () => {
 
                 {/* Text Layer (Hollow, Above) */}
                 <motion.div
+                    className="title-flicker"
                     style={{
                         position: 'absolute',
                         y: textY,
@@ -73,15 +103,24 @@ const Hero = () => {
                         fontFamily: 'var(--font-wide)',
                         fontWeight: 900,
                         color: 'transparent',
-                        WebkitTextStroke: '1px var(--color-text-primary)',
-                        filter: 'drop-shadow(0 0 15px rgba(253, 252, 240, 0.3))',
+                        WebkitTextStroke: '2px var(--color-text-primary)',
+                        filter: 'drop-shadow(0 0 15px rgba(239, 234, 215, 0.3))',
                         lineHeight: 0.8,
                         margin: 0,
-                        letterSpacing: '0.05em',
-                        textTransform: 'uppercase'
+                        letterSpacing: '0.05em'
                     }}>
                         HELLO
                     </h1>
+                    <div style={{
+                        fontFamily: 'var(--font-handwriting)',
+                        fontSize: '2rem',
+                        color: 'var(--color-accent)',
+                        marginTop: '1rem',
+                        opacity: 0.8,
+                        transform: 'rotate(-2deg)'
+                    }}>
+                        director's cut
+                    </div>
                 </motion.div>
 
                 {/* Glow Layer (Ambilight) */}
