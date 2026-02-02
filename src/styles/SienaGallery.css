@@ -3,9 +3,8 @@
 /* Siena Style Gallery Styles - Vertical Stub Edition */
 
 .siena-theme {
-    background-color: #0b0b0b;
-    /* Deep black/charcoal */
-    color: #f0f0f0;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
     min-height: 100vh;
 }
 
@@ -58,7 +57,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: #fdfbf5;
+    background: var(--color-surface);
     /* Cream BG */
     color: #000;
 
@@ -97,7 +96,7 @@
     position: relative;
     z-index: 20;
     /* Sits above scrolling cards */
-    background: #0b0b0b;
+    background: var(--color-bg);
 }
 
 .siena-intro h1 {
@@ -202,7 +201,7 @@
 
     transform-origin: top right;
 
-    background: #fdfbf5;
+    background: var(--color-surface);
     color: #000;
     z-index: 1000;
     font-family: var(--font-sans);
@@ -307,13 +306,13 @@
 }
 
 .stub-title {
-    font-family: var(--font-serif);
-    /* Or a glitch font if available */
+    font-family: var(--font-wide);
+    font-weight: 900;
     font-size: 6rem;
     line-height: 0.85;
     text-transform: uppercase;
     margin-bottom: 2rem;
-    /* Glitch text effect could go here */
+    color: var(--color-text-primary);
 }
 
 .stub-meta-grid {
@@ -371,12 +370,11 @@
 }
 
 .explore-btn {
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--color-accent);
     background: transparent;
-    color: #fff;
+    color: var(--color-accent);
     padding: 1rem 2rem;
     border-radius: 4px;
-    /* Ticket cut shape if possible */
     text-transform: uppercase;
     font-size: 0.9rem;
     letter-spacing: 0.2em;
@@ -389,8 +387,8 @@
 }
 
 .explore-btn:hover {
-    background: #fff;
-    color: #000;
+    background: var(--color-accent);
+    color: var(--color-surface);
 }
 
 @media (max-width: 1024px) {
