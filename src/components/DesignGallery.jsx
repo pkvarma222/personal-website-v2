@@ -42,7 +42,7 @@ const DESIGNS = [
     {
         id: 7,
         title: "Ninnu Cheraga",
-        category: "Posters",
+        category: "Logos",
         image: "/assets/design-assets/Ninnu-Cheraga-Poster.jpg"
     },
     {
@@ -96,6 +96,18 @@ const DesignGallery = () => {
         restDelta: 0.001
     })
 
+    const weightedDesigns = React.useMemo(() => {
+        let cumulative = 0;
+        return filteredDesigns.map((design) => {
+            const weight = 2.5;
+            const start = cumulative;
+            cumulative += weight;
+            return { ...design, weight, start, center: start + weight / 2 };
+        });
+    }, [filteredDesigns]);
+
+    const totalWeight = weightedDesigns.reduce((acc, d) => acc + d.weight, 0);
+
     return (
         <section className="rayray-container">
             {/* Background Grain/Texture (Inherited from App) */}
@@ -125,12 +137,11 @@ const DesignGallery = () => {
             </div>
 
             <div className="rayray-carousel">
-                {filteredDesigns.map((design, index) => (
+                {weightedDesigns.map((design, index) => (
                     <Card
                         key={design.id}
                         design={design}
-                        index={index}
-                        total={filteredDesigns.length}
+                        centerPoint={design.center / totalWeight}
                         progress={smoothProgress}
                     />
                 ))}
@@ -138,25 +149,24 @@ const DesignGallery = () => {
 
             {/* Scroll Proxy */}
             <div className="rayray-scroll-proxy" ref={containerRef}>
-                <div className="rayray-scroll-content" style={{ height: `${filteredDesigns.length * 200}vh` }}>
-                    {filteredDesigns.map((_, i) => (
-                        <div key={i} className="scroll-anchor" style={{ height: '200vh' }} />
+                <div className="rayray-scroll-content" style={{ height: `${totalWeight * 200}vh` }}>
+                    {weightedDesigns.map((_, i) => (
+                        <div key={i} className="scroll-anchor" style={{ height: `${weightedDesigns[i].weight * 200}vh` }} />
                     ))}
                 </div>
             </div>
 
             {/* Footer Navigation */}
             <div className="rayray-footer">
-                {filteredDesigns.map((design, i) => (
+                {weightedDesigns.map((design, i) => (
                     <NavItem
                         key={design.id}
-                        index={i}
-                        total={filteredDesigns.length}
+                        centerPoint={design.center / totalWeight}
                         progress={smoothProgress}
                         image={design.image}
                         onClick={() => {
                             if (containerRef.current) {
-                                const targetScroll = i * (containerRef.current.clientHeight * 2);
+                                const targetScroll = design.start * (containerRef.current.clientHeight * 2);
                                 containerRef.current.scrollTo({
                                     top: targetScroll,
                                     behavior: 'smooth'
@@ -170,9 +180,7 @@ const DesignGallery = () => {
     )
 }
 
-const Card = ({ design, index, total, progress }) => {
-    // Calculate relative position (0 is center)
-    const centerPoint = index / (total - 1 || 1)
+const Card = ({ design, centerPoint, progress }) => {
 
     // Transforms based on progress
     // We want the card to be at center when progress === centerPoint
@@ -186,19 +194,19 @@ const Card = ({ design, index, total, progress }) => {
     const angle = useTransform(
         progress,
         [centerPoint - 1, centerPoint, centerPoint + 1],
-        [-Math.PI, 0, Math.PI]
+        [-Math.PI * 2, 0, Math.PI * 2]
     )
 
-    // Reduced Z depth to 600 to bring items tighter together in the corkscrew
-    const offsetX = useTransform(angle, a => Math.sin(a) * 35) // raw number for vw
-    const z = useTransform(angle, a => Math.cos(a) * 600 - 600)
-    const rotateY = useTransform(angle, a => (a * 90) / Math.PI)
+    // Increased Z depth to 800 for more 3D parallax
+    const offsetX = useTransform(angle, a => Math.sin(a) * 40) // raw number for vw
+    const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
+    const rotateY = useTransform(angle, a => (a * 110) / Math.PI)
 
-    // Reduced range to 350vh to close the vertical gaps while maintaining spiral order
+    // Increased vertical travel to 800vh to ensure separation during tighter rotation
     const offsetY = useTransform(
         progress,
         [centerPoint - 1, centerPoint, centerPoint + 1],
-        [350, 0, -350] // raw number for vh
+        [800, 0, -800] // raw number for vh
     )
 
     const opacity = useTransform(
@@ -245,8 +253,7 @@ const Card = ({ design, index, total, progress }) => {
     )
 }
 
-const NavItem = ({ index, total, progress, image, onClick }) => {
-    const centerPoint = index / (total - 1 || 1)
+const NavItem = ({ centerPoint, progress, image, onClick }) => {
 
     // Highlight if near center
     const activeProgress = useTransform(

@@ -125,3 +125,28 @@
 .floating-nav.dark-contrast .floating-divider {
     background-color: rgba(0, 0, 0, 0.2);
 }
+
+/* Dynamic Theme Adaptation (Light Background on Dark Global Theme) */
+.floating-nav.light-background {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.floating-nav.light-background .floating-nav-link {
+    color: rgba(30, 30, 30, 0.6);
+}
+
+.floating-nav.light-background .floating-nav-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1e1e1e;
+}
+
+.floating-nav.light-background .floating-nav-link.active {
+    background: rgba(0, 0, 0, 0.08);
+    color: #1e1e1e;
+}
+
+.floating-nav.light-background .floating-divider {
+    background-color: rgba(0, 0, 0, 0.15);
+}

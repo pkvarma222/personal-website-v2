@@ -7,6 +7,7 @@ const FloatingNav = () => {
     const location = useLocation();
     const isHomePage = location.pathname === '/';
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
+    const [isLightBackground, setIsLightBackground] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -14,7 +15,10 @@ const FloatingNav = () => {
             // On other pages, we are always visible.
             const container = document.getElementById('home-scroll-container');
             if (container) {
-                setScrolledPastHero(container.scrollTop > window.innerHeight * 0.15);
+                const scrollPos = container.scrollTop;
+                setScrolledPastHero(scrollPos > window.innerHeight * 0.15);
+                // Threshold matches Hero.jsx background transition [0, 800]
+                setIsLightBackground(scrollPos > 600);
             }
         };
 
@@ -44,7 +48,7 @@ const FloatingNav = () => {
     const isFilmDetail = location.pathname.startsWith('/film/') && location.pathname !== '/film';
 
     return (
-        <div className={`floating-nav ${shouldShow ? 'visible' : ''} ${isFilmDetail ? 'dark-contrast' : ''}`}>
+        <div className={`floating-nav ${shouldShow ? 'visible' : ''} ${isLightBackground && isHomePage ? 'light-background' : ''} ${isFilmDetail ? 'dark-contrast' : ''}`}>
             <NavLink to="/film" className={({ isActive }) => `floating-nav-link ${isActive ? 'active' : ''}`}>
                 <Clapperboard size={20} />
                 <span>Filmmaker</span>

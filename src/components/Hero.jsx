@@ -19,10 +19,12 @@ const Hero = () => {
     // Text slides up from bottom
     const textY = useTransform(scrollY, [0, 1200], ["100vh", "0vh"])
     const textOpacity = useTransform(scrollY, [0, 1000], [0, 1])
+    const gridOpacity = useTransform(scrollY, [400, 1200], [0, 0.05])
+    const leakOpacity = useTransform(scrollY, [0, 800], [0.3, 0.1])
 
     return (
-        <div className="hero-scroll-track" style={{ height: '350vh', position: 'relative', background: '#0b0b0b' }}>
-            <div className="hero-sticky" style={{
+        <motion.div className="hero-scroll-track" style={{ height: '350vh', position: 'relative', backgroundColor: '#0b0b0b' }}>
+            <motion.div className="hero-sticky" style={{
                 position: 'sticky',
                 top: 0,
                 height: '100vh',
@@ -30,13 +32,67 @@ const Hero = () => {
                 overflow: 'hidden',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                backgroundColor: '#0b0b0b'
             }}>
+                {/* Cinematic Noise Overlay (Film Grain) */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    zIndex: 15,
+                    opacity: 0.4,
+                    pointerEvents: 'none',
+                    mixBlendMode: 'overlay',
+                    filter: 'url(#grainyNoise)'
+                }} />
 
-                {/* Projector Gates */}
+                {/* Technical Blueprint Grid */}
+                <motion.div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    zIndex: 1,
+                    opacity: gridOpacity,
+                    pointerEvents: 'none',
+                    backgroundImage: `
+                        linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px'
+                }} />
+
+                {/* Dynamic Light Leaks */}
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        zIndex: 1,
+                        opacity: leakOpacity,
+                        pointerEvents: 'none',
+                        background: 'radial-gradient(circle at 20% 40%, rgba(139, 46, 27, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(239, 234, 215, 0.3) 0%, transparent 50%)',
+                        filter: 'blur(80px)'
+                    }}
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 5, 0],
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                />
+
+                {/* SVG Filter Definition for Noise */}
+                <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+                    <filter id="grainyNoise">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch" />
+                        <feColorMatrix type="saturate" values="0" />
+                    </filter>
+                </svg>
+
+                {/* Projector Gate (The Film Strip Effect) */}
                 <div className="projector-gate gate-left" />
                 <div className="projector-gate gate-right" />
-
                 {/* Director's Cut Flare */}
                 <motion.div
                     style={{
@@ -104,7 +160,7 @@ const Hero = () => {
                         fontWeight: 900,
                         color: 'transparent',
                         WebkitTextStroke: '2px var(--color-accent)',
-                        filter: 'drop-shadow(0 0 15px var(--color-accent-soft))',
+                        filter: 'drop-shadow(0 0 15px var(--color-accent-soft)) drop-shadow(0 0 2px rgba(0,0,0,0.1))',
                         lineHeight: 0.8,
                         margin: 0,
                         letterSpacing: '0.05em'
@@ -151,7 +207,7 @@ const Hero = () => {
                         maxHeight: '100vh',
                         zIndex: 2,
                         transformOrigin: 'center center',
-                        background: '#000',
+                        backgroundColor: '#000',
                         overflow: 'hidden',
                         border: '1px solid #ffffff',
                         boxSizing: 'border-box'
@@ -174,8 +230,8 @@ const Hero = () => {
                     <ArrowDown size={32} color="#fff" strokeWidth={1.5} />
                 </motion.div>
 
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     )
 }
 export default Hero
