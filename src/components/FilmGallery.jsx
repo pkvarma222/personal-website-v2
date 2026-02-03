@@ -5,6 +5,7 @@ import { FILMS } from '../data/films'
 import '../styles/Gallery.css'
 import '../styles/SienaGallery.css'
 import { ArrowRight } from 'lucide-react';
+import { resolveAssetPath } from '../utils/paths';
 
 let savedScrollPosition = 0;
 
@@ -63,7 +64,7 @@ const FilmGallery = () => {
             {/* Ticket Badge (Fixed Top Right) */}
             <div className="ticket-badge fixed-badge">
                 <div className="ticket-top-row">
-                    <img src={activeFilm.image.startsWith('http') ? activeFilm.image : `${import.meta.env.BASE_URL}${activeFilm.image.startsWith('/') ? activeFilm.image.slice(1) : activeFilm.image}`} alt="" className="ticket-thumb" />
+                    <img src={resolveAssetPath(activeFilm.image)} alt="" className="ticket-thumb" />
                     <span className="ticket-title-text">{activeFilm.title}</span>
                     <div style={{ flex: 1 }}></div>
                     <ArrowRight size={16} style={{ transform: 'rotate(90deg)' }} /> {/* Chevron Down-ish */}

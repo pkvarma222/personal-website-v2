@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { resolveAssetPath } from '../utils/paths';
 
 const SienaStubCard = ({ film, index }) => {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ const SienaStubCard = ({ film, index }) => {
             {/* Background Image */}
             <div className="stub-image-container">
                 <img
-                    src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.startsWith('/') ? film.image.slice(1) : film.image}`}
+                    src={resolveAssetPath(film.image)}
                     alt={film.title}
                     className="stub-bg-image"
                 />
@@ -31,7 +32,7 @@ const SienaStubCard = ({ film, index }) => {
                     <span className="stub-category">{film.category}</span>
                     {film.titleImage ? (
                         <img
-                            src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
+                            src={resolveAssetPath(film.titleImage)}
                             alt={film.title}
                             className="stub-title-image"
                         />

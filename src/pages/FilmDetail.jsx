@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Play, ArrowDown } from 'lucide-react';
+import { Play, ArrowDown, ArrowLeft, ExternalLink, ChevronRight, ChevronLeft, X } from 'lucide-react';
+import { resolveAssetPath } from '../utils/paths';
 import { FILMS } from '../data/films';
 import '../styles/SienaGallery.css';
 
@@ -87,7 +88,7 @@ const FilmDetail = () => {
                             fontFamily: 'inherit'
                         }}
                     >
-                        <img src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.startsWith('/') ? film.image.slice(1) : film.image}`} alt="" style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }} />
+                        <img src={resolveAssetPath(film.image)} alt="" style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }} />
                         <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>WATCH FILM</span>
                         <ArrowDown size={14} />
                     </button>
@@ -102,7 +103,7 @@ const FilmDetail = () => {
                     {(film.titleImage && !imageError) ? (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <img
-                                src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
+                                src={resolveAssetPath(film.titleImage)}
                                 alt={film.title}
                                 onError={() => setImageError(true)}
                                 style={{
@@ -191,7 +192,7 @@ const FilmDetail = () => {
                             />
                         ) : (
                             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                                <img src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.startsWith('/') ? film.image.slice(1) : film.image}`} alt={film.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <img src={resolveAssetPath(film.image)} alt={film.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 <div style={{
                                     position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                                     display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#fff'
