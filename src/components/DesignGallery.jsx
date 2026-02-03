@@ -108,7 +108,17 @@ const DesignGallery = () => {
                         key={design.id}
                         index={i}
                         progress={smoothProgress}
-                        title={design.client}
+                        image={design.image}
+                        onClick={() => {
+                            if (containerRef.current) {
+                                // 200vh is the anchor height
+                                const targetScroll = i * (containerRef.current.clientHeight * 2);
+                                containerRef.current.scrollTo({
+                                    top: targetScroll,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }}
                     />
                 ))}
             </div>
@@ -203,23 +213,30 @@ const Card = ({ design, index, total, progress }) => {
     )
 }
 
-const NavItem = ({ index, progress, title }) => {
+const NavItem = ({ index, progress, image, onClick }) => {
     const total = DESIGNS.length
     const centerPoint = index / (total - 1 || 1)
 
     // Highlight if near center
-    const isActive = useTransform(
+    const activeProgress = useTransform(
         progress,
         [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
         [0.4, 1, 0.4]
     )
 
+    const borderColor = useTransform(
+        progress,
+        [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
+        ["rgba(253, 252, 240, 0)", "rgba(253, 252, 240, 1)", "rgba(253, 252, 240, 0)"]
+    )
+
     return (
         <motion.div
-            className="rayray-nav-item"
-            style={{ opacity: isActive }}
+            className="rayray-nav-thumb"
+            style={{ opacity: 1, borderColor }}
+            onClick={onClick}
         >
-            {title}
+            <img src={image} alt="" />
         </motion.div>
     )
 }
