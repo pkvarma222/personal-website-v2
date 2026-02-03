@@ -159,17 +159,16 @@ const Card = ({ design, index, total, progress }) => {
         [-Math.PI, 0, Math.PI]
     )
 
-    // Restrict X to middle 60% of viewport
-    // Using simple offset that will be added to the centered position
-    const offsetX = useTransform(angle, a => Math.sin(a) * 25) // raw number for vw
-    const z = useTransform(angle, a => Math.cos(a) * 600 - 600)
+    // Increase X offset to 35vw and Z depth to 800 to create more room
+    const offsetX = useTransform(angle, a => Math.sin(a) * 35) // raw number for vw
+    const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
     const rotateY = useTransform(angle, a => (a * 90) / Math.PI)
 
-    // Increased range to 400vh for more vertical clearance
+    // Increased range to 500vh for even more vertical clearance
     const offsetY = useTransform(
         progress,
         [centerPoint - 1, centerPoint, centerPoint + 1],
-        [400, 0, -400] // raw number for vh
+        [500, 0, -500] // raw number for vh
     )
 
     const opacity = useTransform(

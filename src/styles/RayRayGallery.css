@@ -155,22 +155,27 @@
     align-items: center;
     justify-content: center;
 
-    /* Tighter constraints to prevent overlaps */
+    /* Even tighter constraints to prevent overlaps between adjacent spiral items */
     width: auto;
     height: auto;
-    max-width: 60vw;
-    max-height: 60vh;
+    max-width: 45vw;
+    max-height: 65vh;
+
+    /* Ensure no clipping so we can see the full poster */
+    overflow: visible;
+    box-shadow: none;
 }
 
 .rayray-card img {
+    /* Drive the container size */
+    display: block;
     width: auto;
     height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
+    max-width: 45vw;
+    max-height: 65vh;
     object-fit: contain;
     filter: brightness(0.8);
-    transition: filter 0.5s ease;
+    transition: filter 0.5s ease, transform 0.5s ease;
 }
 
 .rayray-card.active img {
