@@ -58,7 +58,7 @@ const About = () => {
                         </div>
                         <div className="stat">
                             <span className="number"><SplitText delay={0.4}>6+</SplitText></span>
-                            <span className="label">Films</span>
+                            <span className="label">Short Films</span>
                         </div>
                         <div className="stat">
                             <span className="number"><SplitText delay={0.5}>50+</SplitText></span>

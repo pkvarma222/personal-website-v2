@@ -73,15 +73,22 @@ const FilmDetail = () => {
                 </Link>
 
                 <div style={{ pointerEvents: 'auto', display: 'flex', gap: '1rem' }}>
-                    <div style={{
-                        background: '#fff', border: '1px solid #000', borderRadius: '4px',
-                        padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '1rem',
-                        boxShadow: '4px 4px 0px rgba(0,0,0,1)'
-                    }}>
+                    <button
+                        onClick={() => {
+                            const section = document.getElementById('watch-film');
+                            if (section) section.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        style={{
+                            background: '#fff', border: '1px solid #000', borderRadius: '4px',
+                            padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '1rem',
+                            boxShadow: '4px 4px 0px rgba(0,0,0,1)', cursor: 'pointer',
+                            fontFamily: 'inherit'
+                        }}
+                    >
                         <img src={film.image} alt="" style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }} />
-                        <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>{film.title}</span>
+                        <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>WATCH FILM</span>
                         <ArrowDown size={14} />
-                    </div>
+                    </button>
                 </div>
             </div>
 
@@ -89,15 +96,29 @@ const FilmDetail = () => {
 
                 {/* 1. Title Section (Top) */}
                 <div style={{ textAlign: 'center', margin: '12rem 0 4rem 0' }}>
-                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1rem' }}>{film.category} • {film.year}</div>
-                    <h1 style={{
-                        fontSize: '10vw',
-                        fontFamily: 'var(--font-serif)',
-                        textTransform: 'uppercase',
-                        lineHeight: 0.8,
-                        marginBottom: '2rem'
-                    }}>{film.title}</h1>
-                    <ArrowDown size={32} style={{ margin: '0 auto', display: 'block', opacity: 0.5 }} />
+                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '2.5rem' }}>{film.category} • {film.year}</div>
+                    {film.titleImage ? (
+                        <img
+                            src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
+                            alt={film.title}
+                            style={{
+                                width: '70%',
+                                maxWidth: '1000px',
+                                filter: 'brightness(0)', // Makes the PNG black
+                                opacity: 0.9,
+                                marginBottom: '2rem'
+                            }}
+                        />
+                    ) : (
+                        <h1 style={{
+                            fontSize: '10vw',
+                            fontFamily: 'var(--font-serif)',
+                            textTransform: 'uppercase',
+                            lineHeight: 0.8,
+                            marginBottom: '2rem'
+                        }}>{film.title}</h1>
+                    )}
+                    <ArrowDown size={32} style={{ margin: '3rem auto 0 auto', display: 'block', opacity: 0.5 }} />
                 </div>
 
                 {/* Divider Line */}
@@ -111,25 +132,38 @@ const FilmDetail = () => {
 
                 {/* 3. Credits Grid */}
                 <div style={{ marginBottom: '6rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid #000' }}>
-                        <CreditBlock role="Director & Screenwriter" name={film.director || "Mani PKV"} inverse />
-                        <CreditBlock role="DOP" name={film.credits?.["Director of Photography"] || "Sarah Jenkins"} inverse />
+                    {/* Top line: Director only */}
+                    <div style={{ borderBottom: '1px solid #000' }}>
+                        <CreditBlock role="Director" name={film.director || "Mani PKV"} inverse />
                     </div>
-                    {film.credits && (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderBottom: '1px dashed #333' }}>
-                            {Object.entries(film.credits)
-                                .filter(([role]) => role !== "Director of Photography")
-                                .map(([role, name], idx) => (
-                                    <div key={idx} style={{ borderRight: (idx + 1) % 3 === 0 ? 'none' : '1px dashed #333' }}>
-                                        <CreditBlock role={role} name={name} />
-                                    </div>
-                                ))}
+                    {/* Bottom line: All other credits */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        borderBottom: '1px dashed #333'
+                    }}>
+                        {film.credits && Object.entries(film.credits).map(([role, name], idx) => (
+                            <div key={idx} style={{
+                                borderRight: '1px dashed #333',
+                                borderBottom: '1px dashed #333'
+                            }}>
+                                <CreditBlock role={role} name={name} />
+                            </div>
+                        ))}
+                        {/* Fallback for role if not in credits object explicitly */}
+                        {film.role && !film.credits?.["Role"] && (
+                            <div style={{ borderRight: '1px dashed #333', borderBottom: '1px dashed #333' }}>
+                                <CreditBlock role="Role" name={film.role} />
+                            </div>
+                        )}
+                        <div style={{ borderBottom: '1px dashed #333' }}>
+                            <CreditBlock role="Year" name={film.year} />
                         </div>
-                    )}
+                    </div>
                 </div>
 
                 {/* 4. Hero Video / Trailer */}
-                <div style={{ padding: '2rem 0', marginBottom: '6rem' }}>
+                <div id="watch-film" style={{ padding: '2rem 0', marginBottom: '6rem' }}>
                     <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: '2rem' }}>Watch Film</h3>
                     <div style={{
                         position: 'relative',
