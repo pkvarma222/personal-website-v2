@@ -5,51 +5,45 @@ import '../styles/RayRayGallery.css'
 const DESIGNS = [
     {
         id: 1,
-        title: "Vogue Redesign",
+        title: "Knock Knock Bang",
         category: "Posters",
-        image: "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=2670&auto=format&fit=crop",
-        client: "Vogue",
-        orientation: "landscape"
+        image: "/assets/design-assets/Knock-Knock-Bang-Poster-2.jpg",
+        client: "Self"
     },
     {
         id: 2,
-        title: "Abstract Forms",
-        category: "Logos",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
-        client: "Art Collective",
-        orientation: "portrait"
+        title: "Fork",
+        category: "Posters",
+        image: "/assets/design-assets/Fork-poster.jpg",
+        client: "Self"
     },
     {
         id: 3,
         title: "Tech Corp",
         category: "Logos",
         image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2574&auto=format&fit=crop",
-        client: "Tech Corp",
-        orientation: "landscape"
+        client: "Tech Corp"
     },
     {
         id: 4,
         title: "Fashion Week",
         category: "Posters",
         image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2574&auto=format&fit=crop",
-        client: "Mode",
-        orientation: "portrait"
+        client: "Mode"
     },
     {
         id: 5,
         title: "Future UI",
         category: "Logos",
         image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
-        client: "UI Lab",
-        orientation: "landscape"
+        client: "UI Lab"
     },
     {
         id: 6,
         title: "Minimalist Poster",
         category: "Posters",
         image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2564&auto=format&fit=crop",
-        client: "Studio 4",
-        orientation: "portrait"
+        client: "Studio 4"
     }
 ]
 
@@ -204,7 +198,7 @@ const Card = ({ design, index, total, progress }) => {
 
     return (
         <motion.div
-            className={`rayray-card ${design.orientation} ${activeClass}`}
+            className={`rayray-card ${activeClass}`}
             style={{
                 left: "50%",
                 top: "50%",
