@@ -159,16 +159,16 @@ const Card = ({ design, index, total, progress }) => {
         [-Math.PI, 0, Math.PI]
     )
 
-    // Increase X offset to 35vw and Z depth to 800 to create more room
+    // Reduced Z depth to 600 to bring items tighter together in the corkscrew
     const offsetX = useTransform(angle, a => Math.sin(a) * 35) // raw number for vw
-    const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
+    const z = useTransform(angle, a => Math.cos(a) * 600 - 600)
     const rotateY = useTransform(angle, a => (a * 90) / Math.PI)
 
-    // Increased range to 500vh for even more vertical clearance
+    // Reduced range to 350vh to close the vertical gaps while maintaining spiral order
     const offsetY = useTransform(
         progress,
         [centerPoint - 1, centerPoint, centerPoint + 1],
-        [500, 0, -500] // raw number for vh
+        [350, 0, -350] // raw number for vh
     )
 
     const opacity = useTransform(
