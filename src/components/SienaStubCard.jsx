@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { resolveAssetPath } from '../utils/paths';
 
-const SienaStubCard = ({ film, index }) => {
+const SienaStubCard = ({ item, index }) => {
     const navigate = useNavigate();
 
     return (
@@ -17,61 +17,61 @@ const SienaStubCard = ({ film, index }) => {
             {/* Background Image */}
             <div className="stub-image-container">
                 <img
-                    src={resolveAssetPath(film.image)}
-                    alt={film.title}
+                    src={resolveAssetPath(item.image)}
+                    alt={item.title}
                     className="stub-bg-image"
                 />
             </div>
-
-            {/* Ticket Badge REMOVED - it's now fixed in parent */}
 
             {/* Content Overlay */}
             <div className="stub-content">
                 {/* Left Side: Main Info */}
                 <div className="stub-main-info">
-                    <span className="stub-category">{film.category}</span>
-                    {film.titleImage ? (
+                    <span className="stub-category">{item.category}</span>
+                    {item.titleImage ? (
                         <img
-                            src={resolveAssetPath(film.titleImage)}
-                            alt={film.title}
+                            src={resolveAssetPath(item.titleImage)}
+                            alt={item.title}
                             className="stub-title-image"
                         />
                     ) : (
-                        <h2 className="stub-title">{film.title}</h2>
+                        <h2 className="stub-title">{item.title}</h2>
                     )}
 
                     <div className="stub-meta-grid">
                         <div className="meta-item">
-                            <label>Director</label>
-                            <span>{film.director || "Unknown"}</span>
+                            <label>{item.director ? 'Director' : 'Client'}</label>
+                            <span>{item.director || item.client || "Self-Initiated"}</span>
                         </div>
-                        <div className="meta-item">
+                        <div className="meta-item" style={{ visibility: item.year ? 'visible' : 'hidden' }}>
                             <label>Year</label>
-                            <span>{film.year}</span>
+                            <span>{item.year || "2024"}</span>
                         </div>
                         <div className="meta-item">
                             <label>Role</label>
-                            <span>{film.role || "Creative"}</span>
+                            <span>{item.role || "Lead Designer"}</span>
                         </div>
-                        <div className="meta-item">
+                        <div className="meta-item" style={{ visibility: item.duration ? 'visible' : 'hidden' }}>
                             <label>Duration</label>
-                            <span>{film.duration || "N/A"}</span>
+                            <span>{item.duration || "N/A"}</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Side: Acclaim & Action */}
                 <div className="stub-acclaim-column">
-                    {film.acclaim && film.acclaim.map((item, idx) => (
+                    {item.acclaim && item.acclaim.map((acclaimItem, idx) => (
                         <div className="acclaim-item" key={idx}>
-                            <div className="stars">{item.stars}</div>
-                            <div className="quote">"{item.quote}"</div>
+                            <div className="stars">{acclaimItem.stars}</div>
+                            <div className="quote">"{acclaimItem.quote}"</div>
                         </div>
                     ))}
 
-                    <button className="explore-btn" onClick={() => navigate(`/film/${film.id}`)}>
-                        Explore <ArrowRight size={16} />
-                    </button>
+                    {item.id && (
+                        <button className="explore-btn" onClick={() => navigate(item.director ? `/film/${item.id}` : `/design/${item.id}`)}>
+                            Explore <ArrowRight size={16} />
+                        </button>
+                    )}
                 </div>
             </div>
         </motion.div>

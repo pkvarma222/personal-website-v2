@@ -1,0 +1,197 @@
+/* RayRayLab-inspired 3D Carousel Styles */
+
+.rayray-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    background-color: #1e1e1e;
+    /* Filmmaker Dark Bg */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 2000px;
+    /* 3D Perspective */
+}
+
+.rayray-header {
+    position: absolute;
+    top: 5vh;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    pointer-events: none;
+    /* Let scroll pass through to proxy */
+}
+
+.rayray-header h1 {
+    font-family: var(--font-wide);
+    font-size: 5vw;
+    color: #fdfcf0;
+    /* Cream Text */
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.rayray-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    perspective-origin: center 50%;
+    overflow: visible;
+}
+
+/* Scrollable Proxy - Captures Scroll without visible scrollbar */
+.rayray-scroll-proxy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    z-index: 50;
+}
+
+.rayray-scroll-proxy::-webkit-scrollbar {
+    display: none;
+}
+
+.rayray-scroll-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.scroll-anchor {
+    flex: 0 0 200vh;
+    scroll-snap-align: center;
+    width: 100%;
+}
+
+.rayray-card {
+    position: absolute;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+    transform-origin: center;
+    pointer-events: auto;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rayray-card.landscape {
+    width: 70vw;
+    max-width: 900px;
+    height: 45vh;
+}
+
+.rayray-card.portrait {
+    width: 35vw;
+    max-width: 450px;
+    height: 70vh;
+}
+
+.rayray-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8);
+    transition: filter 0.5s ease;
+}
+
+.rayray-card.active img {
+    filter: brightness(1);
+    transform: scale(1.05);
+}
+
+.rayray-card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 3rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: #fdfcf0;
+    font-family: var(--font-sans);
+}
+
+.rayray-card-category {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.rayray-card-title {
+    font-family: var(--font-wide);
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 0.9;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    color: var(--color-text-primary);
+}
+
+.rayray-footer {
+    position: absolute;
+    bottom: 5vh;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    z-index: 100;
+    pointer-events: none;
+    /* Let scroll pass through */
+}
+
+.rayray-nav-item {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: #fdfcf0;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    pointer-events: auto;
+    /* Re-enable for clicking if needed */
+}
+
+.rayray-nav-item.active {
+    opacity: 1;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .rayray-card {
+        width: 85vw;
+        height: 60vh;
+    }
+
+    .rayray-card-title {
+        font-size: 1.5rem;
+    }
+
+    .rayray-header h1 {
+        font-size: 10vw;
+    }
+}
