@@ -165,11 +165,11 @@ const Card = ({ design, index, total, progress }) => {
     const z = useTransform(angle, a => Math.cos(a) * 600 - 600)
     const rotateY = useTransform(angle, a => (a * 90) / Math.PI)
 
-    // Reduced range: 300vh is a good middle ground for spacing
+    // Increased range to 400vh for more vertical clearance
     const offsetY = useTransform(
         progress,
         [centerPoint - 1, centerPoint, centerPoint + 1],
-        [300, 0, -300] // raw number for vh
+        [400, 0, -400] // raw number for vh
     )
 
     const opacity = useTransform(
@@ -212,17 +212,6 @@ const Card = ({ design, index, total, progress }) => {
             }}
         >
             <img src={design.image} alt={design.title} />
-            <div className="rayray-card-info">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                    <div>
-                        <span className="rayray-card-category">{design.category}</span>
-                        <h2 className="rayray-card-title">{design.title}</h2>
-                        <div style={{ marginTop: '0.5rem', opacity: 0.6, fontSize: '0.9rem', fontFamily: 'var(--font-sans)', letterSpacing: '0.1em' }}>
-                            CLIENT // {design.client}
-                        </div>
-                    </div>
-                </div>
-            </div>
         </motion.div>
     )
 }
