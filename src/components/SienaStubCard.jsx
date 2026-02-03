@@ -16,7 +16,7 @@ const SienaStubCard = ({ film, index }) => {
             {/* Background Image */}
             <div className="stub-image-container">
                 <img
-                    src={film.image}
+                    src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.startsWith('/') ? film.image.slice(1) : film.image}`}
                     alt={film.title}
                     className="stub-bg-image"
                 />

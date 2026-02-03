@@ -87,7 +87,7 @@ const FilmDetail = () => {
                             fontFamily: 'inherit'
                         }}
                     >
-                        <img src={film.image} alt="" style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }} />
+                        <img src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.startsWith('/') ? film.image.slice(1) : film.image}`} alt="" style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }} />
                         <span style={{ textTransform: 'uppercase', fontWeight: 600 }}>WATCH FILM</span>
                         <ArrowDown size={14} />
                     </button>
@@ -191,7 +191,7 @@ const FilmDetail = () => {
                             />
                         ) : (
                             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                                <img src={film.image} alt={film.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <img src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.startsWith('/') ? film.image.slice(1) : film.image}`} alt={film.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 <div style={{
                                     position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                                     display: 'flex', flexDirection: 'column', alignItems: 'center', color: '#fff'
