@@ -27,8 +27,9 @@ export const FILMS = [
         description: "A voicemail from a stranger leads to an unexpected journey of self-discovery and connection in the digital age.",
         trailerUrl: "https://www.youtube.com/embed/UnWksO4qxRs?autoplay=0&controls=1&showinfo=0",
         credits: {
-            "Director of Photography": "Manthena Pramod Kumar Varma",
-            "Cast": "Karthik Gannamaneni, Yasaswini"
+            "Writer - Director - Editor - Sound Designer - Cinematographer": "Manthena Pramod Kumar Varma",
+            "Cast": "Karthik Gannamaneni, Yasaswini",
+            "Music from": "Envato Elements"
         },
         stills: [
             "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1200",
@@ -50,26 +51,11 @@ export const FILMS = [
             { stars: "JURY AWARD", quote: "Campus Movie Fest" },
             { stars: "Best Film, Cinematography, Editing, Actor", quote: "RPB UF : CMF Premiere" }
         ],
-        description: "An ethereal music video capturing the warmth and light of human connection.",
+        description: "An ethereal music video capturing the warmth and light of human connection. Created during Campus MovieFest 2021, this film explores the resonance of memories and the light we leave behind.",
         credits: {
-            "Cast": "Tati Sree Sai Teja, Manthena Pramod Kumar Varma"
-        },
-        stills: []
-    },
-    {
-        id: "finds-you",
-        title: "Finds You",
-        titleImage: "/assets/film-assets/Finds You/title.png",
-        category: "Short",
-        year: "2020",
-        image: "/assets/film-assets/Finds You/backgroundImage.png",
-        director: "Manthena Pramod Kumar Varma",
-        role: "Writer, Director, Editor",
-        duration: "05:30",
-        acclaim: [],
-        description: "A visually stunning exploration of finding oneself in the most unexpected places.",
-        credits: {
-            "Cast": "Sreya Peddina, Karthik Gannamaneni"
+            "Writer - Director - Editor - Sound Designer": "Manthena Pramod Kumar Varma",
+            "Cast": "Tati Sree Sai Teja, Pramod",
+            "Music from": "Envato Elements"
         },
         stills: []
     },
@@ -84,13 +70,33 @@ export const FILMS = [
         role: "Writer, Director, Editor, Sound Designer",
         duration: "12:00",
         acclaim: [
-            { stars: "Best Editing", quote: "VJ Filmmania 2022" }
+            { stars: "Best Editing", quote: "VJ Filmmania" }
         ],
         description: "A fast-paced genre mashup that keeps you on your toes.",
+        trailerUrl: "https://www.youtube.com/embed/W9n_1i4j7-k?autoplay=0&controls=1&showinfo=0",
         credits: {
-            "Director of Photography": "Sree Mahesh Reddy Kurri",
-            "Co - Director of Photography": "Arjun Reddy CV",
-            "Cast": "Tarun Guntaka, Gowtham Kopisetti, Manoj Korrapati, Prudhvi Krishna, Arjun Reddy CV, Mahesh Reddy Kurri"
+            "Writer - Director - Editor - Sound Designer": "Manthena Pramod Kumar Varma",
+            "Director of Photography": "Sree Mahesh Reddy Kurri, Arjun Reddy CV",
+            "Cast": "Tarun, Gowtham, Manoj, Prudhvi Krishna, Arjun Reddy, Mahesh Reddy",
+        },
+        stills: []
+    },
+    {
+        id: "finds-you",
+        title: "Finds You",
+        titleImage: "/assets/film-assets/Finds You/title.png",
+        category: "Short",
+        year: "2020",
+        image: "/assets/film-assets/Finds You/backgroundImage.png",
+        director: "Manthena Pramod Kumar Varma",
+        role: "Writer, Director, Editor",
+        duration: "05:30",
+        acclaim: [],
+        description: "A visually stunning exploration of finding oneself in the most unexpected places. This short film captures the quiet beauty of serendipitous moments.",
+        credits: {
+            "Director": "Manthena Pramod Kumar Varma",
+            "Cast": "Sreya Peddina, Karthik Gannamaneni",
+            "Music from": "Epidemic Sound"
         },
         stills: []
     }

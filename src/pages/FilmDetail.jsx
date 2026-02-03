@@ -8,7 +8,8 @@ import '../styles/SienaGallery.css';
 const FilmDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const film = FILMS.find(f => f.id === parseInt(id));
+    const film = FILMS.find(f => f.id.toString() === id.toString());
+    const [imageError, setImageError] = React.useState(false);
 
     useEffect(() => {
         // Force scroll to top of the container
@@ -16,6 +17,7 @@ const FilmDetail = () => {
         if (container) {
             container.scrollTop = 0;
         }
+        setImageError(false); // Reset error state when ID changes
     }, [id]);
 
     if (!film) {
@@ -97,17 +99,20 @@ const FilmDetail = () => {
                 {/* 1. Title Section (Top) */}
                 <div style={{ textAlign: 'center', margin: '10rem 0 3rem 0' }}>
                     <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1.5rem' }}>{film.category} • {film.year}</div>
-                    {film.titleImage ? (
+                    {(film.titleImage && !imageError) ? (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <img
                                 src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
                                 alt={film.title}
+                                onError={() => setImageError(true)}
                                 style={{
-                                    width: '40%',
-                                    maxWidth: '600px',
+                                    height: '25vh',
+                                    width: 'auto',
+                                    maxWidth: '90vw',
                                     filter: 'brightness(0)',
                                     opacity: 0.9,
-                                    marginBottom: '1rem'
+                                    marginBottom: '2rem',
+                                    objectFit: 'contain'
                                 }}
                             />
                         </div>
@@ -127,16 +132,23 @@ const FilmDetail = () => {
                 <div style={{ width: '100%', height: '1px', backgroundColor: '#000', marginBottom: '4rem' }}></div>
 
                 {/* 2. Synopsis */}
-                <div style={{ maxWidth: '800px', margin: '0 0 6rem 0', fontSize: '1.5rem', lineHeight: 1.6 }}>
+                <div style={{ width: '100%', margin: '0 0 6rem 0', fontSize: '1.5rem', lineHeight: 1.6 }}>
                     <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: '2rem' }}>Synopsis</h3>
                     {film.description}
                 </div>
 
                 {/* 3. Credits Grid */}
                 <div style={{ marginBottom: '6rem' }}>
-                    {/* Top line: Director only */}
+                    {/* Top line: Dynamic first credit from object, or fallback to Director */}
                     <div style={{ borderBottom: '1px solid #000' }}>
-                        <CreditBlock role="Director" name={film.director || "Mani PKV"} inverse />
+                        {film.credits && Object.entries(film.credits).length > 0 ? (
+                            (() => {
+                                const [role, name] = Object.entries(film.credits)[0];
+                                return <CreditBlock role={role} name={name} inverse />;
+                            })()
+                        ) : (
+                            <CreditBlock role="Director" name={film.director || "Mani PKV"} inverse />
+                        )}
                     </div>
                     {/* Bottom line: All other credits */}
                     <div style={{
@@ -144,7 +156,7 @@ const FilmDetail = () => {
                         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                         borderBottom: '1px dashed #333'
                     }}>
-                        {film.credits && Object.entries(film.credits).map(([role, name], idx) => (
+                        {film.credits && Object.entries(film.credits).slice(1).map(([role, name], idx) => (
                             <div key={idx} style={{
                                 borderRight: '1px dashed #333',
                                 borderBottom: '1px dashed #333'
