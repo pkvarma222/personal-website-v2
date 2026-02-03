@@ -6,7 +6,7 @@ const DESIGNS = [
     {
         id: 1,
         title: "Vogue Redesign",
-        category: "Editorial",
+        category: "Posters",
         image: "https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=2670&auto=format&fit=crop",
         client: "Vogue",
         orientation: "landscape"
@@ -14,7 +14,7 @@ const DESIGNS = [
     {
         id: 2,
         title: "Abstract Forms",
-        category: "Graphics",
+        category: "Logos",
         image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
         client: "Art Collective",
         orientation: "portrait"
@@ -22,7 +22,7 @@ const DESIGNS = [
     {
         id: 3,
         title: "Tech Corp",
-        category: "Branding",
+        category: "Logos",
         image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2574&auto=format&fit=crop",
         client: "Tech Corp",
         orientation: "landscape"
@@ -30,7 +30,7 @@ const DESIGNS = [
     {
         id: 4,
         title: "Fashion Week",
-        category: "Event",
+        category: "Posters",
         image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2574&auto=format&fit=crop",
         client: "Mode",
         orientation: "portrait"
@@ -38,7 +38,7 @@ const DESIGNS = [
     {
         id: 5,
         title: "Future UI",
-        category: "Web Design",
+        category: "Logos",
         image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
         client: "UI Lab",
         orientation: "landscape"
@@ -46,7 +46,7 @@ const DESIGNS = [
     {
         id: 6,
         title: "Minimalist Poster",
-        category: "Print",
+        category: "Posters",
         image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2564&auto=format&fit=crop",
         client: "Studio 4",
         orientation: "portrait"
@@ -55,6 +55,12 @@ const DESIGNS = [
 
 const DesignGallery = () => {
     const containerRef = useRef(null)
+    const [filter, setFilter] = React.useState('All')
+
+    const filteredDesigns = filter === 'All'
+        ? DESIGNS
+        : DESIGNS.filter(d => d.category === filter)
+
     const { scrollYProgress } = useScroll({
         container: containerRef,
     })
@@ -80,13 +86,27 @@ const DesignGallery = () => {
                 </motion.h1>
             </div>
 
+            <div className="rayray-sidebar">
+                <div className="filter-group">
+                    {['All', 'Logos', 'Posters'].map(cat => (
+                        <button
+                            key={cat}
+                            className={`filter-btn ${filter === cat ? 'active' : ''}`}
+                            onClick={() => setFilter(cat)}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <div className="rayray-carousel">
-                {DESIGNS.map((design, index) => (
+                {filteredDesigns.map((design, index) => (
                     <Card
                         key={design.id}
                         design={design}
                         index={index}
-                        total={DESIGNS.length}
+                        total={filteredDesigns.length}
                         progress={smoothProgress}
                     />
                 ))}
@@ -94,8 +114,8 @@ const DesignGallery = () => {
 
             {/* Scroll Proxy */}
             <div className="rayray-scroll-proxy" ref={containerRef}>
-                <div className="rayray-scroll-content" style={{ height: `${DESIGNS.length * 200}vh` }}>
-                    {DESIGNS.map((_, i) => (
+                <div className="rayray-scroll-content" style={{ height: `${filteredDesigns.length * 200}vh` }}>
+                    {filteredDesigns.map((_, i) => (
                         <div key={i} className="scroll-anchor" style={{ height: '200vh' }} />
                     ))}
                 </div>
@@ -103,15 +123,15 @@ const DesignGallery = () => {
 
             {/* Footer Navigation */}
             <div className="rayray-footer">
-                {DESIGNS.map((design, i) => (
+                {filteredDesigns.map((design, i) => (
                     <NavItem
                         key={design.id}
                         index={i}
+                        total={filteredDesigns.length}
                         progress={smoothProgress}
                         image={design.image}
                         onClick={() => {
                             if (containerRef.current) {
-                                // 200vh is the anchor height
                                 const targetScroll = i * (containerRef.current.clientHeight * 2);
                                 containerRef.current.scrollTo({
                                     top: targetScroll,
@@ -213,8 +233,7 @@ const Card = ({ design, index, total, progress }) => {
     )
 }
 
-const NavItem = ({ index, progress, image, onClick }) => {
-    const total = DESIGNS.length
+const NavItem = ({ index, total, progress, image, onClick }) => {
     const centerPoint = index / (total - 1 || 1)
 
     // Highlight if near center

@@ -93,7 +93,7 @@ const FilmGallery = () => {
                 {FILMS.map((film, index) => (
                     <SienaStubCard
                         key={film.id}
-                        film={film}
+                        item={film}
                         index={index}
                     />
                 ))}
