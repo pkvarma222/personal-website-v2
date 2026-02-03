@@ -95,20 +95,22 @@ const FilmDetail = () => {
             <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 2rem' }}>
 
                 {/* 1. Title Section (Top) */}
-                <div style={{ textAlign: 'center', margin: '12rem 0 4rem 0' }}>
-                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '2.5rem' }}>{film.category} • {film.year}</div>
+                <div style={{ textAlign: 'center', margin: '10rem 0 3rem 0' }}>
+                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1.5rem' }}>{film.category} • {film.year}</div>
                     {film.titleImage ? (
-                        <img
-                            src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
-                            alt={film.title}
-                            style={{
-                                width: '70%',
-                                maxWidth: '1000px',
-                                filter: 'brightness(0)', // Makes the PNG black
-                                opacity: 0.9,
-                                marginBottom: '2rem'
-                            }}
-                        />
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <img
+                                src={film.titleImage.startsWith('http') ? film.titleImage : `${import.meta.env.BASE_URL}${film.titleImage.startsWith('/') ? film.titleImage.slice(1) : film.titleImage}`}
+                                alt={film.title}
+                                style={{
+                                    width: '40%',
+                                    maxWidth: '600px',
+                                    filter: 'brightness(0)',
+                                    opacity: 0.9,
+                                    marginBottom: '1rem'
+                                }}
+                            />
+                        </div>
                     ) : (
                         <h1 style={{
                             fontSize: '10vw',
@@ -118,7 +120,7 @@ const FilmDetail = () => {
                             marginBottom: '2rem'
                         }}>{film.title}</h1>
                     )}
-                    <ArrowDown size={32} style={{ margin: '3rem auto 0 auto', display: 'block', opacity: 0.5 }} />
+                    <ArrowDown size={32} style={{ margin: '2rem auto 0 auto', display: 'block', opacity: 0.5 }} />
                 </div>
 
                 {/* Divider Line */}
@@ -150,15 +152,6 @@ const FilmDetail = () => {
                                 <CreditBlock role={role} name={name} />
                             </div>
                         ))}
-                        {/* Fallback for role if not in credits object explicitly */}
-                        {film.role && !film.credits?.["Role"] && (
-                            <div style={{ borderRight: '1px dashed #333', borderBottom: '1px dashed #333' }}>
-                                <CreditBlock role="Role" name={film.role} />
-                            </div>
-                        )}
-                        <div style={{ borderBottom: '1px dashed #333' }}>
-                            <CreditBlock role="Year" name={film.year} />
-                        </div>
                     </div>
                 </div>
 
