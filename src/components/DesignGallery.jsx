@@ -7,43 +7,73 @@ const DESIGNS = [
         id: 1,
         title: "Knock Knock Bang",
         category: "Posters",
-        image: "/assets/design-assets/Knock-Knock-Bang-Poster-2.jpg",
-        client: "Self"
+        image: "/assets/design-assets/Knock-Knock-Bang-Poster-2.jpg"
     },
     {
         id: 2,
         title: "Fork",
         category: "Posters",
-        image: "/assets/design-assets/Fork-poster.jpg",
-        client: "Self"
+        image: "/assets/design-assets/Fork-poster.jpg"
     },
     {
         id: 3,
-        title: "Tech Corp",
+        title: "Draftica",
         category: "Logos",
-        image: "https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2574&auto=format&fit=crop",
-        client: "Tech Corp"
+        image: "/assets/design-assets/Draftica-Logo.png"
     },
     {
         id: 4,
-        title: "Fashion Week",
+        title: "The Batman",
         category: "Posters",
-        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2574&auto=format&fit=crop",
-        client: "Mode"
+        image: "/assets/design-assets/The-Batman.jpg"
     },
     {
         id: 5,
-        title: "Future UI",
-        category: "Logos",
-        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
-        client: "UI Lab"
+        title: "Avengers: Infinity War",
+        category: "Posters",
+        image: "/assets/design-assets/Avengers-Infinity-War-1.jpg"
     },
     {
         id: 6,
-        title: "Minimalist Poster",
+        title: "Ready Player One",
         category: "Posters",
-        image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2564&auto=format&fit=crop",
-        client: "Studio 4"
+        image: "/assets/design-assets/Ready-Player-One.jpg"
+    },
+    {
+        id: 7,
+        title: "Ninnu Cheraga",
+        category: "Posters",
+        image: "/assets/design-assets/Ninnu-Cheraga-Poster.jpg"
+    },
+    {
+        id: 8,
+        title: "Green Lantern",
+        category: "Posters",
+        image: "/assets/design-assets/Green-Lantern.jpg"
+    },
+    {
+        id: 9,
+        title: "Catwoman",
+        category: "Posters",
+        image: "/assets/design-assets/Haley-Bennet-Catwoman.jpg"
+    },
+    {
+        id: 10,
+        title: "Thanos",
+        category: "Posters",
+        image: "/assets/design-assets/Thanos.jpg"
+    },
+    {
+        id: 11,
+        title: "Spider-Man",
+        category: "Posters",
+        image: "/assets/design-assets/spiderman-homecoming-1.jpg"
+    },
+    {
+        id: 12,
+        title: "Poison Ivy",
+        category: "Posters",
+        image: "/assets/design-assets/stephanie-corneliussen-as poison-ivy.jpg"
     }
 ]
 
