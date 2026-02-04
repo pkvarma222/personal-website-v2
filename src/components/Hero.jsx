@@ -166,11 +166,12 @@ const Hero = () => {
                     }}
                 >
                     <motion.h1 style={{
-                        fontSize: '18vw',
+                        fontSize: '16.2vw',
                         fontFamily: 'var(--font-wide)',
                         fontWeight: 900,
                         color: 'transparent',
-                        WebkitTextStroke: '2px var(--color-accent)',
+                        WebkitTextStroke: '4px var(--color-accent)',
+                        paintOrder: 'stroke fill',
                         filter: 'drop-shadow(0 0 15px var(--color-accent-soft)) drop-shadow(0 0 2px rgba(0,0,0,0.1))',
                         lineHeight: 0.8,
                         margin: 0,
