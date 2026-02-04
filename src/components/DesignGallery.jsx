@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion'
+import { resolveAssetPath } from '../utils/paths'
 import '../styles/RayRayGallery.css'
 
 const DESIGNS = [
@@ -248,7 +249,7 @@ const Card = ({ design, centerPoint, progress }) => {
                 zIndex
             }}
         >
-            <img src={design.image} alt={design.title} />
+            <img src={resolveAssetPath(design.image)} alt={design.title} />
         </motion.div>
     )
 }
@@ -274,7 +275,7 @@ const NavItem = ({ centerPoint, progress, image, onClick }) => {
             style={{ opacity: 1, borderColor }}
             onClick={onClick}
         >
-            <img src={image} alt="" />
+            <img src={resolveAssetPath(image)} alt="" />
         </motion.div>
     )
 }

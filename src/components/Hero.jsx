@@ -3,6 +3,7 @@ import React, { useRef, useContext } from 'react'
 import { ArrowDown } from 'lucide-react'
 import { motion, useTransform, useMotionValue } from 'framer-motion'
 import { PageScrollContext } from './PageTransition'
+import { resolveAssetPath } from '../utils/paths'
 import '../styles/Hero.css'
 
 const Hero = () => {
@@ -187,7 +188,7 @@ const Hero = () => {
                     }}
                 >
                     <video
-                        src={`${import.meta.env.BASE_URL}assets/hero-reel.mp4?v=forced_refresh_1`}
+                        src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
                         autoPlay
                         loop
                         muted
@@ -214,7 +215,7 @@ const Hero = () => {
                     }}
                 >
                     <video
-                        src={`${import.meta.env.BASE_URL}assets/hero-reel.mp4?v=forced_refresh_1`}
+                        src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
                         autoPlay
                         loop
                         muted
