@@ -1,19 +1,18 @@
 .status-banner {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 20px;
+    right: 20px;
     z-index: 9999;
-    background-color: rgba(245, 158, 11, 0.15);
+    background-color: rgba(245, 158, 11, 0.1);
     /* Semi-transparent amber */
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(245, 158, 11, 0.3);
-    padding: 8px 0;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 6px 12px;
+    border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
     pointer-events: none;
-    /* Allow clicking through if necessary, or remove if interaction is needed */
 }
 
 .status-banner-content {
