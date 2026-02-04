@@ -1,0 +1,55 @@
+.status-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: rgba(245, 158, 11, 0.15);
+    /* Semi-transparent amber */
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /* Allow clicking through if necessary, or remove if interaction is needed */
+}
+
+.status-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f59e0b;
+    /* Amber */
+    font-family: var(--font-wide);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.9;
+}
+
+.warning-icon {
+    filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
+}
+
+/* Add an animation to make it feel a bit more "active" */
+@keyframes pulse-subtle {
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.status-banner-content {
+    animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+/* Push navigation or content down if needed, but since it's subtle and small, 
+   we might just let it overlay or add padding to the top of the main container. */
