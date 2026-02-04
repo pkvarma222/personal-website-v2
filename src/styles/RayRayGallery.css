@@ -12,8 +12,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    perspective: 2000px;
-    /* 3D Perspective */
+    perspective: 1200px;
+    /* More dramatic 3D Perspective */
 }
 
 .rayray-header {

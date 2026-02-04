@@ -216,40 +216,41 @@ const Card = ({ design, centerPoint, progress }) => {
     )
 
     // Calculate spiral angle based on progress relative to centerPoint
+    // Tightened range from 1 to 0.4 for more aggressive curve per step
     const angle = useTransform(
         progress,
-        [centerPoint - 1, centerPoint, centerPoint + 1],
-        [-Math.PI * 2, 0, Math.PI * 2]
+        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
+        [-Math.PI, 0, Math.PI]
     )
 
-    // Increased Z depth to 800 for more 3D parallax
-    const offsetX = useTransform(angle, a => Math.sin(a) * 40) // raw number for vw
-    const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
-    const rotateY = useTransform(angle, a => (a * 110) / Math.PI)
+    // Increased Z depth and X offset for more cylindrical feel
+    const offsetX = useTransform(angle, a => Math.sin(a) * 45) // raw number for vw
+    const z = useTransform(angle, a => Math.cos(a) * 1000 - 1000)
+    const rotateY = useTransform(angle, a => (a * 150) / Math.PI) // Steeper rotation
 
-    // Increased vertical travel to 800vh to ensure separation during tighter rotation
+    // Tightened vertical travel to keep spiral dense
     const offsetY = useTransform(
         progress,
-        [centerPoint - 1, centerPoint, centerPoint + 1],
-        [800, 0, -800] // raw number for vh
+        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
+        [600, 0, -600] // raw number for vh
     )
 
     const opacity = useTransform(
         progress,
-        [centerPoint - 0.6, centerPoint - 0.3, centerPoint + 0.3, centerPoint + 0.6],
+        [centerPoint - 0.3, centerPoint - 0.15, centerPoint + 0.15, centerPoint + 0.3],
         [0, 1, 1, 0]
     )
 
     const scale = useTransform(
         progress,
-        [centerPoint - 0.6, centerPoint, centerPoint + 0.6],
-        [0.6, 1, 0.6]
+        [centerPoint - 0.3, centerPoint, centerPoint + 0.3],
+        [0.5, 1, 0.5]
     )
 
     // Check if this card is currently in focus
     const isActive = useTransform(
         progress,
-        [centerPoint - 0.1, centerPoint, centerPoint + 0.1],
+        [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
         [false, true, false]
     )
 
