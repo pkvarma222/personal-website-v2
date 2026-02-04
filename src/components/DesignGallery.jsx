@@ -78,6 +78,8 @@ const DESIGNS = [
     }
 ]
 
+const LogoBackdrop = React.lazy(() => import('./LogoBackdrop'))
+
 const DesignGallery = () => {
     const containerRef = useRef(null)
     const [filter, setFilter] = React.useState('All')
@@ -90,9 +92,9 @@ const DesignGallery = () => {
         container: containerRef,
     })
 
-    // Smooth scroll progress
+    // Snappier scroll progress
     const smoothProgress = useSpring(scrollYProgress, {
-        stiffness: 80,
+        stiffness: 120,
         damping: 40,
         restDelta: 0.001
     })
@@ -100,7 +102,7 @@ const DesignGallery = () => {
     const weightedDesigns = React.useMemo(() => {
         let cumulative = 0;
         return filteredDesigns.map((design) => {
-            const weight = 2.5;
+            const weight = 0.625;
             const start = cumulative;
             cumulative += weight;
             return { ...design, weight, start, center: start + weight / 2 };
@@ -116,8 +118,13 @@ const DesignGallery = () => {
     const firstCenter = weightedDesigns.length > 0 ? weightedDesigns[0].center / GALLERY_CAPACITY_REF : 0;
     const lastCenter = weightedDesigns.length > 0 ? weightedDesigns[weightedDesigns.length - 1].center / GALLERY_CAPACITY_REF : 0;
 
-    // Map the 0-1 scroll progress to firstCenter-lastCenter
-    const activeProgress = useTransform(smoothProgress, [0, 1], [firstCenter, lastCenter]);
+    // Map the 0-1 scroll progress to firstCenter-lastCenter with non-linear speed ramps
+    // Calibrated for high density (0.625 weight): 2% ramp, 0.05 visibility buffer
+    const activeProgress = useTransform(
+        smoothProgress,
+        [0, 0.02, 0.98, 1],
+        [firstCenter - 0.05, firstCenter, lastCenter, lastCenter + 0.05]
+    );
 
     // Reset scroll on filter change
     React.useEffect(() => {
@@ -128,6 +135,11 @@ const DesignGallery = () => {
 
     return (
         <section className="rayray-container">
+            {/* 3D Backdrop Layer */}
+            <React.Suspense fallback={null}>
+                <LogoBackdrop />
+            </React.Suspense>
+
             {/* Background Grain/Texture (Inherited from App) */}
 
             <div className="rayray-header">
@@ -161,16 +173,39 @@ const DesignGallery = () => {
                         design={design}
                         centerPoint={design.center / GALLERY_CAPACITY_REF}
                         progress={activeProgress}
+                        onClick={() => {
+                            if (containerRef.current) {
+                                const targetActiveProgress = design.center / GALLERY_CAPACITY_REF;
+
+                                // Piece-wise inverse calculation for high density mapping
+                                let scrollProgress;
+                                if (targetActiveProgress < firstCenter) {
+                                    scrollProgress = ((targetActiveProgress - (firstCenter - 0.05)) / 0.05) * 0.02;
+                                } else if (targetActiveProgress > lastCenter) {
+                                    scrollProgress = 0.98 + ((targetActiveProgress - lastCenter) / 0.05) * 0.02;
+                                } else {
+                                    scrollProgress = 0.02 + ((targetActiveProgress - firstCenter) / (lastCenter - firstCenter || 1)) * 0.96;
+                                }
+
+                                const maxScroll = containerRef.current.scrollHeight - containerRef.current.clientHeight;
+                                containerRef.current.scrollTo({
+                                    top: scrollProgress * maxScroll,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }}
                     />
                 ))}
             </div>
 
             {/* Scroll Proxy */}
             <div className="rayray-scroll-proxy" ref={containerRef}>
-                <div className="rayray-scroll-content" style={{ height: `${totalWeight * 200}vh` }}>
+                <div className="rayray-scroll-content" style={{ height: `${(totalWeight + 2) * 80}vh` }}>
                     {weightedDesigns.map((_, i) => (
-                        <div key={i} className="scroll-anchor" style={{ height: `${weightedDesigns[i].weight * 200}vh` }} />
+                        <div key={i} className="scroll-anchor" style={{ height: `${weightedDesigns[i].weight * 80}vh` }} />
                     ))}
+                    {/* Extra space to scroll past last card */}
+                    <div style={{ height: '160vh' }} />
                 </div>
             </div>
 
@@ -185,11 +220,16 @@ const DesignGallery = () => {
                         onClick={() => {
                             if (containerRef.current) {
                                 const targetActiveProgress = design.center / GALLERY_CAPACITY_REF;
-                                // Inverse of activeProgress transform: 
-                                // scrollProgress = (activeProgress - firstCenter) / (lastCenter - firstCenter)
-                                const scrollProgress = Math.abs(firstCenter - lastCenter) < 0.001
-                                    ? 0
-                                    : (targetActiveProgress - firstCenter) / (lastCenter - firstCenter);
+
+                                // Piece-wise inverse calculation for high density mapping
+                                let scrollProgress;
+                                if (targetActiveProgress < firstCenter) {
+                                    scrollProgress = ((targetActiveProgress - (firstCenter - 0.05)) / 0.05) * 0.02;
+                                } else if (targetActiveProgress > lastCenter) {
+                                    scrollProgress = 0.98 + ((targetActiveProgress - lastCenter) / 0.05) * 0.02;
+                                } else {
+                                    scrollProgress = 0.02 + ((targetActiveProgress - firstCenter) / (lastCenter - firstCenter || 1)) * 0.96;
+                                }
 
                                 const maxScroll = containerRef.current.scrollHeight - containerRef.current.clientHeight;
                                 containerRef.current.scrollTo({
@@ -205,7 +245,7 @@ const DesignGallery = () => {
     )
 }
 
-const Card = ({ design, centerPoint, progress }) => {
+const Card = ({ design, centerPoint, progress, onClick }) => {
 
     // Transforms based on progress
     // We want the card to be at center when progress === centerPoint
@@ -215,11 +255,10 @@ const Card = ({ design, centerPoint, progress }) => {
         [1, 10, 1]
     )
 
-    // Calculate spiral angle based on progress relative to centerPoint
-    // HIGH FREQUENCY helical wrap: ~160 degrees on each side
+    // Calibrated for ultra-dense spacing (weight 0.625)
     const angle = useTransform(
         progress,
-        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
+        [centerPoint - 0.08, centerPoint, centerPoint + 0.08],
         [-Math.PI * 0.9, 0, Math.PI * 0.9]
     )
 
@@ -228,23 +267,23 @@ const Card = ({ design, centerPoint, progress }) => {
     const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
     const rotateY = useTransform(angle, a => (a * 160) / (Math.PI * 0.9)) // Very aggressive rotation
 
-    // MINIMAL vertical pitch: very low vertical travel (120vh total)
+    // MINIMAL vertical pitch
     const offsetY = useTransform(
         progress,
-        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
+        [centerPoint - 0.08, centerPoint, centerPoint + 0.08],
         [60, 0, -60] // raw number for vh
     )
 
     const opacity = useTransform(
         progress,
-        [centerPoint - 0.3, centerPoint - 0.1, centerPoint + 0.1, centerPoint + 0.3],
+        [centerPoint - 0.06, centerPoint - 0.02, centerPoint + 0.02, centerPoint + 0.06],
         [0, 1, 1, 0]
     )
 
     const scale = useTransform(
         progress,
-        [centerPoint - 0.3, centerPoint, centerPoint + 0.3],
-        [0.6, 1, 0.6]
+        [centerPoint - 0.06, centerPoint, centerPoint + 0.06],
+        [0.8, 1, 0.8]
     )
 
     // Check if this card is currently in focus
@@ -262,6 +301,7 @@ const Card = ({ design, centerPoint, progress }) => {
     return (
         <motion.div
             className={`rayray-card ${activeClass}`}
+            onClick={onClick}
             style={{
                 left: "50%",
                 top: "50%",
