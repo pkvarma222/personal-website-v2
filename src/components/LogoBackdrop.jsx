@@ -3,13 +3,14 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
 import * as THREE from 'three'
 import { OBJLoader, MTLLoader } from 'three-stdlib'
+import { resolveAssetPath } from '../utils/paths'
 
 const LogoModel = () => {
     const groupRef = useRef()
 
     // Load materials and then object
-    const materials = useLoader(MTLLoader, '/assets/3d/pcdLogo.mtl')
-    const obj = useLoader(OBJLoader, '/assets/3d/pcdLogo.obj', (loader) => {
+    const materials = useLoader(MTLLoader, resolveAssetPath('/assets/3d/pcdLogo.mtl'))
+    const obj = useLoader(OBJLoader, resolveAssetPath('/assets/3d/pcdLogo.obj'), (loader) => {
         materials.preload()
         loader.setMaterials(materials)
     })

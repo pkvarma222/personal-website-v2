@@ -12,19 +12,29 @@ const Hero = () => {
     const fallbackScrollY = useMotionValue(0)
     const scrollY = contextScrollY || fallbackScrollY
 
-    // Animate over first 1200px of scroll
-    const scale = useTransform(scrollY, [0, 1200], [1, 0.4])
-    const glowScale = useTransform(scale, s => s * 1.02)
-    const borderRadius = useTransform(scrollY, [0, 1200], ["0px", "40px"])
+    // The distance the user scrolls while the hero is sticky
+    const stickyDistance = 500
 
-    // Text slides up from bottom
-    const textY = useTransform(scrollY, [0, 1200], ["100vh", "0vh"])
-    const textOpacity = useTransform(scrollY, [0, 1000], [0, 1])
-    const gridOpacity = useTransform(scrollY, [400, 1200], [0, 0.05])
-    const leakOpacity = useTransform(scrollY, [0, 800], [0.3, 0.1])
+    // Phase 1: Scaling and Hello Entrance (0 to stickyDistance)
+    // Video scales down to final size by the end of stickyDistance
+    const scale = useTransform(scrollY, [0, stickyDistance], [1, 0.4])
+    const glowScale = useTransform(scale, s => s * 1.02)
+    const borderRadius = useTransform(scrollY, [0, stickyDistance], ["0px", "40px"])
+    const gridOpacity = useTransform(scrollY, [100, stickyDistance], [0, 0.05])
+    const leakOpacity = useTransform(scrollY, [0, 300], [0.3, 0.1])
+
+    // Hello text slides to middle by the end of stickyDistance
+    const textY = useTransform(scrollY, [0, stickyDistance], ["100vh", "0vh"])
+    const textOpacity = useTransform(scrollY, [0, 150, stickyDistance], [0, 1, 1])
+
+    // Fill animation happens right at the end of the sticky phase
+    const fillWidth = useTransform(scrollY, [stickyDistance - 150, stickyDistance], ["0%", "100%"])
+
+    // Keep video centered during the sticky transition
+    const videoY = useMotionValue("0vh")
 
     return (
-        <motion.div className="hero-scroll-track" style={{ height: '350vh', position: 'relative', backgroundColor: '#0b0b0b' }}>
+        <motion.div className="hero-scroll-track" style={{ height: `calc(100vh + ${stickyDistance}px)`, position: 'relative', backgroundColor: '#0b0b0b' }}>
             <motion.div className="hero-sticky" style={{
                 position: 'sticky',
                 top: 0,
@@ -155,7 +165,7 @@ const Hero = () => {
                         pointerEvents: 'none'
                     }}
                 >
-                    <h1 style={{
+                    <motion.h1 style={{
                         fontSize: '18vw',
                         fontFamily: 'var(--font-wide)',
                         fontWeight: 900,
@@ -164,10 +174,16 @@ const Hero = () => {
                         filter: 'drop-shadow(0 0 15px var(--color-accent-soft)) drop-shadow(0 0 2px rgba(0,0,0,0.1))',
                         lineHeight: 0.8,
                         margin: 0,
-                        letterSpacing: '0.05em'
+                        letterSpacing: '0.05em',
+                        backgroundImage: 'linear-gradient(var(--color-text-primary), var(--color-text-primary))',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'left center',
+                        backgroundSize: useTransform(fillWidth, v => `${v} 100%`),
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
                     }}>
                         HELLO
-                    </h1>
+                    </motion.h1>
 
                 </motion.div>
 
@@ -184,7 +200,8 @@ const Hero = () => {
                         position: 'absolute',
                         transformOrigin: 'center center',
                         filter: 'blur(60px) brightness(1.5) saturate(2)',
-                        opacity: 0.75
+                        opacity: 0.75,
+                        y: videoY
                     }}
                 >
                     <video
@@ -211,7 +228,8 @@ const Hero = () => {
                         backgroundColor: '#000',
                         overflow: 'hidden',
                         border: '1px solid #ffffff',
-                        boxSizing: 'border-box'
+                        boxSizing: 'border-box',
+                        y: videoY
                     }}
                 >
                     <video

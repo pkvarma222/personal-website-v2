@@ -135,6 +135,14 @@ const DesignGallery = () => {
 
     return (
         <section className="rayray-container">
+            {/* Background Image with Resolution */}
+            <div
+                className="rayray-background-overlay"
+                style={{
+                    backgroundImage: `url(${resolveAssetPath('/assets/websitebg.jpg')})`
+                }}
+            />
+
             {/* 3D Backdrop Layer */}
             <React.Suspense fallback={null}>
                 <LogoBackdrop />

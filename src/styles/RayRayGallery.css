@@ -15,11 +15,9 @@
     perspective: 800px;
 }
 
-.rayray-container::before {
-    content: '';
+.rayray-background-overlay {
     position: absolute;
     inset: 0;
-    background-image: url('/assets/websitebg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
