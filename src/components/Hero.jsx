@@ -176,7 +176,7 @@ const Hero = () => {
                         lineHeight: 0.8,
                         margin: 0,
                         letterSpacing: '0.05em',
-                        backgroundImage: 'linear-gradient(var(--color-text-primary), var(--color-text-primary))',
+                        backgroundImage: 'linear-gradient(rgba(253, 252, 240, 0.5), rgba(253, 252, 240, 0.5))',
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'left center',
                         backgroundSize: useTransform(fillWidth, v => `${v} 100%`),
