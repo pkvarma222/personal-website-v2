@@ -216,35 +216,35 @@ const Card = ({ design, centerPoint, progress }) => {
     )
 
     // Calculate spiral angle based on progress relative to centerPoint
-    // Tightened range from 1 to 0.4 for more aggressive curve per step
+    // Wide range of progress for better visibility of the "stack"
     const angle = useTransform(
         progress,
-        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
-        [-Math.PI, 0, Math.PI]
+        [centerPoint - 0.6, centerPoint, centerPoint + 0.6],
+        [-Math.PI * 0.6, 0, Math.PI * 0.6]
     )
 
-    // Increased Z depth and X offset for more cylindrical feel
-    const offsetX = useTransform(angle, a => Math.sin(a) * 45) // raw number for vw
-    const z = useTransform(angle, a => Math.cos(a) * 1000 - 1000)
-    const rotateY = useTransform(angle, a => (a * 150) / Math.PI) // Steeper rotation
+    // Tightened Z depth and X offset for a dense cylindrical stack
+    const offsetX = useTransform(angle, a => Math.sin(a) * 40) // vw
+    const z = useTransform(angle, a => Math.cos(a) * 700 - 700)
+    const rotateY = useTransform(angle, a => (a * 140) / (Math.PI * 0.6)) // Aggressive rotation
 
-    // Tightened vertical travel to keep spiral dense
+    // EXTREME bunching: very low vertical travel (350vh total instead of 1200vh)
     const offsetY = useTransform(
         progress,
-        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
-        [600, 0, -600] // raw number for vh
+        [centerPoint - 0.6, centerPoint, centerPoint + 0.6],
+        [175, 0, -175] // raw number for vh
     )
 
     const opacity = useTransform(
         progress,
-        [centerPoint - 0.3, centerPoint - 0.15, centerPoint + 0.15, centerPoint + 0.3],
+        [centerPoint - 0.5, centerPoint - 0.3, centerPoint + 0.3, centerPoint + 0.5],
         [0, 1, 1, 0]
     )
 
     const scale = useTransform(
         progress,
-        [centerPoint - 0.3, centerPoint, centerPoint + 0.3],
-        [0.5, 1, 0.5]
+        [centerPoint - 0.5, centerPoint, centerPoint + 0.5],
+        [0.7, 1, 0.7]
     )
 
     // Check if this card is currently in focus
