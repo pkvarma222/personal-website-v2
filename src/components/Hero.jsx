@@ -4,6 +4,7 @@ import { ArrowDown } from 'lucide-react'
 import { motion, useTransform, useMotionValue } from 'framer-motion'
 import { PageScrollContext } from './PageTransition'
 import { resolveAssetPath } from '../utils/paths'
+import { useLoading } from '../context/LoadingContext'
 import '../styles/Hero.css'
 
 const Hero = () => {
