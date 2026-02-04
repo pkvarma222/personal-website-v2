@@ -12,6 +12,28 @@ const Hero = () => {
     const fallbackScrollY = useMotionValue(0)
     const scrollY = contextScrollY || fallbackScrollY
 
+    const { registerAsset, updateAssetProgress } = useLoading()
+
+    React.useEffect(() => {
+        registerAsset('hero-video')
+    }, [])
+
+    const handleVideoProgress = (e) => {
+        const video = e.target
+        if (video.buffered.length > 0) {
+            const bufferedEnd = video.buffered.end(video.buffered.length - 1)
+            const duration = video.duration
+            if (duration > 0) {
+                const percent = Math.round((bufferedEnd / duration) * 100)
+                updateAssetProgress('hero-video', percent)
+            }
+        }
+    }
+
+    const handleVideoCanPlay = () => {
+        updateAssetProgress('hero-video', 100)
+    }
+
     // The distance the user scrolls while the hero is sticky
     const stickyDistance = 500
 
@@ -211,6 +233,8 @@ const Hero = () => {
                         loop
                         muted
                         playsInline
+                        onProgress={handleVideoProgress}
+                        onCanPlayThrough={handleVideoCanPlay}
                         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                 </motion.div>

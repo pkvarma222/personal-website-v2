@@ -1,12 +1,21 @@
 import React, { useRef, Suspense, useState, useMemo } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
+import { Environment, useProgress } from '@react-three/drei'
 import * as THREE from 'three'
 import { OBJLoader, MTLLoader } from 'three-stdlib'
 import { resolveAssetPath } from '../utils/paths'
+import { useLoading } from '../context/LoadingContext'
+import { useEffect } from 'react'
 
 const LogoModel = () => {
     const groupRef = useRef()
+    const { updateAssetProgress } = useLoading()
+    const { progress } = useProgress()
+
+    // Sync R3F progress with global context
+    useEffect(() => {
+        updateAssetProgress('3d-logo', progress)
+    }, [progress])
 
     // Load materials and then object
     const materials = useLoader(MTLLoader, resolveAssetPath('/assets/3d/pcdLogo.mtl'))
@@ -67,6 +76,12 @@ const LogoModel = () => {
 };
 
 const LogoBackdrop = () => {
+    const { registerAsset } = useLoading()
+
+    useEffect(() => {
+        registerAsset('3d-logo')
+    }, [])
+
     return (
         <div style={{
             position: 'absolute',
