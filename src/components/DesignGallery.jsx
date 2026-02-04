@@ -216,35 +216,35 @@ const Card = ({ design, centerPoint, progress }) => {
     )
 
     // Calculate spiral angle based on progress relative to centerPoint
-    // Wide range of progress for better visibility of the "stack"
+    // HIGH FREQUENCY helical wrap: ~160 degrees on each side
     const angle = useTransform(
         progress,
-        [centerPoint - 0.6, centerPoint, centerPoint + 0.6],
-        [-Math.PI * 0.6, 0, Math.PI * 0.6]
+        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
+        [-Math.PI * 0.9, 0, Math.PI * 0.9]
     )
 
-    // Tightened Z depth and X offset for a dense cylindrical stack
-    const offsetX = useTransform(angle, a => Math.sin(a) * 40) // vw
-    const z = useTransform(angle, a => Math.cos(a) * 700 - 700)
-    const rotateY = useTransform(angle, a => (a * 140) / (Math.PI * 0.6)) // Aggressive rotation
+    // Tightened Z depth and X offset for a dense helical cylinder
+    const offsetX = useTransform(angle, a => Math.sin(a) * 45) // vw
+    const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
+    const rotateY = useTransform(angle, a => (a * 160) / (Math.PI * 0.9)) // Very aggressive rotation
 
-    // EXTREME bunching: very low vertical travel (350vh total instead of 1200vh)
+    // MINIMAL vertical pitch: very low vertical travel (120vh total)
     const offsetY = useTransform(
         progress,
-        [centerPoint - 0.6, centerPoint, centerPoint + 0.6],
-        [175, 0, -175] // raw number for vh
+        [centerPoint - 0.4, centerPoint, centerPoint + 0.4],
+        [60, 0, -60] // raw number for vh
     )
 
     const opacity = useTransform(
         progress,
-        [centerPoint - 0.5, centerPoint - 0.3, centerPoint + 0.3, centerPoint + 0.5],
+        [centerPoint - 0.3, centerPoint - 0.1, centerPoint + 0.1, centerPoint + 0.3],
         [0, 1, 1, 0]
     )
 
     const scale = useTransform(
         progress,
-        [centerPoint - 0.5, centerPoint, centerPoint + 0.5],
-        [0.7, 1, 0.7]
+        [centerPoint - 0.3, centerPoint, centerPoint + 0.3],
+        [0.6, 1, 0.6]
     )
 
     // Check if this card is currently in focus
