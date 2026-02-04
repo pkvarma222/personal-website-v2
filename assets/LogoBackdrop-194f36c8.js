@@ -1,4 +1,4 @@
-import{r as Ce,g as Zx,j as tr,a as yg}from"./index-95d32257.js";/**
+import{r as Ce,g as Zx,j as tr,a as yg}from"./index-d9659e79.js";/**
  * @license
  * Copyright 2010-2023 Three.js Authors
  * SPDX-License-Identifier: MIT
