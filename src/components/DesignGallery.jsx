@@ -109,6 +109,23 @@ const DesignGallery = () => {
 
     const totalWeight = weightedDesigns.reduce((acc, d) => acc + d.weight, 0);
 
+    // Use a fixed reference to keep unit distance consistent regardless of filter
+    // 12 designs * 2.5 weight = 30 absolute weight units
+    const GALLERY_CAPACITY_REF = 30;
+
+    const firstCenter = weightedDesigns.length > 0 ? weightedDesigns[0].center / GALLERY_CAPACITY_REF : 0;
+    const lastCenter = weightedDesigns.length > 0 ? weightedDesigns[weightedDesigns.length - 1].center / GALLERY_CAPACITY_REF : 0;
+
+    // Map the 0-1 scroll progress to firstCenter-lastCenter
+    const activeProgress = useTransform(smoothProgress, [0, 1], [firstCenter, lastCenter]);
+
+    // Reset scroll on filter change
+    React.useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.scrollTop = 0;
+        }
+    }, [filter]);
+
     return (
         <section className="rayray-container">
             {/* Background Grain/Texture (Inherited from App) */}
@@ -142,8 +159,8 @@ const DesignGallery = () => {
                     <Card
                         key={design.id}
                         design={design}
-                        centerPoint={design.center / totalWeight}
-                        progress={smoothProgress}
+                        centerPoint={design.center / GALLERY_CAPACITY_REF}
+                        progress={activeProgress}
                     />
                 ))}
             </div>
@@ -162,14 +179,21 @@ const DesignGallery = () => {
                 {weightedDesigns.map((design, i) => (
                     <NavItem
                         key={design.id}
-                        centerPoint={design.center / totalWeight}
-                        progress={smoothProgress}
+                        centerPoint={design.center / GALLERY_CAPACITY_REF}
+                        progress={activeProgress}
                         image={design.image}
                         onClick={() => {
                             if (containerRef.current) {
-                                const targetScroll = design.start * (containerRef.current.clientHeight * 2);
+                                const targetActiveProgress = design.center / GALLERY_CAPACITY_REF;
+                                // Inverse of activeProgress transform: 
+                                // scrollProgress = (activeProgress - firstCenter) / (lastCenter - firstCenter)
+                                const scrollProgress = Math.abs(firstCenter - lastCenter) < 0.001
+                                    ? 0
+                                    : (targetActiveProgress - firstCenter) / (lastCenter - firstCenter);
+
+                                const maxScroll = containerRef.current.scrollHeight - containerRef.current.clientHeight;
                                 containerRef.current.scrollTo({
-                                    top: targetScroll,
+                                    top: scrollProgress * maxScroll,
                                     behavior: 'smooth'
                                 });
                             }
