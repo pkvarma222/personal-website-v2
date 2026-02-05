@@ -166,33 +166,122 @@ const Hero = () => {
                 justifyContent: 'center',
                 backgroundColor: '#0b0b0b'
             }}>
-                {/* Background Image with Scale Animation */}
+                {/* Cinema Scene Stage - Groups background and video to scale together perfectly */}
                 <motion.div
                     style={{
                         position: 'absolute',
-                        inset: 0,
+                        width: 'max(100vw, 100vh * 1.77778)', // 16:9 aspect ratio (3840/2160)
+                        height: 'max(100vh, 100vw * 0.5625)',
+                        top: '50%',
+                        left: '50%',
+                        x: '-50%',
+                        y: '-50%',
                         zIndex: 0,
-                        backgroundImage: `url(${resolveAssetPath('assets/cinema-theatre-3.jpg')})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
                         scale: bgScale,
-                        pointerEvents: 'none'
+                        pointerEvents: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}
-                />
+                >
+                    {/* Background Image */}
+                    <img
+                        src={resolveAssetPath('assets/cinema-theatre-3.jpg')}
+                        alt=""
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            inset: 0
+                        }}
+                    />
 
-                {/* Dynamic Color Overlay */}
-                <motion.div
-                    style={{
+                    {/* Dynamic Color Overlay (inside scene) */}
+                    <motion.div
+                        style={{
+                            position: 'absolute',
+                            inset: 0,
+                            zIndex: 1,
+                            backgroundColor: dominantColor,
+                            mixBlendMode: 'overlay',
+                            opacity: 0.8,
+                            pointerEvents: 'none'
+                        }}
+                    />
+
+                    {/* Precision-aligned Video Container */}
+                    <div style={{
                         position: 'absolute',
-                        inset: 0,
-                        zIndex: 1,
-                        backgroundColor: dominantColor,
-                        mixBlendMode: 'overlay',
-                        opacity: 0.8,
-                        scale: bgScale,
-                        pointerEvents: 'none'
-                    }}
-                />
+                        left: '31.49%',
+                        top: '35.36%',
+                        width: '37.04%',
+                        height: '29.28%',
+                        zIndex: 2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        {/* Glow Layer (Ambilight) */}
+                        <motion.div
+                            style={{
+                                width: '102%',
+                                height: '102%',
+                                position: 'absolute',
+                                zIndex: 0,
+                                filter: 'blur(48px) brightness(1.5) saturate(2)',
+                                opacity: 0.45,
+                            }}
+                        >
+                            <video
+                                ref={glowVideoRef}
+                                src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                onProgress={handleVideoProgress}
+                                onCanPlayThrough={handleVideoCanPlay}
+                                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                            />
+                        </motion.div>
+
+                        {/* Main Video Layer */}
+                        <motion.div
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                zIndex: 2,
+                                backgroundColor: '#000',
+                                overflow: 'hidden',
+                                boxSizing: 'border-box',
+                                maskImage: 'linear-gradient(to right, transparent, black 1%, black 99%, transparent), linear-gradient(to bottom, transparent, black 1%, black 99%, transparent)',
+                                WebkitMaskImage: 'linear-gradient(to right, transparent, black 1%, black 99%, transparent), linear-gradient(to bottom, transparent, black 1%, black 99%, transparent)',
+                                maskComposite: 'intersect',
+                                WebkitMaskComposite: 'source-in'
+                            }}
+                        >
+                            <video
+                                ref={videoRef}
+                                src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                onPlay={onVideoPlay}
+                                onPause={onVideoPause}
+                                onSeeking={onVideoSeeking}
+                                onSeeked={onVideoSeeking}
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'contain',
+                                    filter: 'brightness(1.2) contrast(0.85) sepia(0.05)'
+                                }}
+                            />
+                        </motion.div>
+                    </div>
+                </motion.div>
 
                 {/* Hidden Canvas for Color Extraction */}
                 <canvas ref={canvasRef} width="10" height="10" style={{ display: 'none' }} />
@@ -337,78 +426,6 @@ const Hero = () => {
                         HELLO
                     </motion.h1>
 
-                </motion.div>
-
-                {/* Glow Layer (Ambilight) */}
-                <motion.div
-                    style={{
-                        scale: glowScale,
-                        borderRadius,
-                        width: '100%',
-                        height: 'auto',
-                        aspectRatio: '3836 / 1698',
-                        maxHeight: '100vh',
-                        zIndex: 0,
-                        position: 'absolute',
-                        transformOrigin: 'center center',
-                        filter: 'blur(48px) brightness(1.5) saturate(2)',
-                        opacity: 0.36,
-                        y: videoY
-                    }}
-                >
-                    <video
-                        ref={glowVideoRef}
-                        src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        onProgress={handleVideoProgress}
-                        onCanPlayThrough={handleVideoCanPlay}
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                </motion.div>
-
-                {/* Video Layer (Main) */}
-                <motion.div
-                    style={{
-                        scale,
-                        borderRadius: "0px",
-                        width: '100%',
-                        height: 'auto',
-                        aspectRatio: '3836 / 1698',
-                        maxHeight: '100vh',
-                        zIndex: 2,
-                        transformOrigin: 'center center',
-                        backgroundColor: '#000',
-                        overflow: 'hidden',
-                        // border: '1px solid #ffffff',
-                        boxSizing: 'border-box',
-                        y: videoY,
-                        maskImage: 'linear-gradient(to right, transparent, black 1%, black 99%, transparent), linear-gradient(to bottom, transparent, black 1%, black 99%, transparent)',
-                        WebkitMaskImage: 'linear-gradient(to right, transparent, black 1%, black 99%, transparent), linear-gradient(to bottom, transparent, black 1%, black 99%, transparent)',
-                        maskComposite: 'intersect',
-                        WebkitMaskComposite: 'source-in'
-                    }}
-                >
-                    <video
-                        ref={videoRef}
-                        src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        onPlay={onVideoPlay}
-                        onPause={onVideoPause}
-                        onSeeking={onVideoSeeking}
-                        onSeeked={onVideoSeeking}
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'contain',
-                            filter: 'brightness(1.2) contrast(0.85) sepia(0.05)'
-                        }}
-                    />
                 </motion.div>
 
                 <motion.div
