@@ -16,10 +16,13 @@ const GlobalAssetLoader = () => {
 
         const designAssets = DESIGNS.map(design => design.image).filter(Boolean);
 
-        // Add other critical static assets here if needed
+        // Add other critical static assets here
         const staticAssets = [
-            '/assets/websitebg.jpg',
-            '/assets/profile.jpg'
+            'assets/websitebg.jpg',
+            'assets/profile.jpg',
+            'assets/cinema-theatre.jpg',
+            'assets/cinema-theatre-2.jpg',
+            'assets/cinema-theatre-3.jpg'
         ];
 
         const allAssets = [...filmAssets, ...designAssets, ...staticAssets];
@@ -29,6 +32,14 @@ const GlobalAssetLoader = () => {
             const id = `asset-${path}`;
             registerAsset(id);
         });
+
+        // Safety timeout to prevent hanging if assets fail to load or take too long
+        const safetyTimeout = setTimeout(() => {
+            allAssets.forEach(path => {
+                const id = `asset-${path}`;
+                updateAssetProgress(id, 100);
+            });
+        }, 12000); // 12 seconds safety
 
         // Load each asset
         allAssets.forEach(path => {
@@ -47,6 +58,8 @@ const GlobalAssetLoader = () => {
 
             img.src = resolveAssetPath(path);
         });
+
+        return () => clearTimeout(safetyTimeout);
 
     }, []); // Run once on mount
 

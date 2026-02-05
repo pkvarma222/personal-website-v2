@@ -1,5 +1,5 @@
 
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext, useState, useEffect } from 'react'
 import { ArrowDown } from 'lucide-react'
 import { motion, useTransform, useMotionValue } from 'framer-motion'
 import { PageScrollContext } from './PageTransition'
@@ -12,6 +12,89 @@ const Hero = () => {
     const contextScrollY = useContext(PageScrollContext)
     const fallbackScrollY = useMotionValue(0)
     const scrollY = contextScrollY || fallbackScrollY
+
+    const videoRef = useRef(null)
+    const glowVideoRef = useRef(null)
+    const canvasRef = useRef(null)
+    const [dominantColor, setDominantColor] = useState('rgba(0,0,0,0)')
+
+    const handleVideoSync = () => {
+        const video = videoRef.current;
+        const glowVideo = glowVideoRef.current;
+        if (video && glowVideo) {
+            // Mirror play/pause state
+            if (video.paused && !glowVideo.paused) glowVideo.pause();
+            if (!video.paused && glowVideo.paused) glowVideo.play().catch(() => { });
+
+            const drift = video.currentTime - glowVideo.currentTime;
+
+            // Strict time sync logic
+            if (Math.abs(drift) > 0.05) {
+                // Hard snap for large drifts
+                glowVideo.currentTime = video.currentTime;
+                glowVideo.playbackRate = video.playbackRate;
+            } else if (Math.abs(drift) > 0.01) {
+                // Smooth speed adjustment for tiny drifts
+                // If background is behind (drift > 0), speed it up. If ahead, slow it down.
+                glowVideo.playbackRate = video.playbackRate * (drift > 0 ? 1.05 : 0.95);
+            } else {
+                // Perfectly in sync
+                glowVideo.playbackRate = video.playbackRate;
+            }
+        }
+    };
+
+    useEffect(() => {
+        let requestId;
+        const canvas = canvasRef.current;
+        const video = videoRef.current;
+        if (!canvas || !video) return;
+
+        const ctx = canvas.getContext('2d', { medicalUsage: false, willReadFrequently: true });
+
+        const syncAndExtract = () => {
+            if (video.readyState >= 2) {
+                // Extraction logic
+                ctx.drawImage(video, 0, 0, 10, 10);
+                const frame = ctx.getImageData(0, 0, 10, 10);
+                const length = frame.data.length;
+                let r = 0, g = 0, b = 0;
+                for (let i = 0; i < length; i += 4) {
+                    r += frame.data[i];
+                    g += frame.data[i + 1];
+                    b += frame.data[i + 2];
+                }
+                const count = length / 4;
+                r = Math.floor(r / count);
+                g = Math.floor(g / count);
+                b = Math.floor(b / count);
+                setDominantColor(`rgb(${r}, ${g}, ${b})`);
+
+                // Continuous frame-level sync
+                handleVideoSync();
+            }
+
+            if (video.requestVideoFrameCallback) {
+                requestId = video.requestVideoFrameCallback(syncAndExtract);
+            } else {
+                requestId = requestAnimationFrame(syncAndExtract);
+            }
+        };
+
+        if (video.requestVideoFrameCallback) {
+            requestId = video.requestVideoFrameCallback(syncAndExtract);
+        } else {
+            requestId = requestAnimationFrame(syncAndExtract);
+        }
+
+        return () => {
+            if (video.requestVideoFrameCallback) {
+                video.cancelVideoFrameCallback(requestId);
+            } else {
+                cancelAnimationFrame(requestId);
+            }
+        };
+    }, []);
 
     const { registerAsset, updateAssetProgress } = useLoading()
 
@@ -32,17 +115,31 @@ const Hero = () => {
     }
 
     const handleVideoCanPlay = () => {
-        updateAssetProgress('hero-video', 100)
+        updateAssetProgress('hero-video', 100);
+        // Ensure initial sync once both are ready
+        if (glowVideoRef.current && videoRef.current) {
+            glowVideoRef.current.currentTime = videoRef.current.currentTime;
+        }
     }
+
+    // Mirroring events for instant response
+    const onVideoPlay = () => glowVideoRef.current?.play().catch(() => { });
+    const onVideoPause = () => glowVideoRef.current?.pause();
+    const onVideoSeeking = () => {
+        if (glowVideoRef.current && videoRef.current) {
+            glowVideoRef.current.currentTime = videoRef.current.currentTime;
+        }
+    };
 
     // The distance the user scrolls while the hero is sticky
     const stickyDistance = 500
 
     // Phase 1: Scaling and Hello Entrance (0 to stickyDistance)
     // Video scales down to final size by the end of stickyDistance
-    const scale = useTransform(scrollY, [0, stickyDistance], [1, 0.4])
+    const scale = useTransform(scrollY, [0, stickyDistance], [1.0438, 0.4175])
+    const bgScale = useTransform(scrollY, [0, stickyDistance], [2.5, 1])
     const glowScale = useTransform(scale, s => s * 1.02)
-    const borderRadius = useTransform(scrollY, [0, stickyDistance], ["0px", "40px"])
+    const borderRadius = "0px"
     const gridOpacity = useTransform(scrollY, [100, stickyDistance], [0, 0.05])
     const leakOpacity = useTransform(scrollY, [0, 300], [0.3, 0.1])
 
@@ -69,6 +166,37 @@ const Hero = () => {
                 justifyContent: 'center',
                 backgroundColor: '#0b0b0b'
             }}>
+                {/* Background Image with Scale Animation */}
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        zIndex: 0,
+                        backgroundImage: `url(${resolveAssetPath('assets/cinema-theatre-3.jpg')})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        scale: bgScale,
+                        pointerEvents: 'none'
+                    }}
+                />
+
+                {/* Dynamic Color Overlay */}
+                <motion.div
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        zIndex: 1,
+                        backgroundColor: dominantColor,
+                        mixBlendMode: 'overlay',
+                        opacity: 0.8,
+                        scale: bgScale,
+                        pointerEvents: 'none'
+                    }}
+                />
+
+                {/* Hidden Canvas for Color Extraction */}
+                <canvas ref={canvasRef} width="10" height="10" style={{ display: 'none' }} />
+
                 {/* Cinematic Noise Overlay (Film Grain) */}
                 <div style={{
                     position: 'absolute',
@@ -223,12 +351,13 @@ const Hero = () => {
                         zIndex: 0,
                         position: 'absolute',
                         transformOrigin: 'center center',
-                        filter: 'blur(60px) brightness(1.5) saturate(2)',
-                        opacity: 0.75,
+                        filter: 'blur(48px) brightness(1.5) saturate(2)',
+                        opacity: 0.36,
                         y: videoY
                     }}
                 >
                     <video
+                        ref={glowVideoRef}
                         src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
                         autoPlay
                         loop
@@ -244,7 +373,7 @@ const Hero = () => {
                 <motion.div
                     style={{
                         scale,
-                        borderRadius,
+                        borderRadius: "0px",
                         width: '100%',
                         height: 'auto',
                         aspectRatio: '3836 / 1698',
@@ -253,18 +382,32 @@ const Hero = () => {
                         transformOrigin: 'center center',
                         backgroundColor: '#000',
                         overflow: 'hidden',
-                        border: '1px solid #ffffff',
+                        // border: '1px solid #ffffff',
                         boxSizing: 'border-box',
-                        y: videoY
+                        y: videoY,
+                        maskImage: 'linear-gradient(to right, transparent, black 1%, black 99%, transparent), linear-gradient(to bottom, transparent, black 1%, black 99%, transparent)',
+                        WebkitMaskImage: 'linear-gradient(to right, transparent, black 1%, black 99%, transparent), linear-gradient(to bottom, transparent, black 1%, black 99%, transparent)',
+                        maskComposite: 'intersect',
+                        WebkitMaskComposite: 'source-in'
                     }}
                 >
                     <video
+                        ref={videoRef}
                         src={resolveAssetPath('assets/hero-reel.mp4?v=forced_refresh_1')}
                         autoPlay
                         loop
                         muted
                         playsInline
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        onPlay={onVideoPlay}
+                        onPause={onVideoPause}
+                        onSeeking={onVideoSeeking}
+                        onSeeked={onVideoSeeking}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            filter: 'brightness(1.2) contrast(0.85) sepia(0.05)'
+                        }}
                     />
                 </motion.div>
 
@@ -279,4 +422,5 @@ const Hero = () => {
         </motion.div>
     )
 }
+
 export default Hero
