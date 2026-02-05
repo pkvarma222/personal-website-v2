@@ -341,9 +341,6 @@ const Hero = () => {
                     </filter>
                 </svg>
 
-                {/* Projector Gate (The Film Strip Effect) */}
-                <div className="projector-gate gate-left" />
-                <div className="projector-gate gate-right" />
                 {/* Director's Cut Flare */}
                 <motion.div
                     style={{

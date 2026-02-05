@@ -46,9 +46,10 @@ const FloatingNav = () => {
     // If NOT on Homepage (Film/Design), ALWAYS be visible.
     const shouldShow = isHomePage ? scrolledPastHero : true;
     const isFilmDetail = location.pathname.startsWith('/film/') && location.pathname !== '/film';
+    const isInteriorPage = !isHomePage;
 
     return (
-        <div className={`floating-nav ${shouldShow ? 'visible' : ''} ${isLightBackground && isHomePage ? 'light-background' : ''} ${isFilmDetail ? 'dark-contrast' : ''}`}>
+        <div className={`floating-nav ${shouldShow ? 'visible' : ''} ${isLightBackground && isHomePage ? 'light-background' : ''} ${isFilmDetail ? 'dark-contrast' : ''} ${isInteriorPage ? 'is-interior' : ''}`}>
             <NavLink to="/film" className={({ isActive }) => `floating-nav-link ${isActive ? 'active' : ''}`}>
                 <Clapperboard size={20} />
                 <span>Filmmaker</span>
