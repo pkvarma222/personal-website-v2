@@ -256,23 +256,51 @@ const Card = ({ design, centerPoint, progress, onClick }) => {
 
 const NavItem = ({ centerPoint, progress, image, onClick }) => {
 
-    // Highlight if near center
-    const activeProgress = useTransform(
+    // Layout and Opacity ranges
+    // Opacity and scale remain tight for "exclusivity"
+    const opacity = useTransform(
         progress,
-        [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
-        [0.4, 1, 0.4]
+        [centerPoint - 0.01, centerPoint, centerPoint + 0.01],
+        [0.6, 1, 0.6]
+    )
+
+    const scale = useTransform(
+        progress,
+        [centerPoint - 0.01, centerPoint, centerPoint + 0.01],
+        [1, 1.4, 1]
+    )
+
+    // Wider range for the layout push to ensure smooth movement of neighbors
+    const margin = useTransform(
+        progress,
+        [centerPoint - 0.04, centerPoint, centerPoint + 0.04],
+        ["0 2px", "0 15px", "0 2px"]
+    )
+
+    // Dynamic width to push neighbors (base 40px)
+    // We expand the container more than the scale (56px) to create breathing room
+    const width = useTransform(
+        progress,
+        [centerPoint - 0.04, centerPoint, centerPoint + 0.04],
+        [40, 70, 40]
     )
 
     const borderColor = useTransform(
         progress,
-        [centerPoint - 0.05, centerPoint, centerPoint + 0.05],
+        [centerPoint - 0.01, centerPoint, centerPoint + 0.01],
         ["rgba(253, 252, 240, 0)", "rgba(253, 252, 240, 1)", "rgba(253, 252, 240, 0)"]
     )
 
     return (
         <motion.div
             className="rayray-nav-thumb"
-            style={{ opacity: 1, borderColor }}
+            style={{
+                opacity,
+                scale,
+                width,
+                margin,
+                borderColor
+            }}
             onClick={onClick}
         >
             <img src={resolveAssetPath(image)} alt="" />
