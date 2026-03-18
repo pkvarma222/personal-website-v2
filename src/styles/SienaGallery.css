@@ -496,4 +496,132 @@
     .siena-intro h1 {
         font-size: 8vw;
     }
+
+    /* Film Detail Page Custom Mobile Constraints */
+    .film-detail-header-container {
+        padding: 3rem 1rem 1rem 1rem !important; /* Extra top padding to clear 'Still in the edit suite' top banner */
+    }
+    
+    .film-detail-back-btn {
+        padding: 1px 1px 1px 2px !important; /* This padding IS the border thickness hack */
+        clip-path: polygon(16px 0%, 100% 0%, 100% 100%, 16px 100%, 0% 50%) !important;
+        border: none !important;
+    }
+
+    .film-detail-back-btn .siena-header-link-content {
+        font-size: 0.55rem !important;
+        padding: 0.4rem 0.7rem 0.4rem 1rem !important;
+        clip-path: polygon(14px 0%, 100% 0%, 100% 100%, 14px 100%, 0% 50%) !important;
+    }
+
+    .film-detail-back-btn::before {
+        opacity: 0.2 !important; /* Soften the solid black block behind 'All Work' */
+        transform: translate(3px, 3px) !important;
+    }
+    
+    .film-detail-watch-btn {
+        padding: 0.25rem 0.5rem !important;
+        font-size: 0.55rem !important;
+        gap: 0.4rem !important;
+        justify-content: center !important;
+        box-shadow: 3px 3px 0px rgba(0,0,0,0.2) !important; /* Convert solid shadow to semi-transparent soft block */
+    }
+    
+    .film-detail-watch-btn img {
+        width: 12px !important;
+        height: 12px !important;
+    }
+    
+    .film-detail-watch-btn svg {
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+    .film-detail-hero {
+        margin: 8rem 0 1rem 0 !important; /* Increased top margin from 4rem to 8rem to clear buttons */
+    }
+    
+    .film-detail-hero-arrow {
+        display: none !important;
+    }
+    
+    .film-detail-meta {
+        font-size: 0.6rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .film-detail-title-img {
+        height: 15vh !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .film-detail-title-text {
+        font-size: 8vw !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .film-detail-synopsis {
+        font-size: 1.1rem !important;
+        margin: 0 0 3rem 0 !important;
+    }
+    
+    .film-detail-synopsis h3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .film-detail-credits-wrapper {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        border-bottom: 1px dashed #333 !important;
+        margin-bottom: 3rem !important;
+    }
+    .film-detail-director-block { display: contents !important; }
+    .film-detail-credits-grid { display: contents !important; }
+    
+    /* Default (EVEN) - All cells share evenly */
+    .film-detail-credit-cell {
+        flex: 1 1 30% !important;
+        border-right: 1px dashed #333 !important;
+        border-bottom: 1px dashed #333 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ODD Condition - Director gets full width */
+    .credits-is-odd .film-detail-director-block .film-detail-credit-cell {
+        flex: 0 0 100% !important;
+        border-right: none !important;
+    }
+    .credits-is-odd .film-detail-credits-grid .film-detail-credit-cell {
+        flex: 1 1 10% !important; /* remaining items squeeze into the 2nd row evenly */
+    }
+    
+    .film-detail-credit-block {
+        padding: 1rem 0.5rem !important;
+        min-height: 100px !important;
+        height: 100% !important;
+    }
+    
+    .film-detail-credit-role {
+        font-size: 0.4rem !important;
+        margin-bottom: 0.3rem !important;
+        word-break: break-word;
+    }
+    
+    .film-detail-credit-name {
+        font-size: 0.65rem !important;
+        word-break: break-word;
+    }
+    
+    .film-detail-watch-section {
+        padding: 0 !important;
+        margin-bottom: 3rem !important;
+    }
+
+    .film-detail-stills-section {
+        margin-bottom: 2rem !important;
+    }
+
+    .film-detail-bottom-spacer {
+        height: 5vh !important;
+    }
 }

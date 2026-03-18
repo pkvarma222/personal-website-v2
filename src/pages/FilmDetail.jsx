@@ -27,7 +27,7 @@ const FilmDetail = () => {
 
     // Helper to render credit blocks
     const CreditBlock = ({ role, name, inverse = false }) => (
-        <div style={{
+        <div className="film-detail-credit-block" style={{
             backgroundColor: inverse ? '#000' : 'transparent',
             color: inverse ? '#fff' : 'inherit',
             padding: '2rem',
@@ -39,14 +39,14 @@ const FilmDetail = () => {
             alignItems: 'center',
             minHeight: '200px'
         }}>
-            <div style={{
+            <div className="film-detail-credit-role" style={{
                 fontSize: '0.7rem',
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
                 marginBottom: '0.5rem',
                 opacity: 0.7
             }}>{role}</div>
-            <div style={{
+            <div className="film-detail-credit-name" style={{
                 fontSize: '2rem',
                 fontFamily: 'var(--font-serif)',
                 textTransform: 'uppercase',
@@ -65,11 +65,11 @@ const FilmDetail = () => {
             overflowX: 'hidden'
         }}>
             {/* Header / Nav */}
-            <div style={{
+            <div className="film-detail-header-container" style={{
                 position: 'fixed', top: 0, left: 0, width: '100%',
                 padding: '2rem', display: 'flex', justifyContent: 'space-between', zIndex: 100, pointerEvents: 'none'
             }}>
-                <Link to="/film" className="siena-header-link" style={{ pointerEvents: 'auto' }}>
+                <Link to="/film" className="siena-header-link film-detail-back-btn" style={{ pointerEvents: 'auto' }}>
                     <span className="siena-header-link-content">
                         ALL WORK
                     </span>
@@ -77,13 +77,14 @@ const FilmDetail = () => {
 
                 <div style={{ pointerEvents: 'auto', display: 'flex', gap: '1rem' }}>
                     <button
+                        className="film-detail-watch-btn"
                         onClick={() => {
                             const section = document.getElementById('watch-film');
                             if (section) section.scrollIntoView({ behavior: 'smooth' });
                         }}
                         style={{
                             background: '#fff', border: '1px solid #000', borderRadius: '4px',
-                            padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '1rem',
+                            padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem',
                             boxShadow: '4px 4px 0px rgba(0,0,0,1)', cursor: 'pointer',
                             fontFamily: 'inherit'
                         }}
@@ -98,11 +99,12 @@ const FilmDetail = () => {
             <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 2rem' }}>
 
                 {/* 1. Title Section (Top) */}
-                <div style={{ textAlign: 'center', margin: '10rem 0 3rem 0' }}>
-                    <div style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1.5rem' }}>{film.category} • {film.year}</div>
+                <div className="film-detail-hero" style={{ textAlign: 'center', margin: '10rem 0 3rem 0' }}>
+                    <div className="film-detail-meta" style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '1.5rem' }}>{film.category} • {film.year}</div>
                     {(film.titleImage && !imageError) ? (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <img
+                                className="film-detail-title-img"
                                 src={resolveAssetPath(film.titleImage)}
                                 alt={film.title}
                                 onError={() => setImageError(true)}
@@ -118,7 +120,7 @@ const FilmDetail = () => {
                             />
                         </div>
                     ) : (
-                        <h1 style={{
+                        <h1 className="film-detail-title-text" style={{
                             fontSize: '10vw',
                             fontFamily: 'var(--font-serif)',
                             textTransform: 'uppercase',
@@ -126,39 +128,46 @@ const FilmDetail = () => {
                             marginBottom: '2rem'
                         }}>{film.title}</h1>
                     )}
-                    <ArrowDown size={32} style={{ margin: '2rem auto 0 auto', display: 'block', opacity: 0.5 }} />
+                    <ArrowDown className="film-detail-hero-arrow" size={32} style={{ margin: '2rem auto 0 auto', display: 'block', opacity: 0.5 }} />
                 </div>
 
                 {/* Divider Line */}
                 <div style={{ width: '100%', height: '1px', backgroundColor: '#000', marginBottom: '4rem' }}></div>
 
                 {/* 2. Synopsis */}
-                <div style={{ width: '100%', margin: '0 0 6rem 0', fontSize: '1.5rem', lineHeight: 1.6 }}>
+                <div className="film-detail-synopsis" style={{ width: '100%', margin: '0 0 6rem 0', fontSize: '1.5rem', lineHeight: 1.6 }}>
                     <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: '2rem' }}>Synopsis</h3>
                     {film.description}
                 </div>
-
                 {/* 3. Credits Grid */}
-                <div style={{ marginBottom: '6rem' }}>
+                <div className={`film-detail-credits-wrapper ${
+                    (film.credits && Object.entries(film.credits).length % 2 !== 0) || !film.credits ? 'credits-is-odd' : 'credits-is-even'
+                }`} style={{ marginBottom: '6rem' }}>
                     {/* Top line: Dynamic first credit from object, or fallback to Director */}
-                    <div style={{ borderBottom: '1px solid #000' }}>
+                    <div className="film-detail-director-block" style={{ borderBottom: '1px solid #000' }}>
                         {film.credits && Object.entries(film.credits).length > 0 ? (
                             (() => {
                                 const [role, name] = Object.entries(film.credits)[0];
-                                return <CreditBlock role={role} name={name} inverse />;
+                                return (
+                                    <div className="film-detail-credit-cell">
+                                        <CreditBlock role={role} name={name} inverse />
+                                    </div>
+                                );
                             })()
                         ) : (
-                            <CreditBlock role="Director" name={film.director || "Mani PKV"} inverse />
+                            <div className="film-detail-credit-cell">
+                                <CreditBlock role="Director" name={film.director || "Mani PKV"} inverse />
+                            </div>
                         )}
                     </div>
                     {/* Bottom line: All other credits */}
-                    <div style={{
+                    <div className="film-detail-credits-grid" style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                         borderBottom: '1px dashed #333'
                     }}>
                         {film.credits && Object.entries(film.credits).slice(1).map(([role, name], idx) => (
-                            <div key={idx} style={{
+                            <div key={idx} className="film-detail-credit-cell" style={{
                                 borderRight: '1px dashed #333',
                                 borderBottom: '1px dashed #333'
                             }}>
@@ -169,7 +178,7 @@ const FilmDetail = () => {
                 </div>
 
                 {/* 4. Hero Video / Trailer */}
-                <div id="watch-film" style={{ padding: '2rem 0', marginBottom: '6rem' }}>
+                <div id="watch-film" className="film-detail-watch-section" style={{ padding: '2rem 0', marginBottom: '6rem' }}>
                     <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, marginBottom: '2rem' }}>Watch Film</h3>
                     <div style={{
                         position: 'relative',
@@ -213,7 +222,7 @@ const FilmDetail = () => {
 
             {/* 5. Stills Gallery (Film Reel - Full Bleed) */}
             {film.stills && film.stills.length > 0 && (
-                <div style={{ marginBottom: '6rem', width: '100vw', background: '#000', padding: '3rem 0', overflow: 'hidden' }}>
+                <div className="film-detail-stills-section" style={{ marginBottom: '6rem', width: '100vw', background: '#000', padding: '3rem 0', overflow: 'hidden' }}>
 
                     <div style={{ maxWidth: '1600px', margin: '0 auto', padding: '0 2rem', marginBottom: '2rem' }}>
                         <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.5, color: '#fff' }}>Stills</h3>
@@ -249,7 +258,7 @@ const FilmDetail = () => {
                 </div>
             )}
 
-            <div style={{ height: '20vh' }}></div>
+            <div className="film-detail-bottom-spacer" style={{ height: '20vh' }}></div>
 
         </section>
     );
