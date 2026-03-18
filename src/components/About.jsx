@@ -8,30 +8,46 @@ const About = () => {
     return (
         <section className="about-section container">
             <div className="about-grid">
+                {/* Mobile Only Title (Displays before image) */}
+                <div className="about-content title-mobile-only">
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <div className="handwritten-label" style={{
+                            fontFamily: 'var(--font-handwriting)',
+                            fontSize: '1.1rem',
+                            color: 'var(--color-accent)',
+                            marginBottom: '-0.2rem',
+                            transform: 'rotate(-4deg)'
+                        }}>
+                            Director's Note:
+                        </div>
+                        <h2><SplitText>About Me</SplitText></h2>
+                    </div>
+                </div>
+
                 <div className="about-image-wrapper">
                     <div className="archival-frame">
                         <ParallaxImage src={PROFILE_IMG} alt="Portrait" className="w-full h-full" />
                     </div>
-                    {/* <div className="about-metadata">
-                        <span className="meta-tag">REF: PKV-2026</span>
-                        <span className="meta-tag">STOCK: 35MM NOIR</span>
-                        <span className="meta-tag">STATUS: ARCHIVAL</span>
-                    </div> */}
                 </div>
+                
                 <div className="about-content">
-                    <div className="handwritten-label" style={{
-                        fontFamily: 'var(--font-handwriting)',
-                        fontSize: '1.5rem',
-                        color: 'var(--color-accent)',
-                        marginBottom: '0.5rem',
-                        transform: 'rotate(-2deg)'
-                    }}>
-                        Director's Note:
+                    {/* Desktop Only Title */}
+                    <div className="title-desktop-only">
+                        <div className="handwritten-label" style={{
+                            fontFamily: 'var(--font-handwriting)',
+                            fontSize: '1.5rem',
+                            color: 'var(--color-accent)',
+                            marginBottom: '0.5rem',
+                            transform: 'rotate(-2deg)'
+                        }}>
+                            Director's Note:
+                        </div>
+                        <h2><SplitText>About Me</SplitText></h2>
                     </div>
-                    <h2><SplitText>About Me</SplitText></h2>
+
                     <Reveal delay={0.1}>
                         <p className="lead">
-                            Filmmaker by day, Graphic Designer by night. I bridge the gap between motion and stillness.
+                            Filmmaker by day, Graphic Designer by night.
                         </p>
                     </Reveal>
                     <Reveal delay={0.2}>

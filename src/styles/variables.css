@@ -57,3 +57,12 @@
 @media (prefers-color-scheme: light) {
   /* Managed by data-theme */
 }
+
+/* Base Mobile Overrides */
+@media (max-width: 768px) {
+  :root {
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2.5rem;
+    --spacing-xl: 4rem;
+  }
+}

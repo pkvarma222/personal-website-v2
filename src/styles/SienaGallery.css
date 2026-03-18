@@ -435,3 +435,20 @@
         /* Hide floating ticket on mobile to save space */
     }
 }
+
+@media (max-width: 768px) {
+    .stub-title {
+        font-size: 10vw; /* Safe scaling for long titles */
+    }
+    .siena-stub-card {
+        width: 80vw;
+        border-radius: 20px;
+        min-height: 80vh; /* Better min-height for small screens */
+    }
+    .stub-content {
+        padding: 1.5rem;
+    }
+    .siena-intro h1 {
+        font-size: 8vw;
+    }
+}

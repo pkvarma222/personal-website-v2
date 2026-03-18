@@ -242,6 +242,10 @@
         display: none;
         /* Hide category on mobile to clean up */
     }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Technical Gallery Mode */

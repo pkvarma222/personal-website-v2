@@ -42,7 +42,7 @@ export const SplitText = ({ children, delay = 0, className = "" }) => {
     )
 }
 
-export const Reveal = ({ children, width = "fit-content", delay = 0 }) => {
+export const Reveal = ({ children, width = "100%", delay = 0 }) => {
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: "-10% 0px -10% 0px" })
 

@@ -134,31 +134,39 @@ const Hero = () => {
     // The distance the user scrolls while the hero is sticky
     const stickyDistance = 500
 
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     // Phase 1: Scaling and Hello Entrance (0 to stickyDistance)
     // Video scales down to final size by the end of stickyDistance
-    const scale = useTransform(scrollY, [0, stickyDistance], [1.0438, 0.4175])
-    const bgScale = useTransform(scrollY, [0, stickyDistance], [2.5, 1])
+    const scale = useTransform(scrollY, [0, stickyDistance], isMobile ? [0.4175, 0.4175] : [1.0438, 0.4175])
+    const bgScale = useTransform(scrollY, [0, stickyDistance], isMobile ? [1, 1] : [2.5, 1])
     const glowScale = useTransform(scale, s => s * 1.02)
     const borderRadius = "0px"
-    const gridOpacity = useTransform(scrollY, [100, stickyDistance], [0, 0.05])
-    const leakOpacity = useTransform(scrollY, [0, 300], [0.3, 0.1])
+    const gridOpacity = useTransform(scrollY, [100, stickyDistance], isMobile ? [0.05, 0.05] : [0, 0.05])
+    const leakOpacity = useTransform(scrollY, [0, 300], isMobile ? [0.1, 0.1] : [0.3, 0.1])
 
     // Hello text slides to middle by the end of stickyDistance
-    const textY = useTransform(scrollY, [0, stickyDistance], ["100vh", "0vh"])
-    const textOpacity = useTransform(scrollY, [0, 150, stickyDistance], [0, 1, 1])
+    const textY = useTransform(scrollY, [0, stickyDistance], isMobile ? ["0vh", "0vh"] : ["100vh", "0vh"])
+    const textOpacity = useTransform(scrollY, [0, 150, stickyDistance], isMobile ? [1, 1, 1] : [0, 1, 1])
 
     // Fill animation happens right at the end of the sticky phase
-    const fillWidth = useTransform(scrollY, [stickyDistance - 150, stickyDistance], ["0%", "100%"])
+    const fillWidth = useTransform(scrollY, [stickyDistance - 150, stickyDistance], isMobile ? ["100%", "100%"] : ["0%", "100%"])
 
     // Keep video centered during the sticky transition
     const videoY = useMotionValue("0vh")
 
     return (
-        <motion.div className="hero-scroll-track" style={{ height: `calc(100vh + ${stickyDistance}px)`, position: 'relative', backgroundColor: '#0b0b0b' }}>
+        <motion.div className="hero-scroll-track" style={{ height: isMobile ? 'calc(240vw * 0.5625)' : `calc(100vh + ${stickyDistance}px)`, position: 'relative', backgroundColor: '#0b0b0b' }}>
             <motion.div className="hero-sticky" style={{
                 position: 'sticky',
                 top: 0,
-                height: '100vh',
+                height: isMobile ? 'calc(240vw * 0.5625)' : '100vh',
                 width: '100%',
                 overflow: 'hidden',
                 display: 'flex',
@@ -170,8 +178,8 @@ const Hero = () => {
                 <motion.div
                     style={{
                         position: 'absolute',
-                        width: 'max(100vw, 100vh * 1.77778)', // 16:9 aspect ratio (3840/2160)
-                        height: 'max(100vh, 100vw * 0.5625)',
+                        width: isMobile ? '240vw' : 'max(100vw, 100vh * 1.77778)', // 16:9 aspect ratio
+                        height: isMobile ? 'calc(240vw * 0.5625)' : 'max(100vh, 100vw * 0.5625)',
                         top: '50%',
                         left: '50%',
                         x: '-50%',
@@ -399,15 +407,16 @@ const Hero = () => {
                         textAlign: 'center',
                         width: '100vw',
                         left: 0,
-                        pointerEvents: 'none'
+                        pointerEvents: 'none',
+                        display: isMobile ? 'none' : 'block'
                     }}
                 >
                     <motion.h1 style={{
-                        fontSize: '16.2vw',
+                        fontSize: 'var(--hero-text-size, 16.2vw)',
                         fontFamily: 'var(--font-wide)',
                         fontWeight: 900,
                         color: 'transparent',
-                        WebkitTextStroke: '4px var(--color-accent)',
+                        WebkitTextStroke: 'var(--hero-stroke, 4px) var(--color-accent)',
                         paintOrder: 'stroke fill',
                         filter: 'drop-shadow(0 0 15px var(--color-accent-soft)) drop-shadow(0 0 2px rgba(0,0,0,0.1))',
                         lineHeight: 0.8,
@@ -429,7 +438,7 @@ const Hero = () => {
                     className="scroll-indicator"
                     style={{ zIndex: 10 }}
                 >
-                    <ArrowDown size={32} color="#fff" strokeWidth={1.5} />
+                    <ArrowDown size={isMobile ? 24 : 32} color="#fff" strokeWidth={1.5} />
                 </motion.div>
 
             </motion.div>

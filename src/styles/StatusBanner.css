@@ -50,5 +50,18 @@
     animation: pulse-subtle 3s ease-in-out infinite;
 }
 
-/* Push navigation or content down if needed, but since it's subtle and small, 
-   we might just let it overlay or add padding to the top of the main container. */
+@media (max-width: 768px) {
+    .status-banner {
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+    }
+    .status-banner-content {
+        font-size: 0.55rem;
+        gap: 6px;
+    }
+    .warning-icon {
+        width: 12px;
+        height: 12px;
+    }
+}
