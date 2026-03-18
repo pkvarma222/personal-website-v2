@@ -23,11 +23,22 @@ const SienaStubCard = ({ item, index }) => {
                 />
             </div>
 
+            {/* Top Right Acclaim Overlay */}
+            {item.acclaim && item.acclaim.length > 0 && (
+                <div className="stub-top-acclaim">
+                    {item.acclaim.map((acclaimItem, idx) => (
+                        <div className="top-acclaim-item" key={idx}>
+                            <div className="top-stars">{acclaimItem.stars}</div>
+                            <div className="top-quote">"{acclaimItem.quote}"</div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
             {/* Content Overlay */}
             <div className="stub-content">
                 {/* Left Side: Main Info */}
                 <div className="stub-main-info">
-                    <span className="stub-category">{item.category}</span>
                     {item.titleImage ? (
                         <img
                             src={resolveAssetPath(item.titleImage)}
@@ -38,35 +49,28 @@ const SienaStubCard = ({ item, index }) => {
                         <h2 className="stub-title">{item.title}</h2>
                     )}
 
-                    <div className="stub-meta-grid">
-                        <div className="meta-item">
-                            <label>{item.director ? 'Director' : 'Client'}</label>
-                            <span>{item.director || item.client || "Self-Initiated"}</span>
+                    <div className="stub-meta-rows">
+                        <div className="meta-row">
+                            <div className="meta-item">
+                                <label>Role</label>
+                                <span>{item.role || "Lead Designer"}</span>
+                            </div>
                         </div>
-                        <div className="meta-item" style={{ visibility: item.year ? 'visible' : 'hidden' }}>
-                            <label>Year</label>
-                            <span>{item.year || "2024"}</span>
-                        </div>
-                        <div className="meta-item">
-                            <label>Role</label>
-                            <span>{item.role || "Lead Designer"}</span>
-                        </div>
-                        <div className="meta-item" style={{ visibility: item.duration ? 'visible' : 'hidden' }}>
-                            <label>Duration</label>
-                            <span>{item.duration || "N/A"}</span>
+                        <div className="meta-row split">
+                            <div className="meta-item" style={{ visibility: item.year ? 'visible' : 'hidden' }}>
+                                <label>Year</label>
+                                <span>{item.year || "2024"}</span>
+                            </div>
+                            <div className="meta-item" style={{ visibility: item.duration ? 'visible' : 'hidden' }}>
+                                <label>Duration</label>
+                                <span>{item.duration || "N/A"}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Right Side: Acclaim & Action */}
-                <div className="stub-acclaim-column">
-                    {item.acclaim && item.acclaim.map((acclaimItem, idx) => (
-                        <div className="acclaim-item" key={idx}>
-                            <div className="stars">{acclaimItem.stars}</div>
-                            <div className="quote">"{acclaimItem.quote}"</div>
-                        </div>
-                    ))}
-
+                {/* Right Side: Action */}
+                <div className="stub-action-column">
                     {item.id && (
                         <button className="explore-btn" onClick={() => navigate(item.director ? `/film/${item.id}` : `/design/${item.id}`)}>
                             Explore <ArrowRight size={16} />

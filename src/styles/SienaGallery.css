@@ -136,8 +136,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0;
-    padding: 0 0 5rem 0;
-    /* Space at bottom */
+    padding: 0;
 
     position: relative;
     z-index: 10;
@@ -151,6 +150,22 @@
     display: none;
 }
 
+/* Dynamically extend the internal content box by EXACTLY the amount of height missing for the final card to stick */
+.siena-vertical-stack::after {
+    content: '';
+    display: block;
+    width: 100%;
+    /* Container (85vh) - Card Height (64vh) - Sticky ceiling max (~60px) */
+    height: calc(85vh - 64vh - 60px);
+    flex-shrink: 0;
+}
+
+@media (min-width: 769px) { /* Desktop */
+    .siena-vertical-stack::after {
+        height: 0; /* Desktop usually has 88vh cards which safely overflow 85vh container natively */
+    }
+}
+
 /* STUB CARD COMPONENT STYLES */
 .siena-stub-card {
     position: sticky;
@@ -158,9 +173,8 @@
     /* top handled inline */
     width: 85%;
 
-    height: 110vh;
-    /* Increased by 10% (100 -> 110) */
-    min-height: 700px;
+    height: 88vh;
+    min-height: 560px;
 
     background-color: #1a1a1a;
     border-radius: 40px;
@@ -286,8 +300,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 3rem 3rem 12vh 3rem;
-    /* Details pushed way down (12vh padding vs 110vh card) */
+    padding: 2.5rem 2.5rem 3rem 2.5rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
     z-index: 5;
     display: grid;
@@ -314,35 +327,40 @@
 .stub-title {
     font-family: var(--font-wide);
     font-weight: 900;
-    font-size: 6rem;
+    font-size: 4rem;
     line-height: 0.85;
     text-transform: uppercase;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: var(--color-text-primary);
 }
 
 .stub-title-image {
-    max-height: 12rem;
-    /* Larger than text for impact */
+    max-height: 8rem;
     width: auto;
     object-fit: contain;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     display: block;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
-.stub-meta-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem 3rem;
+.stub-meta-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
     width: fit-content;
     border-top: 1px solid rgba(255, 255, 255, 0.3);
-    padding-top: 1.5rem;
+    padding-top: 1rem;
+}
+
+.meta-row.split {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 2rem;
 }
 
 .meta-item label {
     display: block;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
     opacity: 0.5;
     margin-bottom: 0.2rem;
@@ -350,56 +368,74 @@
 
 .meta-item span {
     display: block;
-    font-size: 1rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     font-weight: 500;
 }
 
-/* Right Side: Acclaim & Action */
-.stub-acclaim-column {
+/* Right Side: Action */
+.stub-action-column {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     text-align: right;
-    gap: 2rem;
+    justify-content: flex-end;
 }
 
-.acclaim-item {
+/* Top Right Acclaim */
+.stub-top-acclaim {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2.5rem;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.5rem;
+    gap: 1.5rem;
+    text-align: right;
+    pointer-events: none;
+    background: radial-gradient(circle at top right, rgba(0,0,0,0.6) 0%, transparent 60%);
+    border-top-right-radius: 40px;
 }
 
-.stars {
+.top-acclaim-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+}
+
+.top-stars {
     color: #f4f1ea;
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     letter-spacing: 0.2em;
 }
 
-.quote {
+.top-quote {
     font-family: var(--font-serif);
-    font-size: 1.2rem;
+    font-size: 0.85rem;
     font-style: italic;
     line-height: 1.2;
-    max-width: 250px;
+    max-width: 200px;
+    color: rgba(255,255,255,0.9);
 }
 
 .explore-btn {
     border: 1px solid var(--color-accent);
     background: transparent;
     color: var(--color-accent);
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.5rem;
     border-radius: 4px;
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 0.2em;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .explore-btn:hover {
@@ -410,24 +446,22 @@
 @media (max-width: 1024px) {
     .stub-content {
         grid-template-columns: 1fr;
-        /* Stack vertically on mobile */
-        padding: 2rem;
+        padding: 1.5rem;
     }
 
-    .stub-acclaim-column {
+    .stub-action-column {
         align-items: flex-start;
-        text-align: left;
-        margin-top: 2rem;
-        flex-direction: row;
-        flex-wrap: wrap;
+        margin-top: 1rem;
     }
 
-    .acclaim-item {
-        align-items: flex-start;
+    .stub-top-acclaim {
+        padding: 1.5rem;
+        border-top-right-radius: 20px;
+        background: radial-gradient(circle at top right, rgba(0,0,0,0.8) 0%, transparent 70%);
     }
 
     .stub-title {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .ticket-badge {
@@ -438,15 +472,26 @@
 
 @media (max-width: 768px) {
     .stub-title {
-        font-size: 10vw; /* Safe scaling for long titles */
+        font-size: 8vw;
+    }
+    .stub-title-image {
+        max-height: 6rem;
     }
     .siena-stub-card {
         width: 80vw;
         border-radius: 20px;
-        min-height: 80vh; /* Better min-height for small screens */
+        min-height: 64vh;
+        height: auto;
     }
     .stub-content {
-        padding: 1.5rem;
+        padding: 1.25rem;
+    }
+    .stub-top-acclaim {
+        padding: 1.25rem;
+    }
+    .top-quote {
+        font-size: 0.75rem;
+        max-width: 150px;
     }
     .siena-intro h1 {
         font-size: 8vw;
