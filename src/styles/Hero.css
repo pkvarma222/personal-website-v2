@@ -55,7 +55,30 @@
         --hero-stroke: 2px;
     }
 
+    .hero-scroll-track {
+        height: calc(240vw * 0.5625) !important;
+    }
+    
+    .hero-sticky {
+        height: calc(240vw * 0.5625) !important;
+    }
+
+    .hero-cinema-scene {
+        width: 240vw !important;
+        height: calc(240vw * 0.5625) !important;
+        transform: translateX(-50%) translateY(-50%) scale(1) translateZ(0) !important;
+    }
+
+    .hero-blueprint-grid { opacity: 0.05 !important; }
+    .hero-light-leaks { opacity: 0.1 !important; transform: none !important; }
+    .title-flicker { display: none !important; }
+
     .scroll-indicator {
         bottom: 1rem;
+    }
+
+    .hero-arrow {
+        width: 24px !important;
+        height: 24px !important;
     }
 }
