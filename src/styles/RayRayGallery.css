@@ -250,8 +250,50 @@
 
 @media (max-width: 768px) {
     .rayray-card {
-        width: 80vw;
-        height: 60vh;
+        width: auto;
+        height: auto;
+        max-width: 64vw;
+        max-height: 48vh;
+    }
+
+    .rayray-card img {
+        max-width: 64vw;
+        max-height: 48vh;
+    }
+
+    .rayray-sidebar {
+        left: 50%;
+        top: 13vh;
+        transform: translateX(-50%);
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filter-group {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .filter-btn {
+        text-align: center;
+        padding: 0;
+    }
+
+    .filter-btn::after {
+        left: 50%;
+        top: 120%;
+        transform: translateX(-50%);
+        height: 1px;
+    }
+
+    .filter-btn.active::after {
+        width: 1rem;
+    }
+
+    .rayray-footer {
+        bottom: 12vh !important;
     }
 
     .rayray-card-title {

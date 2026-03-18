@@ -197,9 +197,13 @@ const Card = ({ design, centerPoint, progress, onClick }) => {
         [-Math.PI * 0.9, 0, Math.PI * 0.9]
     )
 
+    const isMobile = typeof window !== 'undefined' ? window.innerWidth <= 768 : false;
+    const spreadX = isMobile ? 90 : 45;
+    const spreadZ = isMobile ? 1800 : 800;
+
     // Tightened Z depth and X offset for a dense helical cylinder
-    const offsetX = useTransform(angle, a => Math.sin(a) * 45) // vw
-    const z = useTransform(angle, a => Math.cos(a) * 800 - 800)
+    const offsetX = useTransform(angle, a => Math.sin(a) * spreadX) // vw
+    const z = useTransform(angle, a => Math.cos(a) * spreadZ - spreadZ)
     const rotateY = useTransform(angle, a => (a * 160) / (Math.PI * 0.9)) // Very aggressive rotation
 
     // MINIMAL vertical pitch

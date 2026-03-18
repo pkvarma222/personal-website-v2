@@ -1,6 +1,6 @@
 import React, { useRef, Suspense, useState, useMemo } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Environment, useProgress } from '@react-three/drei'
+import { Center, Environment, useProgress } from '@react-three/drei'
 import * as THREE from 'three'
 import { OBJLoader, MTLLoader } from 'three-stdlib'
 import { resolveAssetPath } from '../utils/paths'
@@ -24,21 +24,16 @@ const LogoModel = () => {
         loader.setMaterials(materials)
     })
 
-    // Center and Scale the model once it's loaded
+    // Autoscale the model once it's loaded
     useMemo(() => {
         if (obj) {
             const box = new THREE.Box3().setFromObject(obj);
             const size = box.getSize(new THREE.Vector3());
-            const center = box.getCenter(new THREE.Vector3());
-
-            // Center geometry
-            obj.position.x = -center.x;
-            obj.position.y = -center.y;
-            obj.position.z = -center.z;
 
             // Autoscale
             const maxDim = Math.max(size.x, size.y, size.z);
-            const targetSize = 2.5;
+            const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+            const targetSize = isMobile ? (2.5 * 0.4) : 2.5; // Reduce scale by 60% on mobile
             const scaleFactor = targetSize / (maxDim || 1);
             obj.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
@@ -70,7 +65,9 @@ const LogoModel = () => {
 
     return (
         <group ref={groupRef}>
-            <primitive object={obj} />
+            <Center precise>
+                <primitive object={obj} />
+            </Center>
         </group>
     );
 };
