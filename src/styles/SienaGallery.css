@@ -150,40 +150,34 @@
     display: none;
 }
 
-/* Dynamically extend the internal content box by EXACTLY the amount of height missing for the final card to stick */
+/* Dynamically extend the internal content box by enough height for the final card to stick at the top */
 .siena-vertical-stack::after {
     content: '';
     display: block;
     width: 100%;
-    /* Container (85vh) - Card Height (64vh) - Sticky ceiling max (~60px) */
-    height: calc(85vh - 64vh - 60px);
+    height: 50vh;
     flex-shrink: 0;
-}
-
-@media (min-width: 769px) { /* Desktop */
-    .siena-vertical-stack::after {
-        height: 0; /* Desktop usually has 88vh cards which safely overflow 85vh container natively */
-    }
 }
 
 /* STUB CARD COMPONENT STYLES */
 .siena-stub-card {
     position: sticky;
-    top: 0;
-    /* top handled inline */
-    width: 85%;
+    top: 8vh;
+    width: 90%;
+    max-width: 1480px;
 
-    height: 88vh;
-    min-height: 560px;
+    height: 84vh;
+    min-height: 580px;
+    max-height: 800px;
 
     background-color: #1a1a1a;
-    border-radius: 40px;
+    border-radius: 36px;
     overflow: hidden;
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
     margin: 0 auto;
-    margin-bottom: 2rem;
-    /* Spacing between cards in flow */
+    margin-bottom: 12vh;
+    /* 12vh gap ensures top edge of next card is clearly visible peeking at bottom of screen */
 }
 
 .stub-image-container {
@@ -209,8 +203,8 @@
 /* Ticket Stub Badge (Top Right) REFINED - Ticket Shape Restored */
 .ticket-badge {
     position: fixed;
-    top: 23vh;
-    right: 7.5vw;
+    top: 12vh;
+    right: 5vw;
     width: 320px;
 
     transform-origin: top right;
@@ -623,5 +617,242 @@
 
     .film-detail-bottom-spacer {
         height: 5vh !important;
+    }
+}
+
+/* FILM DETAIL - TOP & BOTTOM STACKED MEDIA LAYOUT */
+.film-detail-screenshot-layout {
+    position: relative;
+    width: 100%;
+    min-height: 100dvh;
+    overflow-y: auto;
+    background-color: #F7F5F0;
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 4vw 5rem 4vw;
+    box-sizing: border-box;
+    z-index: 60;
+    font-family: var(--font-sans);
+}
+
+.film-detail-screenshot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+    margin-bottom: 1.5rem;
+}
+
+.film-detail-screenshot-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+}
+
+.film-detail-screenshot-meta {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    opacity: 0.6;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.film-detail-screenshot-title-img {
+    height: 18vh;
+    max-height: 140px;
+    width: auto;
+    max-width: 85vw;
+    filter: brightness(0);
+    opacity: 0.9;
+    object-fit: contain;
+}
+
+.film-detail-screenshot-title-text {
+    font-size: 6vw;
+    font-family: var(--font-serif);
+    text-transform: uppercase;
+    line-height: 0.85;
+    margin: 0;
+}
+
+.film-detail-screenshot-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    margin: 1.5rem 0 2.5rem 0;
+    flex-shrink: 0;
+}
+
+.film-detail-screenshot-mid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3rem;
+    width: 100%;
+    margin-bottom: 3rem;
+    align-items: start;
+}
+
+.film-detail-screenshot-synopsis-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.film-detail-screenshot-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.film-detail-screenshot-synopsis-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #222;
+    margin-bottom: 1.25rem;
+}
+
+.film-detail-screenshot-acclaim-pill {
+    background: #000;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+}
+
+/* Cast & Crew Grid matching Screenshot 2 */
+.film-detail-screenshot-credits-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.film-detail-screenshot-credits-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px dashed #333;
+}
+
+.film-detail-screenshot-credit-top {
+    background-color: #000;
+    color: #fff;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.film-detail-screenshot-credit-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.film-detail-screenshot-credit-cell {
+    padding: 1.25rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: inherit;
+    min-height: 110px;
+}
+
+.film-detail-screenshot-credit-cell.left-cell {
+    border-right: 1px dashed #333;
+}
+
+.film-detail-screenshot-role {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.65;
+    margin-bottom: 0.4rem;
+}
+
+.film-detail-screenshot-name {
+    font-size: 1.15rem;
+    font-family: var(--font-wide), var(--font-sans);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    word-break: break-word;
+}
+
+.film-detail-screenshot-credit-top .film-detail-screenshot-name {
+    font-size: 1.4rem;
+}
+
+/* Bottom Stacked Sections: Video (16:9 Youtube Proportions) Top, Full Width Gallery Bottom */
+.film-detail-screenshot-bottom-stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.film-detail-screenshot-video-card-full {
+    width: min(100%, 880px);
+    aspect-ratio: 16/9;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.film-detail-screenshot-stills-card-full {
+    width: 100%;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 240px;
+}
+
+@media (max-width: 900px) {
+    .film-detail-screenshot-mid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .film-detail-screenshot-credit-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+    .film-detail-screenshot-credit-cell.left-cell {
+        border-right: none;
+        border-bottom: 1px dashed #333;
+    }
+    .film-detail-screenshot-video-card-full {
+        width: 100%;
     }
 }

@@ -17,18 +17,13 @@ const FilmGallery = () => {
     React.useLayoutEffect(() => {
         if (containerRef.current) {
             containerRef.current.scrollTop = savedScrollPosition;
-            // Trigger update to ensure correct badge
-            // We can't call handleScroll directly if it relies on stale closures, 
-            // but the logic below is safe to duplicate or extract.
-            // Let's just run the logic manually here or let the scroll event fire?
-            // Programmatic scrollTop DOES NOT fire onScroll in React/Browsers usually.
-            // So we must manually update state.
 
             const container = containerRef.current;
             const firstCard = container.firstElementChild;
             if (firstCard) {
                 const step = firstCard.getBoundingClientRect().height + 32;
-                const index = Math.round(container.scrollTop / step);
+                const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 20;
+                const index = isAtBottom ? FILMS.length - 1 : Math.round(container.scrollTop / step);
                 const safeIndex = Math.min(Math.max(0, index), FILMS.length - 1);
                 setActiveFilm(FILMS[safeIndex]);
             }
@@ -49,8 +44,9 @@ const FilmGallery = () => {
         const cardHeight = firstCard.getBoundingClientRect().height;
         const step = cardHeight + 32;
 
-        // Calculate index
-        const index = Math.round(container.scrollTop / step);
+        // Calculate index (force last index if scrolled to near bottom)
+        const isAtBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 20;
+        const index = isAtBottom ? FILMS.length - 1 : Math.round(container.scrollTop / step);
         const safeIndex = Math.min(Math.max(0, index), FILMS.length - 1);
 
         if (FILMS[safeIndex].id !== activeFilm.id) {

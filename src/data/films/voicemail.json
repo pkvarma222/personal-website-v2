@@ -1,0 +1,29 @@
+{
+    "id": 1,
+    "title": "Voicemail",
+    "titleImage": "/assets/film-assets/Voicemail/title.png",
+    "category": "Short",
+    "year": "2022",
+    "image": "/assets/film-assets/Voicemail/backgroundImage.png",
+    "director": "Manthena Pramod Kumar Varma",
+    "role": "Writer, Director, Editor, Sound Designer, Cinematographer",
+    "duration": "4:22",
+    "acclaim": [
+        {
+            "stars": "CAMPUS FINALIST",
+            "quote": "Campus Movie Fest"
+        }
+    ],
+    "description": "In this short film, which placed in the top 20 out of around 120 submissions - A young man goes through a ride of emotions, memories and realizations as he calls his (ex)-girlfriend after a series of huge fights, asking for a second chance.",
+    "trailerUrl": "https://www.youtube.com/embed/UnWksO4qxRs?autoplay=0&controls=1&showinfo=0",
+    "credits": {
+        "Writer - Director - Editor - Sound Designer - Cinematographer": "Manthena Pramod Kumar Varma",
+        "Cast": "Karthik Gannamaneni, Yasaswini",
+        "Music from": "Envato Elements"
+    },
+    "stills": [
+        "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1200",
+        "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?q=80&w=1200",
+        "https://images.unsplash.com/photo-1595769816263-9b910be24d5f?q=80&w=1200"
+    ]
+}

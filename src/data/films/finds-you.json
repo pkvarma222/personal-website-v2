@@ -1,0 +1,19 @@
+{
+    "id": "finds-you",
+    "title": "Finds You",
+    "titleImage": "/assets/film-assets/Finds You/title.png",
+    "category": "Short",
+    "year": "2020",
+    "image": "/assets/film-assets/Finds You/backgroundImage.png",
+    "director": "Manthena Pramod Kumar Varma",
+    "role": "Writer, Director, Editor",
+    "duration": "05:30",
+    "acclaim": [],
+    "description": "A visually stunning exploration of finding oneself in the most unexpected places. This short film captures the quiet beauty of serendipitous moments.",
+    "credits": {
+        "Director": "Manthena Pramod Kumar Varma",
+        "Cast": "Sreya Peddina, Karthik Gannamaneni",
+        "Music from": "Epidemic Sound"
+    },
+    "stills": []
+}

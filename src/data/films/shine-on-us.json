@@ -1,0 +1,22 @@
+{
+    "id": "shine-on-us",
+    "title": "Shine on Us",
+    "titleImage": "/assets/film-assets/Shine on Us/title.png",
+    "category": "Short",
+    "year": "2021",
+    "image": "/assets/film-assets/Shine on Us/backgroundImage.jpg",
+    "director": "Manthena Pramod Kumar Varma",
+    "role": "Writer, Director, Editor, Sound Designer",
+    "duration": "04:15",
+    "acclaim": [
+        { "stars": "JURY AWARD", "quote": "Campus Movie Fest" },
+        { "stars": "Best Film, Cinematography, Editing, Actor", "quote": "RPB UF : CMF Premiere" }
+    ],
+    "description": "An ethereal music video capturing the warmth and light of human connection. Created during Campus MovieFest 2021, this film explores the resonance of memories and the light we leave behind.",
+    "credits": {
+        "Writer - Director - Editor - Sound Designer": "Manthena Pramod Kumar Varma",
+        "Cast": "Tati Sree Sai Teja, Pramod",
+        "Music from": "Envato Elements"
+    },
+    "stills": []
+}

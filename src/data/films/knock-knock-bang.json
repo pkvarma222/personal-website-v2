@@ -1,0 +1,25 @@
+{
+    "id": "knock-knock-bang",
+    "title": "Knock Knock Bang",
+    "titleImage": "/assets/film-assets/Knock Knock Bang/title.png",
+    "category": "Short",
+    "year": "2020",
+    "image": "/assets/film-assets/Knock Knock Bang/backgroundImage.png",
+    "director": "Manthena Pramod Kumar Varma",
+    "role": "Writer, Director, Editor, Sound Designer",
+    "duration": "12:00",
+    "acclaim": [
+        {
+            "stars": "Best Editing",
+            "quote": "VJ Filmmania"
+        }
+    ],
+    "description": "In this award winning short film - A Young man, Rudra, wants to blow off steam after a stressful day with some alcohol and drugs but instead he gets gunshots and car chases to survive the night.",
+    "trailerUrl": "https://youtu.be/Hlvx_CBBS1U?si=vQb8jRkg02rv87oI&t=1",
+    "credits": {
+        "Writer - Director - Editor - Sound Designer": "Manthena Pramod Kumar Varma",
+        "Director of Photography": "Sree Mahesh Reddy Kurri, Arjun Reddy CV",
+        "Cast": "Tarun, Gowtham, Manoj, Prudhvi Krishna, Arjun Reddy, Mahesh Reddy"
+    },
+    "stills": []
+}

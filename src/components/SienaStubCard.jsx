@@ -11,7 +11,7 @@ const SienaStubCard = ({ item, index }) => {
         <motion.div
             className="siena-stub-card"
             style={{
-                top: `${index * 10}px`
+                top: `calc(8vh + ${index * 16}px)`
             }}
         >
             {/* Background Image */}
