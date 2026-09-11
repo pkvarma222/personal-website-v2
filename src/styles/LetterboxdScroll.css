@@ -16,18 +16,32 @@
     display: inline-block;
 }
 
+.letterboxd-interactive-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    /* Create a gradient fade on the left edge only so the right reel is visible */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 100%);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 100%);
+}
+
 .letterboxd-scroll-container {
-    display: flex;
-    overflow-x: auto;
+    display: inline-flex; /* Let it expand to fit content */
+    width: max-content;
     gap: 15px; /* Frame separator */
     padding: 3.5rem 1.5rem; /* Room for film sprockets */
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    
+    /* Reveal the first 1.5 films (approx 320px) before the 150px reel */
+    margin-left: calc(100% - 470px);
+    z-index: 1; /* Behind the spool and rims */
+    position: relative;
+    
+    /* Drag styles */
+    cursor: grab;
+    touch-action: pan-y; /* Allow vertical scrolling on mobile while dragging x */
     
     /* Film Strip Design */
     background-color: #050505; /* Pitch black for the film strip */
-    background-attachment: local; /* Ensure the sprockets scroll with the posters! */
     background-image: 
         repeating-linear-gradient(
             to right,
@@ -53,8 +67,106 @@
     border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
-.letterboxd-scroll-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+.letterboxd-scroll-container:active {
+    cursor: grabbing;
+}
+
+/* Edge-on 3D Film Reel (Horizontal) */
+.edge-reel-top {
+    position: absolute;
+    right: -150px;
+    top: 0;
+    width: 300px;
+    height: 18px;
+    background: linear-gradient(to bottom, #888, #eee 30%, #777 70%, #444);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+    z-index: 10; /* In front of the strip */
+    pointer-events: none;
+}
+
+.edge-reel-bottom {
+    position: absolute;
+    right: -150px;
+    bottom: 0;
+    width: 300px;
+    height: 18px;
+    background: linear-gradient(to bottom, #444, #999 30%, #555 70%, #222);
+    border-radius: 8px;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.8);
+    z-index: 10; /* In front of the strip */
+    pointer-events: none;
+}
+
+.edge-reel-spool {
+    position: absolute;
+    right: -150px;
+    top: 15px;
+    bottom: 15px;
+    width: 300px;
+    background-color: #050505;
+    /* Wound film sprockets using dark color instead of transparent background */
+    background-image: 
+        repeating-linear-gradient(
+            to right,
+            #1a1a1a 0,
+            #1a1a1a 14px,
+            transparent 14px,
+            transparent 28px
+        ),
+        repeating-linear-gradient(
+            to right,
+            #1a1a1a 0,
+            #1a1a1a 14px,
+            transparent 14px,
+            transparent 28px
+        );
+    background-position: 0 1px, 0 calc(100% - 1px);
+    background-size: 100% 18px;
+    background-repeat: repeat-x;
+    
+    z-index: 10; /* In front of the strip to hide posters! */
+    pointer-events: none;
+    border-left: 2px solid #111;
+    border-radius: 20px / 100px;
+    overflow: hidden; /* Hide the wound films that overflow */
+}
+
+/* Spool inner strip with physically continuous wrap array */
+.spool-inner-strip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    display: inline-flex;
+    width: max-content; /* Ensure the strip does not shrink inside the absolute container */
+    gap: 15px;
+    align-items: center;
+    padding: 0 1.5rem; /* Match the 48px padding (24px left, 24px right) of the main strip */
+    opacity: 0.3; /* Make them look like they are under a layer of film */
+    filter: blur(1px) brightness(0.5); /* Enhance the depth illusion */
+}
+
+.letterboxd-pull-indicator {
+    position: absolute;
+    right: 480px; /* Exactly 10px to the left of the start of the reel container (470px from right) */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    z-index: 10;
+    opacity: 0.7;
+}
+
+.letterboxd-pull-indicator span {
+    font-weight: 500;
 }
 
 .letterboxd-item {
