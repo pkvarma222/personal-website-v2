@@ -1,8 +1,24 @@
 import React from 'react'
+import { Instagram, Youtube } from 'lucide-react'
 import '../styles/About.css'
 import { SplitText, Reveal, ParallaxImage } from './ScrollReveal'
 
 import PROFILE_IMG from '../assets/profile.jpg'
+
+const LetterboxdIcon = ({ size = 24, className }) => (
+    <svg 
+        width={size} 
+        height={size} 
+        viewBox="0 0 24 24" 
+        fill="currentColor" 
+        xmlns="http://www.w3.org/2000/svg"
+        className={className}
+    >
+        <circle cx="6.5" cy="12" r="3" />
+        <circle cx="12" cy="12" r="3" />
+        <circle cx="17.5" cy="12" r="3" />
+    </svg>
+);
 
 const About = () => {
     return (
@@ -67,18 +83,39 @@ const About = () => {
                     }}>
                         "Every frame should feel like a memory caught in time."
                     </div>
-                    <div className="about-stats">
-                        <div className="stat">
-                            <span className="number"><SplitText delay={0.3}>10+</SplitText></span>
-                            <span className="label">Years Exp.</span>
-                        </div>
-                        <div className="stat">
-                            <span className="number"><SplitText delay={0.4}>6+</SplitText></span>
-                            <span className="label">Short Films</span>
-                        </div>
-                        <div className="stat">
-                            <span className="number"><SplitText delay={0.5}>50+</SplitText></span>
-                            <span className="label">Designs</span>
+                    <div className="about-stats-container">
+                        <div className="about-stats-group">
+                            <div className="about-stats">
+                                <div className="stat">
+                                    <span className="number"><SplitText delay={0.3}>10+</SplitText></span>
+                                    <span className="label">Years Exp.</span>
+                                </div>
+                                <div className="stat">
+                                    <span className="number"><SplitText delay={0.4}>6+</SplitText></span>
+                                    <span className="label">Short Films</span>
+                                </div>
+                                <div className="stat">
+                                    <span className="number"><SplitText delay={0.5}>50+</SplitText></span>
+                                    <span className="label">Designs</span>
+                                </div>
+                            </div>
+                            
+                            <div className="about-socials">
+                                <div className="about-socials-label">
+                                    My socials :
+                                </div>
+                                <div className="contact-links">
+                                    <a href="https://www.youtube.com/@its_mpkv" target="_blank" rel="noopener noreferrer" className="contact-link">
+                                        <Youtube size={20} />
+                                    </a>
+                                    <a href="https://www.instagram.com/its_mpkv/" target="_blank" rel="noopener noreferrer" className="contact-link">
+                                        <Instagram size={20} />
+                                    </a>
+                                    <a href="https://letterboxd.com/mpkv/" target="_blank" rel="noopener noreferrer" className="contact-link">
+                                        <LetterboxdIcon size={20} />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

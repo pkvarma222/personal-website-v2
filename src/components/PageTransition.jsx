@@ -29,8 +29,8 @@ const scrollPositions = {};
 
 import { useMotionValue } from 'framer-motion';
 
-// Export context for usage in child components
 export const PageScrollContext = React.createContext(null);
+export const PageScrollContainerContext = React.createContext(null);
 
 const PageTransition = ({ children, direction, id }) => {
     const location = useLocation();
@@ -58,8 +58,9 @@ const PageTransition = ({ children, direction, id }) => {
 
     return (
         <PageScrollContext.Provider value={scrollY}>
-            <motion.div
-                id={id}
+            <PageScrollContainerContext.Provider value={scrollContainerRef}>
+                <motion.div
+                    id={id}
                 custom={direction}
                 variants={variants}
                 initial="enter"
@@ -82,6 +83,7 @@ const PageTransition = ({ children, direction, id }) => {
             >
                 {children}
             </motion.div>
+            </PageScrollContainerContext.Provider>
         </PageScrollContext.Provider>
     );
 };

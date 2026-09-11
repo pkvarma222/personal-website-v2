@@ -1,0 +1,152 @@
+.letterboxd-section {
+    padding: var(--spacing-lg) 0;
+    overflow: hidden; /* Prevent horizontal scrollbar on the page */
+}
+
+.letterboxd-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.letterboxd-label {
+    font-family: var(--font-handwriting);
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    transform: rotate(-2deg);
+    display: inline-block;
+}
+
+.letterboxd-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px; /* Frame separator */
+    padding: 3.5rem 1.5rem; /* Room for film sprockets */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    
+    /* Film Strip Design */
+    background-color: #050505; /* Pitch black for the film strip */
+    background-attachment: local; /* Ensure the sprockets scroll with the posters! */
+    background-image: 
+        repeating-linear-gradient(
+            to right,
+            var(--color-bg) 0,
+            var(--color-bg) 14px,
+            transparent 14px,
+            transparent 28px
+        ),
+        repeating-linear-gradient(
+            to right,
+            var(--color-bg) 0,
+            var(--color-bg) 14px,
+            transparent 14px,
+            transparent 28px
+        );
+    background-position: 0 16px, 0 calc(100% - 16px);
+    background-size: 100% 18px;
+    background-repeat: repeat-x;
+    
+    /* Shadow for depth */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.letterboxd-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.letterboxd-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 0 0 200px;
+    scroll-snap-align: center;
+    text-decoration: none;
+}
+
+.letterboxd-card {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+    border: none;
+    transition: transform var(--transition-medium);
+}
+
+.letterboxd-card:hover {
+    transform: translateY(-4px); /* Subtler hover for film frames */
+    z-index: 2;
+}
+
+.letterboxd-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter var(--transition-fast);
+}
+
+.letterboxd-card:hover .letterboxd-poster {
+    filter: brightness(0.6);
+}
+
+.letterboxd-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+    color: #fff;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.letterboxd-card:hover .letterboxd-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.letterboxd-title {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.letterboxd-rating-below {
+    color: var(--color-accent);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+/* Loading State */
+.letterboxd-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .letterboxd-item {
+        flex: 0 0 150px;
+    }
+    .letterboxd-card {
+        height: 225px;
+    }
+}
