@@ -34,6 +34,7 @@
     border-radius: 12px;
     border: 1px dashed rgba(255, 255, 255, 0.1);
     cursor: pointer;
+    text-align: center;
     transition: all var(--transition-medium);
 }
 
@@ -50,7 +51,7 @@
 
 .contact-email {
     font-family: "Playfair Display", "Times New Roman", Times, serif;
-    font-size: clamp(0.5rem, 1.5vw, 1.5rem); /* Reduced by another 50% */
+    font-size: clamp(0.8rem, 3vw, 1.5rem); /* Increased minimum size so it's readable on mobile */
     font-weight: 500;
     color: var(--color-text-primary);
     margin: 0;
@@ -112,10 +113,15 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .contact-section {
+        padding: 2rem 5% 6rem; /* 6rem bottom padding to clear the 2rem bottom floating nav */
+    }
+
     .contact-bottom-bar {
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
         text-align: center;
+        margin-top: 2rem; /* Remove the massive 10rem margin needed for desktop */
     }
     
     .contact-copyright,
@@ -125,6 +131,12 @@
     }
     
     .contact-email-wrapper {
-        padding: 1.5rem 2rem;
+        padding: 1rem;
+        width: 100%;
+        max-width: 90vw;
+    }
+
+    .contact-email {
+        word-break: break-all; /* Ensure the long email wraps on mobile */
     }
 }

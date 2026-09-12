@@ -230,4 +230,20 @@
     .letterboxd-card {
         height: 225px;
     }
+    
+    .edge-reel-top,
+    .edge-reel-bottom,
+    .edge-reel-spool {
+        width: 225px; /* Reduced by 25% */
+        right: -170px; /* Shifted towards the edge to protrude less (55px visible) */
+    }
+    
+    .letterboxd-scroll-container {
+        padding-right: 250px; /* Reduced buffer to match new reel size */
+        margin-left: calc(100% - 300px); /* Adjust initial reveal to match smaller reel */
+    }
+    
+    .letterboxd-pull-indicator {
+        right: 260px; /* Move indicator closer to reel */
+    }
 }
