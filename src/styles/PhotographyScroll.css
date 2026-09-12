@@ -1,0 +1,264 @@
+.photography-section {
+    padding: var(--spacing-lg) 0;
+    overflow: hidden; /* Prevent horizontal scrollbar */
+}
+
+.photography-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.photography-label {
+    font-family: var(--font-handwriting);
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    transform: rotate(-2deg);
+    display: inline-block;
+}
+
+.photography-interactive-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    /* Fade on the right edge so the film disappears smoothly */
+    -webkit-mask-image: linear-gradient(to left, transparent, black 10%, black 100%);
+    mask-image: linear-gradient(to left, transparent, black 10%, black 100%);
+}
+
+.photography-scroll-container {
+    display: inline-flex;
+    flex-direction: row-reverse; /* Reverses the flow! Right edge is fixed, grows left */
+    width: max-content;
+    gap: 15px; /* Frame separator */
+    padding: 3.5rem 1.5rem; /* Room for film sprockets */
+    
+    /* Reveal the first 1.5 films (approx 320px) after the 150px reel on the left */
+    /* Container's right edge is placed 470px from the left side of the screen */
+    /* wait, if it's position absolute? No, we can use margin-right */
+    /* If container is row-reverse, it behaves like normal inline-flex but reversed. */
+    /* Wait, standard inline-flex with row-reverse still places the left edge at 0 and grows right unless we float it right? */
+    /* Actually, float: right or position: relative with right: auto might not work as expected. */
+    /* Better: position: relative; left: calc(470px - 100%); wait no. */
+    /* If we want the RIGHT edge to be at 470px from the left screen edge... */
+    /* Let's just use absolute positioning for the drag container, or let framer motion handle it. */
+}
+
+/* 35mm Film Strip Design */
+.photography-scroll-container {
+    background-color: #050505;
+    background-image: 
+        repeating-linear-gradient(
+            to right,
+            var(--color-bg) 0,
+            var(--color-bg) 10px, /* smaller sprockets for 35mm */
+            transparent 10px,
+            transparent 20px
+        ),
+        repeating-linear-gradient(
+            to right,
+            var(--color-bg) 0,
+            var(--color-bg) 10px,
+            transparent 10px,
+            transparent 20px
+        );
+    background-position: 0 10px, 0 calc(100% - 10px);
+    background-size: 100% 12px;
+    background-repeat: repeat-x;
+    
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    cursor: grab;
+    touch-action: pan-y;
+    z-index: 1;
+}
+
+.photography-scroll-container:active {
+    cursor: grabbing;
+}
+
+/* 35mm Canister Design */
+.film-canister-wrapper {
+    position: absolute;
+    left: -20px; /* Peek in from the left */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 140px;
+    height: 380px; /* Matches the film strip height approx */
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.canister-knob {
+    width: 60px;
+    height: 30px;
+    background: linear-gradient(to right, #111, #333 30%, #0a0a0a 70%, #111);
+    border-radius: 8px 8px 0 0;
+    border-top: 2px solid #555;
+    z-index: 12;
+}
+
+.canister-body {
+    width: 140px;
+    height: 350px;
+    background: linear-gradient(to right, #050505, #222 20%, #000 50%, #111 80%, #050505);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+}
+
+.canister-label {
+    width: 100%;
+    height: 80%;
+    background-color: #f7c815; /* Kodak yellow */
+    background: linear-gradient(to right, #d4a700, #f7c815 20%, #b38d00 50%, #e6ba00 80%, #d4a700);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position: relative;
+}
+
+.canister-label-text {
+    transform: rotate(-90deg);
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    text-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+}
+
+.canister-label-sub {
+    transform: rotate(-90deg);
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-right: -40px; /* Adjust spacing due to rotation */
+    margin-top: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.canister-lip {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 90%;
+    background: linear-gradient(to right, #111, #333 50%, #000);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.8);
+    z-index: 13;
+}
+
+/* Light trap slit */
+.canister-lip::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: 5px;
+    bottom: 5px;
+    width: 4px;
+    background: #000;
+    border-radius: 2px;
+    box-shadow: inset 2px 0 5px rgba(0,0,0,1);
+}
+
+/* Inner spool simulation for continuous film effect */
+.canister-spool {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 140px;
+    height: 90%;
+    background-color: transparent;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.photography-pull-indicator {
+    position: absolute;
+    left: 160px; /* Just outside the canister */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    z-index: 10;
+    opacity: 0.7;
+}
+
+.photography-pull-indicator span {
+    font-weight: 500;
+}
+
+.photography-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 0 0 300px; /* 3:2 Aspect ratio for 35mm */
+    scroll-snap-align: center;
+}
+
+.photography-card {
+    position: relative;
+    width: 100%;
+    height: 200px; /* 300x200 = 3:2 ratio */
+    border-radius: 2px; /* 35mm film corners are slightly rounded */
+    overflow: hidden;
+    background: #000;
+    border: none;
+    transition: transform var(--transition-medium);
+}
+
+.photography-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    z-index: 2;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.photography-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Optional: add a slight film grain or vintage color grade filter */
+    filter: contrast(1.1) saturate(1.1);
+}
+
+.photography-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .photography-item {
+        flex: 0 0 240px;
+    }
+    .photography-card {
+        height: 160px;
+    }
+}

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Play, ArrowLeft, ArrowDown } from 'lucide-react';
 import { resolveAssetPath } from '../utils/paths';
 import { FILMS } from '../data/films';

@@ -8,43 +8,23 @@ const TravelVlogs = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchVlogs = async () => {
-            try {
-                const playlistUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=PLkovMRyuaL5jv6KISIgyziwfVNbCKkWxR';
-                const rssUrl = encodeURIComponent(playlistUrl);
-                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch YouTube feed');
-                }
-
-                const data = await response.json();
-
-                if (data.status === 'ok' && data.items) {
-                    const parsedVlogs = data.items.map(item => {
-                        // Extract video ID from guid, which looks like "yt:video:H_dB8E4maZE"
-                        const videoId = item.guid.replace('yt:video:', '');
-
-                        return {
-                            title: item.title,
-                            link: item.link,
-                            id: videoId
-                        };
-                    });
-
-                    setVlogs(parsedVlogs);
-                } else {
-                    throw new Error('Invalid data format');
-                }
-            } catch (err) {
-                console.error('Error fetching Travel Vlogs:', err);
-                setError('Failed to load vlogs.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchVlogs();
+        // YouTube deprecated playlist_id in RSS feeds, and rss2json no longer works for them.
+        // Hardcoding the playlist video IDs to ensure the section always loads successfully.
+        const playlistVlogs = [
+            { id: 'H_dB8E4maZE', title: 'Travel Vlog 1' },
+            { id: 'yBtWvyBkgOQ', title: 'Travel Vlog 2' },
+            { id: 'sVVREKZwwMo', title: 'Travel Vlog 3' },
+            { id: '3UZq4YPSr-8', title: 'Travel Vlog 4' },
+            { id: 'Yf5piNpWbbE', title: 'Travel Vlog 5' },
+            { id: 'xmOJeirAAdg', title: 'Travel Vlog 6' },
+            { id: '4HpACPhwYf8', title: 'Travel Vlog 7' },
+            { id: '58BFljy5BuI', title: 'Travel Vlog 8' },
+            { id: 'DkMFFxEKrwY', title: 'Travel Vlog 9' },
+            { id: 'JF6qqUNeVPY', title: 'Travel Vlog 10' }
+        ];
+        
+        setVlogs(playlistVlogs);
+        setLoading(false);
     }, []);
 
     if (error) {
@@ -58,7 +38,7 @@ const TravelVlogs = () => {
                     <span style={{ display: 'block', fontSize: '0.55em', opacity: 0.9, letterSpacing: '0.15em', marginBottom: '0.2em' }}>
                         <ScrubbedSplitText offset={["start 85%", "start 60%"]}>I also made a few</ScrubbedSplitText>
                     </span>
-                    <span style={{ display: 'block' }}>
+                    <span style={{ display: 'block', color: 'var(--color-accent)' }}>
                         <ScrubbedSplitText offset={["start 65%", "start 40%"]}>travel vlogs</ScrubbedSplitText>
                     </span>
                 </h2>

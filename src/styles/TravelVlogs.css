@@ -37,8 +37,8 @@
 
 .vlog-card {
     position: relative;
-    flex: 0 0 400px;
-    height: 225px; /* 16:9 aspect ratio */
+    flex: 0 0 560px;
+    height: 315px; /* 16:9 aspect ratio */
     border-radius: 8px;
     overflow: hidden;
     scroll-snap-align: center;
@@ -74,7 +74,7 @@
 
 @media (max-width: 768px) {
     .vlog-card {
-        flex: 0 0 280px;
-        height: 157px;
+        flex: 0 0 320px;
+        height: 180px;
     }
 }

@@ -55,11 +55,15 @@ const LetterboxdScroll = () => {
                             title = parts.join(' - ');
                         }
 
+                        // Extract image from description CDATA since thumbnail is missing
+                        const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+                        const poster = imgMatch ? imgMatch[1] : item.thumbnail;
+
                         return {
                             title,
                             rating,
                             link: item.link,
-                            poster: item.thumbnail,
+                            poster: poster,
                             id: item.guid || item.link
                         };
                     });
@@ -91,6 +95,7 @@ const LetterboxdScroll = () => {
             // This ensures the last film is 100% visible, but touches the can so it doesn't detach.
             // Solving for maxDragLeft: (100% - 470 + containerW) + maxDragLeft = 100% - 150
             // maxDragLeft = 320 - containerW
+            // containerW now includes the 430px padding-right we added in CSS to maintain the 2-film buffer!
             const maxDragLeft = 320 - containerW;
 
             // Only allow dragging left if maxDragLeft is negative
@@ -138,9 +143,6 @@ const LetterboxdScroll = () => {
                                         {film.poster && (
                                             <img src={film.poster} alt={film.title} className="letterboxd-poster" />
                                         )}
-                                        <div className="letterboxd-info">
-                                            <h3 className="letterboxd-title">{film.title}</h3>
-                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -179,9 +181,6 @@ const LetterboxdScroll = () => {
                                             draggable="false"
                                         />
                                     )}
-                                    <div className="letterboxd-info">
-                                        <h3 className="letterboxd-title">{film.title}</h3>
-                                    </div>
                                 </div>
                                 {film.rating && <div className="letterboxd-rating-below">{film.rating}</div>}
                             </div>

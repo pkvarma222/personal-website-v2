@@ -30,6 +30,7 @@
     width: max-content;
     gap: 15px; /* Frame separator */
     padding: 3.5rem 1.5rem; /* Room for film sprockets */
+    padding-right: 430px; /* 2 films buffer so the film sprockets connect to the can but the movies stop earlier */
     
     /* Reveal the first 1.5 films (approx 320px) before the 150px reel */
     margin-left: calc(100% - 470px);
@@ -198,40 +199,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: filter var(--transition-fast);
-}
-
-.letterboxd-card:hover .letterboxd-poster {
-    filter: brightness(0.6);
-}
-
-.letterboxd-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1.5rem 1rem 1rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
-    color: #fff;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all var(--transition-fast);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-
-.letterboxd-card:hover .letterboxd-info {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.letterboxd-title {
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
-    line-height: 1.2;
-    margin: 0;
+    /* Subtler transition since we are removing hover text overlay */
+    transition: transform var(--transition-fast);
 }
 
 .letterboxd-rating-below {

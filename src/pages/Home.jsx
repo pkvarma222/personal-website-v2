@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import LetterboxdScroll from '../components/LetterboxdScroll';
 import TravelVlogs from '../components/TravelVlogs';
+import PhotographyScroll from '../components/PhotographyScroll';
 import Contact from '../components/Contact';
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
             <About />
             <LetterboxdScroll />
             <TravelVlogs />
+            {/* <PhotographyScroll /> - Hidden for now */}
             <Contact />
         </>
     );
